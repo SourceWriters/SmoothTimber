@@ -30,7 +30,7 @@ public class CommandRedirect implements CommandExecutor, TabCompleter {
 
 		CommandProcess process = prepare(sender, args);
 		
-		if(!process.isValid()) {
+		if(!process.isValid() || process.getCommand() == null) {
 			sender.sendMessage(Message.GLOBAL_PREFIX.colored() + ' ' + Message.COMMAND_NON222EXISTENT.colored());
 			return true;
 		}
@@ -50,7 +50,7 @@ public class CommandRedirect implements CommandExecutor, TabCompleter {
 		
 		CommandProcess process = prepare(sender, args);
 		
-		if(!process.isValid())
+		if(!process.isValid() || process.getCommand() == null)
 			return output;
 		
 		BaseCommand command = process.getCommand();
