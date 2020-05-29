@@ -15,8 +15,9 @@ public class HelpCommand extends SmoothCommand {
 
 		CommandSender sender = info.getSender();
 
-		sender.sendMessage(Message.GLOBAL_PREFIX.colored() + ' ' + Message.COMMAND_WIP.colored());
-
+		sender.sendMessage(Message.GLOBAL_PREFIX.colored() + ' ' + Message.COMMAND_USAGE_HELP.colored());
+		sender.sendMessage(Message.GLOBAL_PREFIX.colored() + ' ' + Message.COMMAND_USAGE_TOGGLE.colored());
+		
 	}
 
 	@Override
