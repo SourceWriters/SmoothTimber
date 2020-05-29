@@ -36,7 +36,7 @@ public enum Message {
 	// Command
 	COMMAND_ONLY_PLAYER("&7Only a &5player &7can run this command!"), 
 	COMMAND_WIP("&7This command is work in progress!"), 
-	COMMAND_NON222EXISTENT("&7This command doesn't exist!"),
+	COMMAND_NON222EXISTENT("&7This command doesn't exist! Use &5/sm help &7for help!"),
 	COMMAND_MISSING222PERMISSION("&7You're lacking the permission &5%permission% &7to execute this command!"),
 	
 	// Command Description
