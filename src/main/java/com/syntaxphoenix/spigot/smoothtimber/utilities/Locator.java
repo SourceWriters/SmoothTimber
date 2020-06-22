@@ -39,9 +39,16 @@ public class Locator {
 			locateBlocky2(pack.getCache(), start, radius, current);
 		}
 	}
-	
+
 	private static Block getBlock(Location location) {
-		return CutterConfig.SYNC_BLOCK_DETECTION ? PluginUtils.getObjectFromMainThread(() -> location.getBlock()) : location.getBlock();
+		Block block = null;
+		try {
+			block = CutterConfig.SYNC_BLOCK_DETECTION ? PluginUtils.getObjectFromMainThread(() -> location.getBlock())
+					: location.getBlock();
+		} catch (Throwable ignore) {
+			// Ignore the exception
+		}
+		return block != null ? block : PluginUtils.getObjectFromMainThread(() -> location.getBlock());
 	}
 
 	private static void locateOnly(Location start, int radius, List<Location> current) {
