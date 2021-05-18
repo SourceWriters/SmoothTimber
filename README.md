@@ -31,7 +31,7 @@
 <br />
 <p align="center">
   <a href="https://github.com/SourceWriters/SmoothTimber">
-    <img src="images/logo.png" alt="Logo" width="121" height="91"/>
+    <img src="images/logo.png" alt="Logo" width="121" height="121"/>
   </a>
 
   <h3 align="center">SmoothTimber</h3>
