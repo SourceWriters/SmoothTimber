@@ -94,7 +94,7 @@
 To get a local copy you only need to download it from [Polymart](https://polymart.org/resource/smoothtimber.103)
 or if you want to get the Source just fork this repository or download it as zip.
 
-# Installation
+### Installation
 
 To install the plugin you only need to do following steps:
 1. Download the plugin
