@@ -81,15 +81,26 @@
 <img src="images/banner.png" alt="SmoothTimber Banner"/>
 
 
+
 ### Built With
 
 * [Spigot](https://hub.spigotmc.org/stash/projects/SPIGOT/repos/spigot/browse)
 * [SyntaxApi](https://github.com/SyntaxPhoenix/syntaxapi)
 
+
 <!-- GETTING STARTED -->
 ## Getting Started
 
 To get a local copy you only need to download it from [Polymart](https://polymart.org/resource/smoothtimber.103)
+or if you want to get the Source just fork this repository or download it as zip.
+
+# Installation
+
+To install the plugin you only need to do following steps:
+1. Download the plugin
+2. Put it into your server's plugin folder
+3. Start or reload your server
+4. Enjoy the plugin!
 
 
 
