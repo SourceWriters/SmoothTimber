@@ -39,4 +39,5 @@ jobs:
     - name: Upload Maven build artifact
       uses: actions/upload-artifact@v2
       with:
+        name: SmoothTimber-Artifact
         path: target/SmoothTimber-*.jar
