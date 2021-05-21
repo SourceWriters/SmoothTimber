@@ -9,7 +9,6 @@ import org.bukkit.permissions.PermissionAttachmentInfo;
 import com.syntaxphoenix.spigot.smoothtimber.config.Message;
 import com.syntaxphoenix.spigot.smoothtimber.config.config.CutterConfig;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.Parser;
-import com.syntaxphoenix.spigot.smoothtimber.utilities.Strings;
 
 public final class CooldownHelper {
 
@@ -20,7 +19,6 @@ public final class CooldownHelper {
     private CooldownHelper() {}
 
     public static void setEnabled(boolean enabled) {
-        COOLDOWN.getTimer().setRunning(enabled);
         COOLDOWN_TIME = !enabled ? (sender) -> {
             return -1L;
         } : (sender) -> {
@@ -31,6 +29,7 @@ public final class CooldownHelper {
                     .map(attachment -> Parser.parseLong(attachment.getPermission().substring(22)))
                     .min((var1, var2) -> var1.compareTo(var2) * -1).orElse(CutterConfig.DEFAULT_COOLDOWN_TIME);
         };
+        COOLDOWN.getTimer().setRunning(enabled);
     }
 
     public static long getCooldown(Player sender) {
@@ -38,7 +37,7 @@ public final class CooldownHelper {
     }
 
     public static boolean isTriggered(UUID uniqueId) {
-        return COOLDOWN.get(uniqueId).isTriggerable();
+        return !COOLDOWN.get(uniqueId).isTriggerable();
     }
 
     public static void trigger(Player sender) {
@@ -52,8 +51,10 @@ public final class CooldownHelper {
     }
 
     public static String getFormattedTime(UUID uniqueId) {
-        long value = COOLDOWN.get(uniqueId).getTreshhold();
-        return Strings.insertPeriodically("" + value, ".", 3) + Message.TIME_MILISECOND.message();
+        long val = COOLDOWN.get(uniqueId).getTreshhold();
+        val = Math.round((double) val / 100);
+        long dez = val % 10;
+        return ((val - dez) / 10) + "." + dez + " " + (val > 1500 ? Message.TIME_SECONDS.message() : Message.TIME_SECOND.message());
     }
 
     public static void reset(Player player) {

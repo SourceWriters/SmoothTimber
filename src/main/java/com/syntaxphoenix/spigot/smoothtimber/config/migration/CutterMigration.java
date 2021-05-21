@@ -27,4 +27,8 @@ public abstract class CutterMigration extends Migration {
         context.move("options.cutter.permissions", "options.cutter.permission.wood-type");
     }
 
+    public static void update8(MigrationContext context) {
+        context.move("options.cutter", "options");
+    }
+
 }

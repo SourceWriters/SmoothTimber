@@ -3,8 +3,10 @@ package com.syntaxphoenix.spigot.smoothtimber.utilities.cooldown;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
-public class CooldownTimer extends Thread {
+public class CooldownTimer extends TimerTask {
 
     private boolean alive = true;
     private boolean running = false;
@@ -12,8 +14,7 @@ public class CooldownTimer extends Thread {
     private final List<Cooldown> active = Collections.synchronizedList(new ArrayList<>());
 
     public CooldownTimer() {
-        setDaemon(true);
-        start();
+        new Timer("Cooldown", true).scheduleAtFixedRate(this, 0, 1);
     }
 
     void add(Cooldown cooldown) {
@@ -22,22 +23,12 @@ public class CooldownTimer extends Thread {
 
     @Override
     public void run() {
-        while (alive) {
-            while (running) {
-                for (Cooldown cooldown : active) {
-                    if (!cooldown.isTriggerable()) {
-                        cooldown.decrement();
-                    }
-                }
-                try {
-                    Thread.sleep(1);
-                } catch (Throwable e) {
-                }
-            }
-            try {
-                Thread.sleep(200);
-            } catch (InterruptedException e) {
-                // Idk, just ignore
+        if (!running) {
+            return;
+        }
+        for (Cooldown cooldown : active) {
+            if (!cooldown.isTriggerable()) {
+                cooldown.decrement();
             }
         }
     }
@@ -52,6 +43,7 @@ public class CooldownTimer extends Thread {
 
     public void kill() {
         alive = false;
+        cancel();
     }
 
     public boolean isAvailable() {

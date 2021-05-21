@@ -65,10 +65,11 @@ public class BlockBreakListener implements Listener {
 
         if (CutterConfig.ENABLE_COOLDOWN && CooldownHelper.isTriggered(player.getUniqueId())) {
             String time = CooldownHelper.getFormattedTime(player.getUniqueId());
-            player.sendMessage(Message.GLOBAL_PREFIX.colored() + '.' + Message.COOLDOWN_WAIT.colored(new String[] {
+            player.sendMessage(Message.GLOBAL_PREFIX.colored() + ' ' + Message.COOLDOWN_WAIT.colored(new String[] {
                 "%time%",
                 time
             }));
+            event.setCancelled(true);
             return;
         }
 

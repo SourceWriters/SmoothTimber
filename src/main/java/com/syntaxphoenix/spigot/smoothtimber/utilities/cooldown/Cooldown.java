@@ -2,6 +2,8 @@ package com.syntaxphoenix.spigot.smoothtimber.utilities.cooldown;
 
 public class Cooldown {
 
+    private final Object lock = new Object();
+
     private long cooldown;
     private long threshhold = 0;
 
@@ -18,23 +20,33 @@ public class Cooldown {
     }
 
     public long getTreshhold() {
-        return threshhold;
+        synchronized (lock) {
+            return threshhold;
+        }
     }
 
     public boolean isTriggerable() {
-        return threshhold <= 0;
+        synchronized (lock) {
+            return threshhold <= 0;
+        }
     }
 
     public void trigger() {
-        threshhold = cooldown;
+        synchronized (lock) {
+            threshhold = cooldown;
+        }
     }
 
     void decrement() {
-        threshhold--;
+        synchronized (lock) {
+            threshhold -= 1;
+        }
     }
 
     void reset() {
-        threshhold = 0;
+        synchronized (lock) {
+            threshhold = 0;
+        }
     }
 
 }

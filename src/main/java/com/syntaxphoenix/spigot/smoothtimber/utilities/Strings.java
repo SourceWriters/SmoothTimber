@@ -2,18 +2,16 @@ package com.syntaxphoenix.spigot.smoothtimber.utilities;
 
 public abstract class Strings {
 
-    public static String insertPeriodically(String text, String insert, int period) {
-        StringBuilder builder = new StringBuilder(text.length() + insert.length() * (text.length() / period) + 1);
-
-        int index = 0;
-        String prefix = "";
-        while (index < text.length()) {
-            builder.append(prefix);
-            prefix = insert;
-            builder.append(text.substring(index, Math.min(index + period, text.length())));
-            index += period;
+    public static String formatLongNumber(Number number) {
+        String value = number.toString();
+        StringBuilder builder = new StringBuilder();
+        int length = value.length();
+        int index = length;
+        for (; index > 3; index -= 3) {
+            builder.insert(0, value.substring(index - 4, index - 1));
+            builder.insert(0, '.');
         }
-        return builder.toString();
+        return index > 0 ? builder.insert(0, value.substring(0, index)).toString() : builder.substring(1);
     }
 
 }

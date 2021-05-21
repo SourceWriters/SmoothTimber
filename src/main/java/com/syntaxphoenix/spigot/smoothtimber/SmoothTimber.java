@@ -15,6 +15,7 @@ import com.syntaxphoenix.spigot.smoothtimber.event.AsyncPlayerTreeFallEvent;
 import com.syntaxphoenix.spigot.smoothtimber.event.reason.DefaultReason;
 import com.syntaxphoenix.spigot.smoothtimber.toggle.ToggleStorage;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.PluginUtils;
+import com.syntaxphoenix.spigot.smoothtimber.utilities.cooldown.CooldownHelper;
 import com.syntaxphoenix.spigot.smoothtimber.version.manager.VersionChanger;
 import com.syntaxphoenix.syntaxapi.command.CommandManager;
 
@@ -37,6 +38,7 @@ public class SmoothTimber extends JavaPlugin {
 
     public void onDisable() {
         Bukkit.getScheduler().cancelTasks(this);
+        CooldownHelper.COOLDOWN.getTimer().kill();
     }
 
     public static boolean triggerChopEvent(Player player, Location location, VersionChanger change, ItemStack tool,

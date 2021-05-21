@@ -35,7 +35,6 @@ public enum Message {
     // Time
     TIME_SECOND("second"),
     TIME_SECONDS("seconds"),
-    TIME_MILISECOND("ms"),
 
     // Tools
     TOOLS_WOODCHOPPER("woodchopper"),

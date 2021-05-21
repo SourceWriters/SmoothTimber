@@ -13,6 +13,7 @@ import com.syntaxphoenix.spigot.smoothtimber.config.Message;
 import com.syntaxphoenix.spigot.smoothtimber.config.STConfig;
 import com.syntaxphoenix.spigot.smoothtimber.config.migration.CutterMigration;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.PluginUtils;
+import com.syntaxphoenix.spigot.smoothtimber.utilities.cooldown.CooldownHelper;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.limit.Limiter;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.locate.Locator;
 
@@ -58,7 +59,7 @@ public final class CutterConfig extends STConfig {
      */
 
     private CutterConfig() {
-        super(new File("plugins/SmoothTimber", "config.yml"), CutterMigration.class, 7);
+        super(new File("plugins/SmoothTimber", "config.yml"), CutterMigration.class, 8);
     }
 
     /*
@@ -94,12 +95,12 @@ public final class CutterConfig extends STConfig {
         ROOT_DEPTH = check("cutter.depth", ROOT_DEPTH);
         CUTTER_MATERIALS = check("cutter.materials", CUTTER_MATERIALS);
 
-        SNEAK = ActionType.check(this, "options.cutter.sneak", SNEAK);
-        TOGGLEABLE = ActionType.check(this, "options.cutter.toggleable", TOGGLEABLE);
-        SYNC_BLOCK_DETECTION = check("options.cutter.sync-detection", SYNC_BLOCK_DETECTION);
+        SNEAK = ActionType.check(this, "options.sneak", SNEAK);
+        TOGGLEABLE = ActionType.check(this, "options.toggleable", TOGGLEABLE);
+        SYNC_BLOCK_DETECTION = check("options.sync-detection", SYNC_BLOCK_DETECTION);
 
-        ENABLE_WOOD_PERMISSIONS = check("options.cutter.permission.wood-type", ENABLE_WOOD_PERMISSIONS);
-        ENABLE_CUTTER_PERMISSIONS = check("options.cutter.permission.cutter-type", ENABLE_CUTTER_PERMISSIONS);
+        ENABLE_WOOD_PERMISSIONS = check("options.permission.wood-type", ENABLE_WOOD_PERMISSIONS);
+        ENABLE_CUTTER_PERMISSIONS = check("options.permission.cutter-type", ENABLE_CUTTER_PERMISSIONS);
 
         ENABLE_BLOCK_LIMIT = check("limit.enabled", ENABLE_BLOCK_LIMIT);
         DEFAULT_BLOCK_LIMIT = check("limit.default", DEFAULT_BLOCK_LIMIT);
@@ -134,6 +135,8 @@ public final class CutterConfig extends STConfig {
 
         Locator.setSyncBlockDetection(SYNC_BLOCK_DETECTION);
         Limiter.setEnabled(ENABLE_BLOCK_LIMIT);
+        
+        CooldownHelper.setEnabled(ENABLE_COOLDOWN);
 
     }
 

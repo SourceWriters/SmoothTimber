@@ -39,7 +39,11 @@ public class CooldownBuilder {
     }
 
     public Cooldown get(UUID uniqueId) {
-        return cooldowns.computeIfAbsent(uniqueId, ignore -> new Cooldown(cooldown));
+        return cooldowns.computeIfAbsent(uniqueId, ignore -> {
+            Cooldown cooldownObj = new Cooldown(cooldown);
+            timer.add(cooldownObj);
+            return cooldownObj;
+        });
     }
 
 }
