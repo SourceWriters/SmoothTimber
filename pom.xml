@@ -4,8 +4,8 @@
 	<modelVersion>4.0.0</modelVersion>
 
 	<groupId>com.syntaxphoenix.spigot</groupId>
-	<artifactId>SmoothTimber</artifactId>
-	<version>1.15.0</version>
+	<artifactId>smoothtimber</artifactId>
+	<version>1.16.0</version>
 	<name>SmoothTimber</name>
 	<packaging>jar</packaging>
 

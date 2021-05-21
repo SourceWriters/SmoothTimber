@@ -35,6 +35,7 @@ public enum Message {
     // Time
     TIME_SECOND("second"),
     TIME_SECONDS("seconds"),
+    TIME_MILISECOND("ms"),
 
     // Tools
     TOOLS_WOODCHOPPER("woodchopper"),
@@ -45,6 +46,9 @@ public enum Message {
     TOGGLE_OFF_FOREVER("&7You disabled your &c%tool%&7!"),
     TOGGLE_OFF_TIMED("&7You disabled your &c%tool% &7for &4%time%&7!"),
     TOGGLE_DISABLED("&7Toggling is disabled!"),
+    
+    // Cooldown
+    COOLDOWN_WAIT("&7Your tool is still on &dcooldown&7 for &5%time%&7!"),
 
     // Command
     COMMAND_ONLY_PLAYER("&7Only a &5player &7can run this command!"),

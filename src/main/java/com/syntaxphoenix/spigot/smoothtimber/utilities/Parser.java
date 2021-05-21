@@ -10,4 +10,12 @@ public abstract class Parser {
         }
     }
 
+    public static long parseLong(String value) {
+        try {
+            return Long.parseLong(value);
+        } catch (NumberFormatException ignore) {
+            return 0L;
+        }
+    }
+
 }

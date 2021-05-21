@@ -1,5 +1,5 @@
-main: com.syntaxphoenix.spigot.smoothtimber.SmoothTimber
-name: SmoothTimber
+main: ${project.groupId}.${project.artifactId}.${project.name}
+name: ${project.name}
 author: SyntaxPhoenix IT-Solutions
 version: ${projectVersion}
 api-version: 1.13

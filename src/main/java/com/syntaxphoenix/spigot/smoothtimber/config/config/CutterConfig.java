@@ -34,6 +34,9 @@ public final class CutterConfig extends STConfig {
 
     public static boolean ENABLE_BLOCK_LIMIT = true;
     public static int DEFAULT_BLOCK_LIMIT = 1000;
+    
+    public static boolean ENABLE_COOLDOWN = false;
+    public static long DEFAULT_COOLDOWN_TIME = 20000;
 
     public static boolean ENABLE_UNBREAKING = true;
 
@@ -100,6 +103,9 @@ public final class CutterConfig extends STConfig {
 
         ENABLE_BLOCK_LIMIT = check("limit.enabled", ENABLE_BLOCK_LIMIT);
         DEFAULT_BLOCK_LIMIT = check("limit.default", DEFAULT_BLOCK_LIMIT);
+
+        ENABLE_COOLDOWN = check("cooldown.enabled", ENABLE_COOLDOWN);
+        DEFAULT_COOLDOWN_TIME = check("cooldown.time", DEFAULT_COOLDOWN_TIME);
 
         ENABLE_UNBREAKING = check("enchantments.unbreaking.enabled", ENABLE_UNBREAKING);
 

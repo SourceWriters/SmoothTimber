@@ -15,10 +15,12 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
 
 import com.syntaxphoenix.spigot.smoothtimber.SmoothTimber;
+import com.syntaxphoenix.spigot.smoothtimber.config.Message;
 import com.syntaxphoenix.spigot.smoothtimber.config.config.CutterConfig;
 import com.syntaxphoenix.spigot.smoothtimber.event.AsyncPlayerTreeFallEvent;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.PlayerState;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.PluginUtils;
+import com.syntaxphoenix.spigot.smoothtimber.utilities.cooldown.CooldownHelper;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.limit.Limiter;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.locate.Locator;
 import com.syntaxphoenix.spigot.smoothtimber.version.manager.VersionChanger;
@@ -61,6 +63,15 @@ public class BlockBreakListener implements Listener {
             return;
         }
 
+        if (CutterConfig.ENABLE_COOLDOWN && CooldownHelper.isTriggered(player.getUniqueId())) {
+            String time = CooldownHelper.getFormattedTime(player.getUniqueId());
+            player.sendMessage(Message.GLOBAL_PREFIX.colored() + '.' + Message.COOLDOWN_WAIT.colored(new String[] {
+                "%time%",
+                time
+            }));
+            return;
+        }
+
         if (change.hasCuttingItemInHand(player)) {
             ItemStack tool = change.getItemInHand(player);
             if (!change.hasPermissionForCuttingItem(player, tool)) {
@@ -71,6 +82,7 @@ public class BlockBreakListener implements Listener {
                 return;
             }
             event.setCancelled(true);
+            CooldownHelper.trigger(player);
             Bukkit.getScheduler().runTaskAsynchronously(PluginUtils.MAIN, new Runnable() {
                 @Override
                 public void run() {
@@ -79,6 +91,7 @@ public class BlockBreakListener implements Listener {
                     int limit = Limiter.getLimit(player);
                     Locator.locateWood(location, woodBlocks, limit);
                     if (SmoothTimber.triggerChopEvent(player, location, change, tool, woodBlocks, limit)) {
+                        CooldownHelper.reset(player);
                         return;
                     }
                     SmoothTimber.triggerChoppedEvent(player, location, change, tool, woodBlocks, limit);
