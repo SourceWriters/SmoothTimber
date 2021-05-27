@@ -72,10 +72,14 @@ public class CoreProtectResolver extends LocationResolver {
                 // We just ignore it
             }
         }
-        for (Location location : output) {
+        int size = output.size();
+        for (int index = 0; index < size; index++) {
+            Location location = output.get(index);
             if (limit >= 0 && counter.get() >= limit) {
                 found.remove(location);
                 output.remove(location);
+                size--;
+                index--;
                 continue;
             }
             counter.increment();
