@@ -30,6 +30,7 @@ Steps to reproduce the behavior:
  - Software: [e.g. Spigot]
  - Server Version: [e.g. 1.16.5]
  - Plugin Version: [e.g. 1.0.0]
+ - Java Version: [e.g. 1.8.0u281 / 1.8.0_281 / 8]
 
 **Additional context**
 <!-- Add any other context about the problem here. -->
