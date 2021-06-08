@@ -1,4 +1,4 @@
-main: ${project.groupId}.${project.artifactId}.${project.name}
+main: ${project.groupId}.${java.package.id}.${project.name}
 name: ${project.name}
 author: SyntaxPhoenix IT-Solutions
 version: ${projectVersion}

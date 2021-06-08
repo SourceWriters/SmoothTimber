@@ -5,7 +5,7 @@
 
 	<groupId>com.syntaxphoenix.spigot</groupId>
 	<artifactId>smoothtimber-legacy</artifactId>
-	<version>1.16.2</version>
+	<version>1.16.3</version>
 	<name>SmoothTimber</name>
 	<packaging>jar</packaging>
 
@@ -13,6 +13,7 @@
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<maven.compiler.source>1.8</maven.compiler.source>
 		<maven.compiler.target>1.8</maven.compiler.target>
+		<java.package.id>smoothtimber</java.package.id>
 	</properties>
 
 	<build>
