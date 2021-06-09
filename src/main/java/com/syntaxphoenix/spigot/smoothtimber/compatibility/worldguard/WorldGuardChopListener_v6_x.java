@@ -13,9 +13,9 @@ import com.syntaxphoenix.syntaxapi.reflections.ClassCache;
 import com.syntaxphoenix.syntaxapi.reflections.Reflect;
 
 public final class WorldGuardChopListener_v6_x implements Listener {
-    
-    private AbstractReflect localPlayer = new Reflect("com.sk89q.worldguard.LocalPlayer").searchMethod("world", "getWorld");
-    private AbstractReflect sessionManager = new Reflect("com.sk89q.worldguard.session.SessionManager").searchMethod("bypass", "hasBypass", localPlayer.getOwner(), ClassCache.getClass("com.sk89q.worldedit.world.World"));
+
+    private AbstractReflect sessionManager = new Reflect("com.sk89q.worldguard.session.SessionManager").searchMethod("bypass", "hasBypass",
+        ClassCache.getClass("com.sk89q.worldguard.LocalPlayer"), ClassCache.getClass("com.sk89q.worldedit.world.World"));
 
     protected WorldGuardChopListener_v6_x() {
 
@@ -25,8 +25,8 @@ public final class WorldGuardChopListener_v6_x implements Listener {
     public void onChopEvent(AsyncPlayerChopTreeEvent event) {
         WorldGuardPlugin plugin = WorldGuardPlugin.inst();
         Object player = plugin.wrapOfflinePlayer(event.getPlayer());
-        
-        boolean canBypass = (boolean) sessionManager.run(plugin.getSessionManager(), "bypass", player, localPlayer.run(player, "world"));
+
+        boolean canBypass = (boolean) sessionManager.run(plugin.getSessionManager(), "bypass", player, event.getPlayer().getWorld());
 
         if (!canBypass) {
             RegionQuery query = plugin.getRegionContainer().createQuery();
