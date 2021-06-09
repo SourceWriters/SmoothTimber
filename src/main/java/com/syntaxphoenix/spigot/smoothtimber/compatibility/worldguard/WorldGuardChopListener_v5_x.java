@@ -4,13 +4,18 @@ import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-import com.sk89q.worldguard.LocalPlayer;
 import com.sk89q.worldguard.bukkit.RegionQuery;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.syntaxphoenix.spigot.smoothtimber.event.AsyncPlayerChopTreeEvent;
 import com.syntaxphoenix.spigot.smoothtimber.event.reason.DefaultReason;
+import com.syntaxphoenix.syntaxapi.reflections.AbstractReflect;
+import com.syntaxphoenix.syntaxapi.reflections.ClassCache;
+import com.syntaxphoenix.syntaxapi.reflections.Reflect;
 
 public final class WorldGuardChopListener_v5_x implements Listener {
+    
+    private AbstractReflect localPlayer = new Reflect("com.sk89q.worldguard.LocalPlayer").searchMethod("world", "getWorld");
+    private AbstractReflect sessionManager = new Reflect("com.sk89q.worldguard.session.SessionManager").searchMethod("bypass", "hasBypass", localPlayer.getOwner(), ClassCache.getClass("com.sk89q.worldedit.world.World"));
 
     protected WorldGuardChopListener_v5_x() {
 
@@ -19,9 +24,9 @@ public final class WorldGuardChopListener_v5_x implements Listener {
     @EventHandler(ignoreCancelled = true)
     public void onChopEvent(AsyncPlayerChopTreeEvent event) {
         WorldGuardPlugin plugin = WorldGuardPlugin.inst();
-        LocalPlayer localPlayer = plugin.wrapOfflinePlayer(event.getPlayer());
-
-        boolean canBypass = plugin.getSessionManager().hasBypass(localPlayer, localPlayer.getWorld());
+        Object player = plugin.wrapOfflinePlayer(event.getPlayer());
+        
+        boolean canBypass = (boolean) sessionManager.run(plugin.getSessionManager(), "bypass", player, localPlayer.run(player, "world"));
 
         if (!canBypass) {
             RegionQuery query = plugin.getRegionContainer().createQuery();
