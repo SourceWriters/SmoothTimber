@@ -19,11 +19,11 @@ public class WorldGuard extends CompatibilityAddon {
         case v1_8x:
         case v1_9x:
         case v1_11x:
-            listener = new WorldGuardChopListener_v5_x();
+            listener = new WorldGuardChopListener_v6_x();
             break;
         case v1_13x:
         case v1_16x:
-            listener = new WorldGuardChopListener_v6_x();
+            listener = new WorldGuardChopListener_v7_x();
             break;
         case Unsupported:
             return;

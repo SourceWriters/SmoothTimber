@@ -4,15 +4,18 @@ import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
-import com.sk89q.worldguard.LocalPlayer;
-import com.sk89q.worldguard.WorldGuard;
+import com.sk89q.worldguard.bukkit.RegionQuery;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
-import com.sk89q.worldguard.protection.flags.Flags;
-import com.sk89q.worldguard.protection.regions.RegionQuery;
 import com.syntaxphoenix.spigot.smoothtimber.event.AsyncPlayerChopTreeEvent;
 import com.syntaxphoenix.spigot.smoothtimber.event.reason.DefaultReason;
+import com.syntaxphoenix.syntaxapi.reflections.AbstractReflect;
+import com.syntaxphoenix.syntaxapi.reflections.ClassCache;
+import com.syntaxphoenix.syntaxapi.reflections.Reflect;
 
 public final class WorldGuardChopListener_v6_x implements Listener {
+    
+    private AbstractReflect localPlayer = new Reflect("com.sk89q.worldguard.LocalPlayer").searchMethod("world", "getWorld");
+    private AbstractReflect sessionManager = new Reflect("com.sk89q.worldguard.session.SessionManager").searchMethod("bypass", "hasBypass", localPlayer.getOwner(), ClassCache.getClass("com.sk89q.worldedit.world.World"));
 
     protected WorldGuardChopListener_v6_x() {
 
@@ -20,16 +23,15 @@ public final class WorldGuardChopListener_v6_x implements Listener {
 
     @EventHandler(ignoreCancelled = true)
     public void onChopEvent(AsyncPlayerChopTreeEvent event) {
-        LocalPlayer localPlayer = WorldGuardPlugin.inst().wrapPlayer(event.getPlayer());
-
-        boolean canBypass = WorldGuard.getInstance().getPlatform().getSessionManager().hasBypass(localPlayer, localPlayer.getWorld());
+        WorldGuardPlugin plugin = WorldGuardPlugin.inst();
+        Object player = plugin.wrapOfflinePlayer(event.getPlayer());
+        
+        boolean canBypass = (boolean) sessionManager.run(plugin.getSessionManager(), "bypass", player, localPlayer.run(player, "world"));
 
         if (!canBypass) {
-            RegionQuery query = WorldGuard.getInstance().getPlatform().getRegionContainer().createQuery();
+            RegionQuery query = plugin.getRegionContainer().createQuery();
             for (Location location : event.getBlockLocations()) {
-                com.sk89q.worldedit.util.Location worldLocation = new com.sk89q.worldedit.util.Location(localPlayer.getWorld(),
-                    location.getX(), location.getY(), location.getZ());
-                if (!query.testState(worldLocation, localPlayer, Flags.BUILD)) {
+                if (!query.testBuild(location, event.getPlayer())) {
                     event.setCancelled(true);
                     event.setReason(DefaultReason.WORLDGUARD);
                     break;
