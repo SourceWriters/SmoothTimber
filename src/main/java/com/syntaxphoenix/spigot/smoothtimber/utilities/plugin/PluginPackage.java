@@ -2,7 +2,7 @@ package com.syntaxphoenix.spigot.smoothtimber.utilities.plugin;
 
 import org.bukkit.plugin.Plugin;
 
-import com.syntaxphoenix.syntaxapi.reflections.ReflectCache;
+import com.syntaxphoenix.syntaxapi.reflection.ReflectCache;
 import com.syntaxphoenix.syntaxapi.version.DefaultVersion;
 import com.syntaxphoenix.syntaxapi.version.Version;
 import com.syntaxphoenix.syntaxapi.version.VersionAnalyzer;

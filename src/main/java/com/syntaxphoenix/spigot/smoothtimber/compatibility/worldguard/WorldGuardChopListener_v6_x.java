@@ -8,9 +8,9 @@ import com.sk89q.worldguard.bukkit.RegionQuery;
 import com.sk89q.worldguard.bukkit.WorldGuardPlugin;
 import com.syntaxphoenix.spigot.smoothtimber.event.AsyncPlayerChopTreeEvent;
 import com.syntaxphoenix.spigot.smoothtimber.event.reason.DefaultReason;
-import com.syntaxphoenix.syntaxapi.reflections.AbstractReflect;
-import com.syntaxphoenix.syntaxapi.reflections.ClassCache;
-import com.syntaxphoenix.syntaxapi.reflections.Reflect;
+import com.syntaxphoenix.syntaxapi.reflection.AbstractReflect;
+import com.syntaxphoenix.syntaxapi.reflection.ClassCache;
+import com.syntaxphoenix.syntaxapi.reflection.Reflect;
 
 public final class WorldGuardChopListener_v6_x implements Listener {
 

@@ -151,7 +151,7 @@ public class PluginUtils {
     }
 
     public static void sendConsoleError(String reason, Throwable throwable) {
-        PluginUtils.sendConsoleMessage(false, Arrays.merge(Arrays.merge(Centering.center(new String[] {
+        PluginUtils.sendConsoleMessage(false, Arrays.merge(String[]::new, Arrays.merge(String[]::new, Centering.center(new String[] {
             "&8##################################################################",
             "&r",
             "&8<=> &5Smooth&dTimber &8<=>",

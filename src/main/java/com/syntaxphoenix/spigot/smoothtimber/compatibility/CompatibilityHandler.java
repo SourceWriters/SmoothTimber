@@ -23,7 +23,7 @@ import com.syntaxphoenix.spigot.smoothtimber.config.config.AddonConfig;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.PluginUtils;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.plugin.PluginPackage;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.plugin.PluginSettings;
-import com.syntaxphoenix.syntaxapi.reflections.Reflect;
+import com.syntaxphoenix.syntaxapi.reflection.Reflect;
 import com.syntaxphoenix.syntaxapi.utils.java.Exceptions;
 
 public abstract class CompatibilityHandler {

@@ -8,7 +8,7 @@ import com.syntaxphoenix.syntaxapi.command.DefaultCompletion;
 public abstract class SmoothCommand extends BaseCommand {
 
     @Override
-    protected final void execute(BaseInfo info, Arguments arguments) {
+    public final void execute(BaseInfo info, Arguments arguments) {
         if (info instanceof MinecraftInfo) {
             execute((MinecraftInfo) info, arguments);
         }

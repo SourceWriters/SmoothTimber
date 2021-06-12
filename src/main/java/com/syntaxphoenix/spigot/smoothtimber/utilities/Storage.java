@@ -3,8 +3,8 @@ package com.syntaxphoenix.spigot.smoothtimber.utilities;
 import org.bukkit.Material;
 import org.bukkit.entity.FallingBlock;
 
-import com.syntaxphoenix.syntaxapi.reflections.AbstractReflect;
-import com.syntaxphoenix.syntaxapi.reflections.Reflect;
+import com.syntaxphoenix.syntaxapi.reflection.AbstractReflect;
+import com.syntaxphoenix.syntaxapi.reflection.Reflect;
 
 public class Storage {
 

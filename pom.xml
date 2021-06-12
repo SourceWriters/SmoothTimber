@@ -5,14 +5,12 @@
 
 	<groupId>com.syntaxphoenix.spigot</groupId>
 	<artifactId>smoothtimber-legacy</artifactId>
-	<version>1.16.5</version>
+	<version>1.17.0</version>
 	<name>SmoothTimber</name>
 	<packaging>jar</packaging>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<maven.compiler.source>1.8</maven.compiler.source>
-		<maven.compiler.target>1.8</maven.compiler.target>
 		<java.package.id>smoothtimber</java.package.id>
 	</properties>
 
@@ -21,7 +19,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
-				<version>3.1.1</version>
+				<version>3.3.0-SNAPSHOT</version>
 				<executions>
 					<execution>
 						<phase>package</phase>
@@ -54,8 +52,8 @@
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-compiler-plugin</artifactId>
 				<configuration>
-					<source>8</source>
-					<target>8</target>
+					<source>16</source>
+					<target>16</target>
 				</configuration>
 			</plugin>
 			<plugin>
@@ -246,64 +244,35 @@
 		</dependency>
 
 		<!-- // Compatibilities // -->
-
-		<!-- // SyntaxApi (old) // -->
-
+		
 		<dependency>
-			<groupId>com.github.SyntaxPhoenix</groupId>
-			<artifactId>syntax-api</artifactId>
-			<version>6d1e0d157b</version>
-			<exclusions>
-				<exclusion>
-					<groupId>org.yaml</groupId>
-					<artifactId>snakeyaml</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.fusesource.jansi</groupId>
-					<artifactId>jansi</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.json</groupId>
-					<artifactId>simple</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.github.TheElectronWill</groupId>
-					<artifactId>TOML-javalib</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.eclipse.jdt</groupId>
-					<artifactId>org.eclipse.jdt.annotation</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.google.code.gson</groupId>
-					<artifactId>gson</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.trendafilov.confucius</groupId>
-					<artifactId>confucius</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.google.guava</groupId>
-					<artifactId>guava</artifactId>
-				</exclusion>
-			</exclusions>
+			<groupId>com.syntaxphoenix.syntaxapi</groupId>
+			<artifactId>command</artifactId>
+			<version>2.0.11</version>
 		</dependency>
-
-		<!-- // SyntaxApi (old) // -->
+		<dependency>
+			<groupId>com.syntaxphoenix.syntaxapi</groupId>
+			<artifactId>version</artifactId>
+			<version>2.0.10</version>
+		</dependency>
+		<dependency>
+			<groupId>com.syntaxphoenix.syntaxapi</groupId>
+			<artifactId>reflection</artifactId>
+			<version>2.0.9</version>
+		</dependency>
+		<dependency>
+			<groupId>com.syntaxphoenix.syntaxapi</groupId>
+			<artifactId>random</artifactId>
+			<version>2.0.9</version>
+		</dependency>
 
 		<!-- // Spigot // -->
 
 		<dependency>
 			<groupId>org.spigotmc</groupId>
 			<artifactId>spigot-api</artifactId>
-			<version>1.16.2-R0.1-SNAPSHOT</version>
+			<version>1.17-R0.1-SNAPSHOT</version>
 			<scope>provided</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.yaml</groupId>
-					<artifactId>snakeyaml</artifactId>
-				</exclusion>
-			</exclusions>
 		</dependency>
 
 		<!-- // Spigot // -->

@@ -8,7 +8,7 @@ import java.util.Optional;
 import org.bukkit.configuration.InvalidConfigurationException;
 import org.bukkit.configuration.file.YamlConfiguration;
 
-import com.syntaxphoenix.syntaxapi.reflections.Reflect;
+import com.syntaxphoenix.syntaxapi.reflection.Reflect;
 import com.syntaxphoenix.syntaxapi.utils.java.Times;
 
 public abstract class STConfig {
