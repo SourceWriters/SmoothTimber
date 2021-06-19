@@ -52,7 +52,26 @@ public abstract class STConfig {
 
     public <E> E check(String path, E input) {
         if (config.contains(path)) {
-            return safeCast(input, get(path));
+            E value = safeCast(input, get(path));
+            if (value == input) {
+                set(path, input);
+                return input;
+            }
+            return value;
+        }
+        set(path, input);
+        return input;
+    }
+
+    @SuppressWarnings("unchecked")
+    public <N extends Number> N check(String path, N input) {
+        if (config.contains(path)) {
+            Number number = safeNumber(get(path));
+            if (number == null) {
+                set(path, input);
+                return input;
+            }
+            return (N) NumberType.get(input.getClass(), number);
         }
         set(path, input);
         return input;
@@ -198,7 +217,11 @@ public abstract class STConfig {
 
     @SuppressWarnings("unchecked")
     protected <E> E safeCast(E sample, Object input) {
-        return sample.getClass().isInstance(input) ? (E) input : sample;
+        return (input != null && sample.getClass().isAssignableFrom(input.getClass())) ? (E) input : sample;
+    }
+
+    protected Number safeNumber(Object input) {
+        return (input != null && Number.class.isAssignableFrom(input.getClass())) ? (Number) input : null;
     }
 
 }

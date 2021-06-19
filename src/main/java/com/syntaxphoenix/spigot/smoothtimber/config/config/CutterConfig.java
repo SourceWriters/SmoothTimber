@@ -129,6 +129,10 @@ public final class CutterConfig extends STConfig {
         if (ROOT_DEPTH < 0) {
             set("cutter.depth", ROOT_DEPTH = Math.abs(ROOT_DEPTH));
         }
+        if(DEFAULT_COOLDOWN_TIME <= 0) {
+            set("cooldown.enabled", ENABLE_COOLDOWN = false);
+            set("cooldown.time", DEFAULT_COOLDOWN_TIME = 20000);
+        }
 
         //
         // Applying

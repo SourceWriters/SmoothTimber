@@ -18,6 +18,7 @@ import com.syntaxphoenix.spigot.smoothtimber.utilities.PluginUtils;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.cooldown.CooldownHelper;
 import com.syntaxphoenix.spigot.smoothtimber.version.manager.VersionChanger;
 import com.syntaxphoenix.syntaxapi.command.CommandManager;
+import com.syntaxphoenix.syntaxapi.reflection.ClassCache;
 
 public class SmoothTimber extends JavaPlugin {
 
@@ -34,6 +35,10 @@ public class SmoothTimber extends JavaPlugin {
         if (PluginUtils.CHANGER != null) {
             STORAGE = new ToggleStorage(this);
         }
+        
+        // Load classes
+        CooldownHelper.class.getClass();
+        ClassCache.class.getClass();
     }
 
     public void onDisable() {
