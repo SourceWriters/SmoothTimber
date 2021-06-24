@@ -1,7 +1,7 @@
 ---
 name: Plugin compatibility request
 about: Request support for a specific Plugin or plugin version
-title: ''
+title: '[COMPAT] Add compatibility for some plugin'
 labels: 'Priority: Optional, Compatibility'
 assignees: ''
 
