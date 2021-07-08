@@ -1,8 +1,8 @@
 ---
 name: Help request or question
 about: Request for help or to ask a question
-title: ''
-labels: ''
+title: '[HELP] Help needed'
+labels: 'Help'
 assignees: ''
 
 ---

@@ -1,7 +1,7 @@
 ---
 name: Version support request
 about: Request support for a specific Minecraft version
-title: ''
+title: '[VERSION] Add support for some minecraft version'
 labels: 'Priority: Optional, Version'
 assignees: ''
 
