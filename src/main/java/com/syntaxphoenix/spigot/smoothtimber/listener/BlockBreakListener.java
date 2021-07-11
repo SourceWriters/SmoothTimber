@@ -103,7 +103,7 @@ public class BlockBreakListener implements Listener {
                             for (Location woodBlock : woodBlocks) {
                                 Block block = woodBlock.getBlock();
                                 WoodType wood = change.getWoodTypeFromBlock(block);
-                                if (change.hasPermissionForWoodType(player, wood) && (wood != null && block != null)) {
+                                if ((wood != null && block != null) && change.hasPermissionForWoodType(player, wood)) {
                                     if (player.getGameMode() != GameMode.CREATIVE && change.removeDurabilityFromItem(tool) == null) {
                                         break;
                                     }

@@ -34,7 +34,7 @@ public class AsyncPlayerTreeFallEvent extends Event {
     }
 
     public final boolean add(WoodType type) {
-        if (locked || !versionChange.isSupported(type)) {
+        if (locked || type == null || !versionChange.isSupported(type)) {
             return false;
         }
         chopped.put(type, chopped.getOrDefault(type, 0) + 1);

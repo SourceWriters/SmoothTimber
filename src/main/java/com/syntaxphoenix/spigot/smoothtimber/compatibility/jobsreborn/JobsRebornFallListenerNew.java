@@ -14,15 +14,14 @@ import com.gamingmesh.jobs.economy.PaymentData;
 import com.syntaxphoenix.spigot.smoothtimber.event.AsyncPlayerTreeFallEvent;
 import com.syntaxphoenix.spigot.smoothtimber.version.manager.WoodType;
 
-public final class JobsRebornFallListener implements Listener {
+public final class JobsRebornFallListenerNew implements Listener {
 
-    protected JobsRebornFallListener() {
+    protected JobsRebornFallListenerNew() {
 
     }
 
     @EventHandler(ignoreCancelled = true)
     public void onFallEvent(AsyncPlayerTreeFallEvent event) {
-        System.out.println("====");
         WoodType[] types = event.getTypes();
         JobsPlayer player = Jobs.getPlayerManager().getJobsPlayer(event.getPlayer());
         PaymentData payment = player.getPaymentLimit();

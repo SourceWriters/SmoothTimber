@@ -11,12 +11,12 @@ import com.syntaxphoenix.spigot.smoothtimber.utilities.plugin.PluginPackage;
 public class JobsReborn extends CompatibilityAddon {
 
     private final Container<JobsRebornConfig> configContainer = Container.of();
-    private final Container<JobsRebornFallListener> listenerContainer = Container.of();
+    private final Container<JobsRebornFallListenerNew> listenerContainer = Container.of();
 
     @Override
     public void onEnable(PluginPackage pluginPackage, SmoothTimber smoothTimber) {
         configContainer.replace(new JobsRebornConfig(this, pluginPackage));
-        Bukkit.getPluginManager().registerEvents(listenerContainer.replace(new JobsRebornFallListener()).get(), smoothTimber);
+        Bukkit.getPluginManager().registerEvents(listenerContainer.replace(new JobsRebornFallListenerNew()).get(), smoothTimber);
     }
 
     @Override
