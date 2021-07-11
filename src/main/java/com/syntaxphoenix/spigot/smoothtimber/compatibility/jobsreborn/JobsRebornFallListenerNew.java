@@ -13,11 +13,14 @@ import com.gamingmesh.jobs.container.JobsPlayer;
 import com.gamingmesh.jobs.economy.PaymentData;
 import com.syntaxphoenix.spigot.smoothtimber.event.AsyncPlayerTreeFallEvent;
 import com.syntaxphoenix.spigot.smoothtimber.version.manager.WoodType;
+import com.syntaxphoenix.syntaxapi.reflection.AbstractReflect;
 
 public final class JobsRebornFallListenerNew implements Listener {
 
-    protected JobsRebornFallListenerNew() {
+    private final AbstractReflect reflect;
 
+    protected JobsRebornFallListenerNew(AbstractReflect reflect) {
+        this.reflect = reflect;
     }
 
     @EventHandler(ignoreCancelled = true)
@@ -27,7 +30,7 @@ public final class JobsRebornFallListenerNew implements Listener {
         PaymentData payment = player.getPaymentLimit();
         List<JobProgression> progressions = player.getJobProgression();
         for (JobProgression progression : progressions) {
-            EnumMap<WoodType, double[]> data = JobsRebornConfig.JOB_DATA.get(progression.getJob().getJobKeyName());
+            EnumMap<WoodType, double[]> data = JobsRebornConfig.JOB_DATA.get(reflect.run(progression.getJob(), "name"));
             if (data == null) {
                 continue;
             }

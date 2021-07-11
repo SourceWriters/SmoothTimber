@@ -8,21 +8,16 @@ import org.bukkit.event.Listener;
 
 import com.gamingmesh.jobs.Jobs;
 import com.gamingmesh.jobs.container.CurrencyType;
-import com.gamingmesh.jobs.container.Job;
 import com.gamingmesh.jobs.container.JobProgression;
 import com.gamingmesh.jobs.container.JobsPlayer;
 import com.gamingmesh.jobs.economy.PaymentData;
 import com.syntaxphoenix.spigot.smoothtimber.event.AsyncPlayerTreeFallEvent;
 import com.syntaxphoenix.spigot.smoothtimber.version.manager.WoodType;
-import com.syntaxphoenix.syntaxapi.reflection.AbstractReflect;
-import com.syntaxphoenix.syntaxapi.reflection.Reflect;
 
 public final class JobsRebornFallListenerLegacy implements Listener {
 
-    private final AbstractReflect reflect;
-
     protected JobsRebornFallListenerLegacy() {
-        reflect = new Reflect(Job.class).searchMethod("name", "getName");
+
     }
 
     @EventHandler(ignoreCancelled = true)
@@ -32,7 +27,7 @@ public final class JobsRebornFallListenerLegacy implements Listener {
         PaymentData payment = player.getPaymentLimit();
         List<JobProgression> progressions = player.getJobProgression();
         for (JobProgression progression : progressions) {
-            EnumMap<WoodType, double[]> data = JobsRebornConfig.JOB_DATA.get(reflect.run(progression.getJob(), "name"));
+            EnumMap<WoodType, double[]> data = JobsRebornConfig.JOB_DATA.get(progression.getJob().getJobKeyName());
             if (data == null) {
                 continue;
             }
