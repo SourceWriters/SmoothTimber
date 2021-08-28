@@ -4,13 +4,11 @@ import org.bukkit.Bukkit;
 import org.bukkit.event.HandlerList;
 import org.bukkit.event.Listener;
 
-import com.gamingmesh.jobs.container.Job;
 import com.syntaxphoenix.spigot.smoothtimber.SmoothTimber;
 import com.syntaxphoenix.spigot.smoothtimber.compatibility.CompatibilityAddon;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.Container;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.plugin.PluginPackage;
-import com.syntaxphoenix.syntaxapi.reflection.AbstractReflect;
-import com.syntaxphoenix.syntaxapi.reflection.Reflect;
+import com.syntaxphoenix.syntaxapi.version.Version;
 
 public class JobsReborn extends CompatibilityAddon {
 
@@ -20,16 +18,14 @@ public class JobsReborn extends CompatibilityAddon {
     @Override
     public void onEnable(PluginPackage pluginPackage, SmoothTimber smoothTimber) {
         configContainer.replace(new JobsRebornConfig(this, pluginPackage));
-        Bukkit.getPluginManager().registerEvents(listenerContainer.replace(getListener()).get(), smoothTimber);
+        Bukkit.getPluginManager().registerEvents(listenerContainer.replace(getListener(pluginPackage.getVersion())).get(), smoothTimber);
     }
 
-    private Listener getListener() {
-        AbstractReflect reflect = new Reflect(Job.class).searchMethod("name", "getName").searchMethod("test", "getJobKeyName");
-        if (reflect.getMethod("test") != null) {
-            reflect.delete();
-            return new JobsRebornFallListenerLegacy();
+    private Listener getListener(Version version) {
+        if(version.getMinor() > 16) {
+            return new JobsRebornFallListenerNew();
         }
-        return new JobsRebornFallListenerNew(reflect);
+        return new JobsRebornFallListenerLegacy();
     }
 
     @Override

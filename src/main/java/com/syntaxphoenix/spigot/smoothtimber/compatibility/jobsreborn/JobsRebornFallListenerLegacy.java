@@ -10,20 +10,18 @@ import com.gamingmesh.jobs.Jobs;
 import com.gamingmesh.jobs.container.CurrencyType;
 import com.gamingmesh.jobs.container.JobProgression;
 import com.gamingmesh.jobs.container.JobsPlayer;
+import com.gamingmesh.jobs.container.PlayerPoints;
 import com.gamingmesh.jobs.economy.PaymentData;
 import com.syntaxphoenix.spigot.smoothtimber.event.AsyncPlayerTreeFallEvent;
 import com.syntaxphoenix.spigot.smoothtimber.version.manager.WoodType;
 
 public final class JobsRebornFallListenerLegacy implements Listener {
 
-    protected JobsRebornFallListenerLegacy() {
-
-    }
-
     @EventHandler(ignoreCancelled = true)
     public void onFallEvent(AsyncPlayerTreeFallEvent event) {
         WoodType[] types = event.getTypes();
         JobsPlayer player = Jobs.getPlayerManager().getJobsPlayer(event.getPlayer());
+        PlayerPoints points = player.getPointsData();
         PaymentData payment = player.getPaymentLimit();
         List<JobProgression> progressions = player.getJobProgression();
         for (JobProgression progression : progressions) {
@@ -34,7 +32,7 @@ public final class JobsRebornFallListenerLegacy implements Listener {
             for (WoodType type : types) {
                 double[] values = data.get(type);
                 int amount = event.getAmount(type);
-                player.addPoints(values[1] * amount);
+                points.addPoints(values[1] * amount);
                 progression.addExperience(values[2] * amount);
                 payment.addAmount(CurrencyType.MONEY, values[0] * amount);
             }
