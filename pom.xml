@@ -5,7 +5,7 @@
 
 	<groupId>com.syntaxphoenix.spigot</groupId>
 	<artifactId>smoothtimber-legacy</artifactId>
-	<version>1.17.5</version>
+	<version>1.17.6</version>
 	<name>SmoothTimber</name>
 	<packaging>jar</packaging>
 
