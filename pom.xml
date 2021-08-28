@@ -177,7 +177,7 @@
 		<dependency>
 			<groupId>com.github.Zrips</groupId>
 			<artifactId>Jobs</artifactId>
-			<version>v4.16.3</version>
+			<version>v4.17.2</version>
 			<scope>provided</scope>
 		</dependency>
 		<!-- BlockyLog -->

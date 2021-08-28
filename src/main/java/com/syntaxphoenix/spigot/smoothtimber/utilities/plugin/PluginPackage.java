@@ -14,6 +14,7 @@ public class PluginPackage {
     private ReflectCache cache = new ReflectCache();
 
     private Version version;
+    private String versionRaw;
     private String name;
     private Plugin plugin;
 
@@ -36,8 +37,8 @@ public class PluginPackage {
     final void update(Plugin plugin) {
         this.plugin = plugin;
         this.name = plugin.getName();
-        String rawVersion = plugin.getDescription().getVersion();
-        this.version = ANALYZER.analyze(rawVersion.contains("[") ? rawVersion.split("\\[")[0] : rawVersion);
+        this.versionRaw = plugin.getDescription().getVersion();
+        this.version = ANALYZER.analyze(versionRaw.contains("[") ? versionRaw.split("\\[")[0] : versionRaw);
     }
 
     /*
@@ -50,6 +51,10 @@ public class PluginPackage {
 
     public Plugin getPlugin() {
         return plugin;
+    }
+    
+    public String getVersionRaw() {
+        return versionRaw;
     }
 
     public Version getVersion() {
