@@ -22,7 +22,7 @@ public class JobsReborn extends CompatibilityAddon {
     }
 
     private Listener getListener(Version version) {
-        if(version.getMinor() > 16) {
+        if(version.getMajor() > 4 || (version.getMajor() == 4 && version.getMinor() > 16)) {
             return new JobsRebornFallListenerNew();
         }
         return new JobsRebornFallListenerLegacy();
