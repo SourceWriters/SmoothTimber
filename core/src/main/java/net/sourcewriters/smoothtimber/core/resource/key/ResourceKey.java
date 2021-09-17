@@ -7,28 +7,60 @@ public class ResourceKey {
 
     private String string;
 
+    /**
+     * Constructs a namespaced key
+     * 
+     * @param namespace the namespace
+     * @param key       the key
+     */
     public ResourceKey(final String namespace, final String key) {
         this.namespace = namespace;
         this.key = key;
     }
 
+    /**
+     * Gets the namespace of this resource
+     * 
+     * @return the namespace
+     */
     public final String getNamespace() {
         return namespace;
     }
 
+    /**
+     * Gets the key of this resource
+     * 
+     * @return the key
+     */
     public final String getKey() {
         return key;
     }
 
+    /**
+     * Builds the full string representation of this namespaced key
+     * 
+     * @return the built string
+     */
     protected String asString() {
         return namespace + ':' + key;
     }
 
+    /**
+     * Gets or builds the full string representation of this namespaced key
+     * 
+     * @return the full string representation
+     */
     @Override
     public final String toString() {
         return string == null ? (string = asString()) : string;
     }
 
+    /**
+     * Gets the hash of the string representation of this namespaced key and uses it
+     * as hash for itself
+     * 
+     * @return the hash
+     */
     @Override
     public int hashCode() {
         return toString().hashCode();
