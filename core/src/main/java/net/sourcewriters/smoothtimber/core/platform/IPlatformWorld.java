@@ -24,7 +24,7 @@ public interface IPlatformWorld {
      * 
      * @return        the block at the specified position
      */
-    default IPlatformBlock getBlock(Vector3i vector) {
+    default IPlatformBlock getBlock(final Vector3i vector) {
         return getBlock(vector.getX(), vector.getY(), vector.getZ());
     }
 
@@ -35,7 +35,7 @@ public interface IPlatformWorld {
      * 
      * @return        the block at the specified position
      */
-    default IPlatformBlock getBlock(Vector3d vector) {
+    default IPlatformBlock getBlock(final Vector3d vector) {
         return getBlock((int) vector.getX(), (int) vector.getY(), (int) vector.getZ());
     }
 
@@ -55,7 +55,7 @@ public interface IPlatformWorld {
      * @param vector   the position that the block should be placed at
      * @param resource the namespaced key of the block that should be placed
      */
-    default void setBlock(Vector3i vector, ResourceKey resource) {
+    default void setBlock(final Vector3i vector, final ResourceKey resource) {
         setBlock(vector.getX(), vector.getY(), vector.getZ(), resource);
     }
 
@@ -65,7 +65,7 @@ public interface IPlatformWorld {
      * @param vector   the position that the block should be placed at
      * @param resource the namespaced key of the block that should be placed
      */
-    default void setBlock(Vector3d vector, ResourceKey resource) {
+    default void setBlock(final Vector3d vector, final ResourceKey resource) {
         setBlock((int) vector.getX(), (int) vector.getY(), (int) vector.getZ(), resource);
     }
 
@@ -89,7 +89,7 @@ public interface IPlatformWorld {
      * 
      * @return          the spawned entity or null if the entity doesn't exist
      */
-    default IPlatformEntity spawn(Vector3i vector, ResourceKey resource) {
+    default IPlatformEntity spawn(final Vector3i vector, final ResourceKey resource) {
         return spawn(vector.getX(), vector.getY(), vector.getZ(), resource);
     }
 
@@ -101,7 +101,7 @@ public interface IPlatformWorld {
      * 
      * @return          the spawned entity or null if the entity doesn't exist
      */
-    default IPlatformEntity spawn(Vector3d vector, ResourceKey resource) {
+    default IPlatformEntity spawn(final Vector3d vector, final ResourceKey resource) {
         return spawn((int) vector.getX(), (int) vector.getY(), (int) vector.getZ(), resource);
     }
 
@@ -129,7 +129,7 @@ public interface IPlatformWorld {
      * @return          the spawned falling block entity or null if the block type
      *                      doesn't exist
      */
-    default IPlatformFallingBlock spawnFallingBlock(Vector3i vector, ResourceKey resource) {
+    default IPlatformFallingBlock spawnFallingBlock(final Vector3i vector, final ResourceKey resource) {
         return spawnFallingBlock(vector.getX(), vector.getY(), vector.getZ(), resource);
     }
 
@@ -143,7 +143,7 @@ public interface IPlatformWorld {
      * @return          the spawned falling block entity or null if the block type
      *                      doesn't exist
      */
-    default IPlatformFallingBlock spawnFallingBlock(Vector3d vector, ResourceKey resource) {
+    default IPlatformFallingBlock spawnFallingBlock(final Vector3d vector, final ResourceKey resource) {
         return spawnFallingBlock((int) vector.getX(), (int) vector.getY(), (int) vector.getZ(), resource);
     }
 

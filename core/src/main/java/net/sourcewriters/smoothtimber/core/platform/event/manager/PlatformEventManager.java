@@ -6,7 +6,7 @@ public final class PlatformEventManager {
 
     private final IPlatformEventAdapter adapter;
 
-    public PlatformEventManager(IPlatformEventAdapter adapter) {
+    public PlatformEventManager(final IPlatformEventAdapter adapter) {
         this.adapter = adapter;
     }
 
@@ -29,7 +29,7 @@ public final class PlatformEventManager {
      * 
      * @see                          net.sourcewriters.smoothtimber.core.platform.event.manager.IPlatformEventAdapter#call(PlatformEvent)
      */
-    public void callPlatform(PlatformEvent event) throws UnknownEventException {
+    public void callPlatform(final PlatformEvent event) throws UnknownEventException {
         adapter.call(event);
     }
 
@@ -45,13 +45,12 @@ public final class PlatformEventManager {
      * @see                          net.sourcewriters.smoothtimber.core.platform.event.manager.IPlatformEventAdapter#call(PlatformEvent,
      *                                   boolean)
      */
-    public void callPlatform(PlatformEvent event, boolean async) throws UnknownEventException {
+    public void callPlatform(final PlatformEvent event, final boolean async) throws UnknownEventException {
         adapter.call(event, async);
     }
 
     //
     // Global
-
 
     /**
      * Calls a event asynchronously on the internal listeners
@@ -60,7 +59,7 @@ public final class PlatformEventManager {
      * @param async if the event should be called synchronous or asynchronous to the
      *                  main thread
      */
-    public void call(PlatformEvent event) {
+    public void call(final PlatformEvent event) {
         call(event, true);
     }
 
@@ -71,7 +70,7 @@ public final class PlatformEventManager {
      * @param async if the event should be called synchronous or asynchronous to the
      *                  main thread
      */
-    public void call(PlatformEvent event, boolean async) {
+    public void call(final PlatformEvent event, final boolean async) {
 
     }
 

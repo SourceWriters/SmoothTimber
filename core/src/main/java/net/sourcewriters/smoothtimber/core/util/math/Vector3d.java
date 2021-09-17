@@ -20,7 +20,7 @@ public final class Vector3d {
      * @param y the y coordinate
      * @param z the z coordinate
      */
-    public Vector3d(double x, double y, double z) {
+    public Vector3d(final double x, final double y, final double z) {
         this.x = x;
         this.y = y;
         this.z = z;
@@ -31,7 +31,7 @@ public final class Vector3d {
      * 
      * @param vector the integer vector
      */
-    public Vector3d(Vector3i vector) {
+    public Vector3d(final Vector3i vector) {
         this.x = vector.getX();
         this.y = vector.getY();
         this.z = vector.getZ();
@@ -42,7 +42,7 @@ public final class Vector3d {
      * 
      * @param x the x coordinate
      */
-    public void setX(double x) {
+    public void setX(final double x) {
         this.x = x;
     }
 
@@ -60,7 +60,7 @@ public final class Vector3d {
      * 
      * @param y the y coordinate
      */
-    public void setY(double y) {
+    public void setY(final double y) {
         this.y = y;
     }
 
@@ -78,7 +78,7 @@ public final class Vector3d {
      * 
      * @param z the z coordinate
      */
-    public void setZ(double z) {
+    public void setZ(final double z) {
         this.z = z;
     }
 

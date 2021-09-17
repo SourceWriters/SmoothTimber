@@ -11,7 +11,7 @@ public interface IPlatformEventAdapter {
      * 
      * @throws UnknownEventException if the event is unknown to the platform
      */
-    default void call(PlatformEvent event) throws UnknownEventException {
+    default void call(final PlatformEvent event) throws UnknownEventException {
         call(event, true);
     }
 
