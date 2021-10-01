@@ -2,6 +2,8 @@ package net.sourcewriters.smoothtimber.core.platform.world.inventory;
 
 import net.sourcewriters.smoothtimber.core.resource.key.ResourceKey;
 
+// TODO(Lauriichan): Add documentation
+
 public interface IPlatformInventory {
     
     void add(IPlatformItem item);
