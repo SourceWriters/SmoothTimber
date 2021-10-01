@@ -1,4 +1,4 @@
-package net.sourcewriters.smoothtimber.core.platform;
+package net.sourcewriters.smoothtimber.core.platform.world;
 
 import net.sourcewriters.smoothtimber.core.resource.key.ResourceKey;
 import net.sourcewriters.smoothtimber.core.util.math.Vector3i;
@@ -10,7 +10,7 @@ public interface IPlatformBlock {
      * 
      * @return the namespaced key
      */
-    ResourceKey getResource();
+    ResourceKey getType();
 
     /**
      * Get the position of the block

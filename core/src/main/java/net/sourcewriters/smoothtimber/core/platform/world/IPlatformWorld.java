@@ -1,10 +1,22 @@
-package net.sourcewriters.smoothtimber.core.platform;
+package net.sourcewriters.smoothtimber.core.platform.world;
 
+import net.sourcewriters.smoothtimber.core.platform.world.entity.IPlatformArmorStand;
+import net.sourcewriters.smoothtimber.core.platform.world.entity.IPlatformEntity;
+import net.sourcewriters.smoothtimber.core.platform.world.entity.IPlatformFallingBlock;
+import net.sourcewriters.smoothtimber.core.platform.world.entity.IPlatformPlayer;
+import net.sourcewriters.smoothtimber.core.platform.world.inventory.IPlatformItem;
 import net.sourcewriters.smoothtimber.core.resource.key.ResourceKey;
 import net.sourcewriters.smoothtimber.core.util.math.Vector3d;
 import net.sourcewriters.smoothtimber.core.util.math.Vector3i;
 
 public interface IPlatformWorld {
+
+    /**
+     * Gets all online players which are currently in this world
+     * 
+     * @return the players
+     */
+    IPlatformPlayer[] getPlayers();
 
     /**
      * Gets the block at a specific position in this world
@@ -106,6 +118,39 @@ public interface IPlatformWorld {
     }
 
     /**
+     * Spawns an armor stand at the specified position in this world
+     * 
+     * @param  x the x coordinate
+     * @param  y the y coordinate
+     * @param  z the z coordinate
+     * 
+     * @return   the spawned armor stand
+     */
+    IPlatformArmorStand spawnArmorStand(int x, int y, int z);
+
+    /**
+     * Spawns an armor stand at the specified position in this world
+     * 
+     * @param  vector the position that the falling block should be spawned at
+     * 
+     * @return        the spawned armor stand
+     */
+    default IPlatformArmorStand spawnArmorStand(final Vector3i vector) {
+        return spawnArmorStand(vector.getX(), vector.getY(), vector.getZ());
+    }
+
+    /**
+     * Spawns an armor stand at the specified position in this world
+     * 
+     * @param  vector the position that the falling block should be spawned at
+     * 
+     * @return        the spawned armor stand
+     */
+    default IPlatformArmorStand spawnArmorStand(final Vector3d vector) {
+        return spawnArmorStand((int) vector.getX(), (int) vector.getY(), (int) vector.getZ());
+    }
+
+    /**
      * Spawns the a falling block entity at the specified position in this world
      * 
      * @param  x        the x coordinate
@@ -146,5 +191,15 @@ public interface IPlatformWorld {
     default IPlatformFallingBlock spawnFallingBlock(final Vector3d vector, final ResourceKey resource) {
         return spawnFallingBlock((int) vector.getX(), (int) vector.getY(), (int) vector.getZ(), resource);
     }
+
+    /**
+     * Drops an item at the specified position in this world
+     * 
+     * @param  item    the item to be dropped
+     * @param  natural if the item should be dropped naturally or not
+     * 
+     * @return         the dropped item entity
+     */
+    IPlatformEntity dropItem(final IPlatformItem item, final boolean natural);
 
 }
