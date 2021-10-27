@@ -82,6 +82,9 @@ public abstract class Locator {
             current.offer(layers.poll());
             while (current.peek() != null) {
                 List<Location> resolve = resolver.resolve(current.poll(), radius, output, counter, limit);
+                if(resolve == null) {
+                    continue;
+                }
                 for (Location location : resolve) {
                     current.offer(location);
                     testCounter.reset();

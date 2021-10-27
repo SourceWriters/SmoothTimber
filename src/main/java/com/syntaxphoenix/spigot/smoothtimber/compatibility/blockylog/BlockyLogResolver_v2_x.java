@@ -34,7 +34,7 @@ public final class BlockyLogResolver_v2_x extends LocationResolver {
         for (int cx = x - radius; cx <= x + radius; cx++) {
             for (int cz = z - radius; cz <= z + radius; cz++) {
                 if (limit >= 0 && counter.get() >= limit) {
-                    return null;
+                    return resolved;
                 }
                 Location location = new Location(world, cx, y, cz);
                 if (change.isWoodBlock(Locator.getBlock(location))) {
