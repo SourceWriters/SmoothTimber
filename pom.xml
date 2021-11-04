@@ -8,8 +8,9 @@
 	<packaging>pom</packaging>
 	<name>SmoothTimber</name>
 	<modules>
-		<module>core</module>
+		<module>api</module>
 		<module>spigot</module>
+		<module>core</module>
 	</modules>
 	
 	<properties>
