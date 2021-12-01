@@ -135,21 +135,31 @@ public class v1_8xChanger implements VersionChanger {
             return new ItemStack(type, amount);
         }
         WoodType wood = getWoodType(type, id);
-        return switch (wood) {
-            case OAK, DARKOAK -> new MaterialData(type, (byte) 0).toItemStack(amount);
-            case SPRUCE, ACACIA -> new MaterialData(type, (byte) 1).toItemStack(amount);
-            case BIRCH -> new MaterialData(type, (byte) 2).toItemStack(amount);
-            case JUNGLE -> new MaterialData(type, (byte) 3).toItemStack(amount);
-            default -> new ItemStack(type, amount);
-        };
+        switch (wood) {
+            case OAK:
+            case DARKOAK:
+                return new MaterialData(type, (byte) 0).toItemStack(amount);
+            case SPRUCE:
+            case ACACIA:
+                return new MaterialData(type, (byte) 1).toItemStack(amount);
+            case BIRCH:
+                return new MaterialData(type, (byte) 2).toItemStack(amount);
+            case JUNGLE:
+                return new MaterialData(type, (byte) 3).toItemStack(amount);
+            default:
+                return new ItemStack(type, amount);
+        }
     }
 
     @Override
     public boolean isSupported(WoodType type) {
-        return switch (type) {
-            case WARPED, CRIMSON -> false;
-            default -> true;
-        };
+        switch (type) {
+            case WARPED:
+            case CRIMSON:
+                return false;
+            default:
+                return true;
+        }
     }
 
     @Override
