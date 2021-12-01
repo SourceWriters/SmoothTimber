@@ -141,58 +141,17 @@ public class v1_16xChanger implements VersionChanger {
 
     @Override
     public WoodType getWoodType(Material type, int id) {
-        switch (type) {
-        case OAK_LOG:
-        case OAK_WOOD:
-        case OAK_FENCE:
-        case STRIPPED_OAK_LOG:
-        case STRIPPED_OAK_WOOD:
-            return WoodType.OAK;
-        case SPRUCE_LOG:
-        case SPRUCE_WOOD:
-        case SPRUCE_FENCE:
-        case STRIPPED_SPRUCE_LOG:
-        case STRIPPED_SPRUCE_WOOD:
-            return WoodType.SPRUCE;
-        case BIRCH_LOG:
-        case BIRCH_WOOD:
-        case BIRCH_FENCE:
-        case STRIPPED_BIRCH_LOG:
-        case STRIPPED_BIRCH_WOOD:
-            return WoodType.BIRCH;
-        case JUNGLE_LOG:
-        case JUNGLE_WOOD:
-        case JUNGLE_FENCE:
-        case STRIPPED_JUNGLE_LOG:
-        case STRIPPED_JUNGLE_WOOD:
-            return WoodType.JUNGLE;
-        case DARK_OAK_LOG:
-        case DARK_OAK_WOOD:
-        case DARK_OAK_FENCE:
-        case STRIPPED_DARK_OAK_LOG:
-        case STRIPPED_DARK_OAK_WOOD:
-            return WoodType.DARKOAK;
-        case ACACIA_LOG:
-        case ACACIA_WOOD:
-        case ACACIA_FENCE:
-        case STRIPPED_ACACIA_LOG:
-        case STRIPPED_ACACIA_WOOD:
-            return WoodType.ACACIA;
-        case CRIMSON_STEM:
-        case CRIMSON_FENCE:
-        case CRIMSON_HYPHAE:
-        case STRIPPED_CRIMSON_STEM:
-        case STRIPPED_CRIMSON_HYPHAE:
-            return WoodType.CRIMSON;
-        case WARPED_STEM:
-        case WARPED_FENCE:
-        case WARPED_HYPHAE:
-        case STRIPPED_WARPED_STEM:
-        case STRIPPED_WARPED_HYPHAE:
-            return WoodType.WARPED;
-        default:
-            return null;
-        }
+        return switch (type) {
+            case OAK_LOG, OAK_WOOD, OAK_FENCE, STRIPPED_OAK_LOG, STRIPPED_OAK_WOOD -> WoodType.OAK;
+            case SPRUCE_LOG, SPRUCE_WOOD, SPRUCE_FENCE, STRIPPED_SPRUCE_LOG, STRIPPED_SPRUCE_WOOD -> WoodType.SPRUCE;
+            case BIRCH_LOG, BIRCH_WOOD, BIRCH_FENCE, STRIPPED_BIRCH_LOG, STRIPPED_BIRCH_WOOD -> WoodType.BIRCH;
+            case JUNGLE_LOG, JUNGLE_WOOD, JUNGLE_FENCE, STRIPPED_JUNGLE_LOG, STRIPPED_JUNGLE_WOOD -> WoodType.JUNGLE;
+            case DARK_OAK_LOG, DARK_OAK_WOOD, DARK_OAK_FENCE, STRIPPED_DARK_OAK_LOG, STRIPPED_DARK_OAK_WOOD -> WoodType.DARKOAK;
+            case ACACIA_LOG, ACACIA_WOOD, ACACIA_FENCE, STRIPPED_ACACIA_LOG, STRIPPED_ACACIA_WOOD -> WoodType.ACACIA;
+            case CRIMSON_STEM, CRIMSON_FENCE, CRIMSON_HYPHAE, STRIPPED_CRIMSON_STEM, STRIPPED_CRIMSON_HYPHAE -> WoodType.CRIMSON;
+            case WARPED_STEM, WARPED_FENCE, WARPED_HYPHAE, STRIPPED_WARPED_STEM, STRIPPED_WARPED_HYPHAE -> WoodType.WARPED;
+            default -> null;
+        };
     }
 
 }

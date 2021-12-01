@@ -155,13 +155,10 @@ public class v1_11xChanger implements VersionChanger {
 
     @Override
     public boolean isSupported(WoodType type) {
-        switch (type) {
-        case WARPED:
-        case CRIMSON:
-            return false;
-        default:
-            return true;
-        }
+        return switch (type) {
+            case WARPED, CRIMSON -> false;
+            default -> true;
+        };
     }
 
     @Override
