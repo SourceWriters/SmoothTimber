@@ -3,7 +3,7 @@ package net.sourcewriters.smoothtimber.api.platform.world.entity;
 import net.sourcewriters.smoothtimber.api.platform.world.inventory.IPlatformEquipment;
 import net.sourcewriters.smoothtimber.api.platform.world.inventory.IPlatformInventory;
 
-// TODO(Lauriichan): Add documentation
+// TODO: Add documentation
 
 public interface IPlatformLivingEntity extends IPlatformEntity {
     

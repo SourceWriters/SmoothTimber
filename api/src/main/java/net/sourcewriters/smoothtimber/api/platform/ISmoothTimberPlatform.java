@@ -85,7 +85,7 @@ public interface ISmoothTimberPlatform {
     //
     // Inventory
 
-    // TODO(Lauriichan): Add documentation
+    // TODO: Add documentation
 
     IPlatformItem buildItem(ResourceKey key);
 

@@ -2,7 +2,7 @@ package net.sourcewriters.smoothtimber.api.platform.world.entity;
 
 import net.sourcewriters.smoothtimber.api.platform.util.STGameMode;
 
-// TODO(Lauriichan): Add documentation
+// TODO: Add documentation
 
 public interface IPlatformPlayer extends IPlatformLivingEntity {
     

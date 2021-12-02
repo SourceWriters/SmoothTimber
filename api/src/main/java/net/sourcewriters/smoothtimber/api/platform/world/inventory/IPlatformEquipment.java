@@ -1,6 +1,6 @@
 package net.sourcewriters.smoothtimber.api.platform.world.inventory;
 
-// TODO(Lauriichan): Add documentation
+// TODO: Add documentation
 
 public interface IPlatformEquipment {
 

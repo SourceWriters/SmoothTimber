@@ -4,7 +4,7 @@ import java.util.List;
 
 import net.sourcewriters.smoothtimber.api.resource.key.ResourceKey;
 
-// TODO(Lauriichan): Add documentation
+// TODO: Add documentation
 
 public interface IPlatformItemMeta {
 
