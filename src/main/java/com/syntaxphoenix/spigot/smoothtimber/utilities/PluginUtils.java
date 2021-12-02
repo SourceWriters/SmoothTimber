@@ -32,7 +32,7 @@ import com.syntaxphoenix.spigot.smoothtimber.version.manager.VersionExchanger;
 import com.syntaxphoenix.syntaxapi.utils.java.Arrays;
 import com.syntaxphoenix.syntaxapi.utils.java.Exceptions;
 
-import net.md_5.bungee.api.ChatColor;
+import org.bukkit.ChatColor;
 
 public class PluginUtils {
 

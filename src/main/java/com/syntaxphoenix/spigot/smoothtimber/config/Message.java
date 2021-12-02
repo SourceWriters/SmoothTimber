@@ -1,8 +1,8 @@
 package com.syntaxphoenix.spigot.smoothtimber.config;
 
 import com.syntaxphoenix.spigot.smoothtimber.config.config.MessageConfig;
+import org.bukkit.ChatColor;
 
-import net.md_5.bungee.api.ChatColor;
 
 public enum Message {
 
