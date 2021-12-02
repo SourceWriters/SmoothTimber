@@ -2,7 +2,7 @@ package com.syntaxphoenix.spigot.smoothtimber.utilities;
 
 import com.syntaxphoenix.syntaxapi.utils.java.lang.StringBuilder;
 
-import net.md_5.bungee.api.ChatColor;
+import org.bukkit.ChatColor;
 
 public final class Centering {
 
