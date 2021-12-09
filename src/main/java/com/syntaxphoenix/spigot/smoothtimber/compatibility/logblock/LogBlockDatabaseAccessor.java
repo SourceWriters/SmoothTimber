@@ -13,7 +13,10 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Objects;
 import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 /**
  * Used for accessing the logblock database, because the api queries to much not needed information,
@@ -21,9 +24,9 @@ import java.util.Set;
  */
 public class LogBlockDatabaseAccessor {
 
-    private static final Set<Material> EMPTY_MATERIALS = Set.of(
-            Material.AIR, Material.CAVE_AIR, Material.VOID_AIR
-    );
+    private static final Set<Material> EMPTY_MATERIALS = Stream.of(
+            Material.AIR, Material.getMaterial("CAVE_AIR"), Material.getMaterial("VOID_AIR")
+    ).filter(Objects::nonNull).collect(Collectors.toSet());
 
     private final LogBlock logBlock;
 
@@ -44,10 +47,10 @@ public class LogBlockDatabaseAccessor {
             try (ResultSet resultSet = statement.executeQuery()) {
                 if (!resultSet.next())
                     return false;
-                if(resultSet.getInt("playerid") < 0)
+                if (resultSet.getInt("playerid") < 0)
                     return false;
                 Material type = MaterialConverter.getMaterial(resultSet.getInt("type"));
-                if(type.name().endsWith("SAPLING"))
+                if (type.name().endsWith("SAPLING"))
                     return false;
                 return !EMPTY_MATERIALS.contains(type);
             }
