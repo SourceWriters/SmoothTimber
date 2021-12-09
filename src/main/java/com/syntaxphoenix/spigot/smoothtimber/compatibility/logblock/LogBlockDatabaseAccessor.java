@@ -5,7 +5,6 @@ import de.diddiz.LogBlock.LogBlock;
 import de.diddiz.LogBlock.MaterialConverter;
 import de.diddiz.LogBlock.config.Config;
 import de.diddiz.LogBlock.config.WorldConfig;
-import de.diddiz.util.BukkitUtils;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.block.Block;
@@ -14,12 +13,17 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Set;
 
 /**
  * Used for accessing the logblock database, because the api queries to much not needed information,
  * which slow things down enormously.
  */
 public class LogBlockDatabaseAccessor {
+
+    private static final Set<Material> EMPTY_MATERIALS = Set.of(
+            Material.AIR, Material.CAVE_AIR, Material.VOID_AIR
+    );
 
     private final LogBlock logBlock;
 
@@ -45,7 +49,7 @@ public class LogBlockDatabaseAccessor {
                 Material type = MaterialConverter.getMaterial(resultSet.getInt("type"));
                 if(type.name().endsWith("SAPLING"))
                     return false;
-                return !BukkitUtils.isEmpty(type);
+                return !EMPTY_MATERIALS.contains(type);
             }
         } catch (SQLException throwables) {
             SmoothTimber.get().getLogger().severe("Failed to connect to LogBlock database");
