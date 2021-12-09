@@ -2,6 +2,8 @@ package com.syntaxphoenix.spigot.smoothtimber.compatibility.griefprevention;
 
 import java.util.UUID;
 
+import com.syntaxphoenix.spigot.smoothtimber.utilities.PluginUtils;
+import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -29,16 +31,18 @@ public final class GriefPreventionChopListener implements Listener {
         if (store.getPlayerData(uniqueId).ignoreClaims) {
             return;
         }
-        for (Location location : event.getBlockLocations()) {
-            Claim claim = store.getClaimAt(location, false, null);
-            if (claim == null) {
-                continue;
+        Bukkit.getScheduler().runTask(PluginUtils.MAIN, () -> {
+            for (Location location : event.getBlockLocations()) {
+                Claim claim = store.getClaimAt(location, false, null);
+                if (claim == null) {
+                    continue;
+                }
+                if (claim.allowBreak(player, location.getBlock().getType()) != null) {
+                    event.setCancelled(true);
+                    event.setReason(DefaultReason.GRIEFPREVENTION);
+                    return;
+                }
             }
-            if (claim.allowBreak(player, location.getBlock().getType()) != null) {
-                event.setCancelled(true);
-                event.setReason(DefaultReason.GRIEFPREVENTION);
-                return;
-            }
-        }
+        });
     }
 }
