@@ -11,7 +11,7 @@ package net.sourcewriters.smoothtimber.api.platform.event.manager;
  * <li>NORMAL
  * <li>LOW
  * <li>LOWEST
- * <li>Monitor
+ * <li>MONITOR
  */
 public enum PlatformEventPriority {
 

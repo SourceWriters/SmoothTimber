@@ -1,13 +1,19 @@
 package net.sourcewriters.smoothtimber.api.platform.event.manager;
 
+import java.util.concurrent.Future;
+
+import net.sourcewriters.smoothtimber.api.platform.ISmoothTimberExecutor;
 import net.sourcewriters.smoothtimber.api.platform.event.PlatformEvent;
 
 public final class PlatformEventManager {
 
     private final IPlatformEventAdapter adapter;
+    private final ISmoothTimberExecutor executor;
+    private final PlatformEventHandler handler = new PlatformEventHandler();
 
-    public PlatformEventManager(final IPlatformEventAdapter adapter) {
+    public PlatformEventManager(final IPlatformEventAdapter adapter, final ISmoothTimberExecutor executor) {
         this.adapter = adapter;
+        this.executor = executor;
     }
 
     //
@@ -55,23 +61,25 @@ public final class PlatformEventManager {
     /**
      * Calls a event asynchronously on the internal listeners
      * 
-     * @param event the event to be called
-     * @param async if the event should be called synchronous or asynchronous to the
-     *                  main thread
+     * @param  event the event to be called
+     * 
+     * @return       the task future
      */
-    public void call(final PlatformEvent event) {
-        call(event, true);
+    public Future<?> call(final PlatformEvent event) {
+        return call(event, true);
     }
 
     /**
      * Calls a event on the internal listeners
      * 
-     * @param event the event to be called
-     * @param async if the event should be called synchronous or asynchronous to the
-     *                  main thread
+     * @param  event the event to be called
+     * @param  async if the event should be called synchronous or asynchronous to
+     *                   the main thread
+     * 
+     * @return       the task future
      */
-    public void call(final PlatformEvent event, final boolean async) {
-
+    public Future<?> call(final PlatformEvent event, final boolean async) {
+        return async ? executor.runAsync(() -> handler.call(event)) : executor.runSync(() -> handler.call(event));
     }
 
 }

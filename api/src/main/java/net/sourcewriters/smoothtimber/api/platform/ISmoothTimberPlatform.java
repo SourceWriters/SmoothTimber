@@ -22,6 +22,13 @@ public interface ISmoothTimberPlatform {
     ISmoothTimberPlugin getPlugin();
 
     /**
+     * Gets the platform task executor
+     * 
+     * @return the platform task executor
+     */
+    ISmoothTimberExecutor getExecutor();
+
+    /**
      * Gets the platform specific event adapter
      * 
      * @return the platform specific event adapter

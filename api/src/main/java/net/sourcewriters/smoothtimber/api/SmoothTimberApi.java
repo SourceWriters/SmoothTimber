@@ -15,7 +15,7 @@ public final class SmoothTimberApi {
      */
     public SmoothTimberApi(final ISmoothTimberPlatform platform) {
         this.platform = platform;
-        this.eventManager = new PlatformEventManager(platform.getEventAdapter());
+        this.eventManager = new PlatformEventManager(platform.getEventAdapter(), platform.getExecutor());
     }
 
     /**
