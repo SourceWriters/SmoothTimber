@@ -8,4 +8,14 @@
 		<version>2.0.0</version>
 	</parent>
 	<artifactId>api</artifactId>
+
+	<dependencies>
+		<dependency>
+			<groupId>com.syntaxphoenix.avinity</groupId>
+			<artifactId>command</artifactId>
+			<version>2.0.0-f2a537d88407c7825d60de4a260a881e2b435b5d-SNAPSHOT</version>
+		</dependency>
+	</dependencies>
+
+
 </project>
