@@ -85,10 +85,20 @@ public interface ISmoothTimberPlatform {
     //
     // Inventory
 
-    // TODO: Add documentation
-
+    /**
+     * Create an item from an item type
+     * 
+     * @param  key the type of the item
+     * 
+     * @return     the created item
+     */
     IPlatformItem buildItem(ResourceKey key);
 
+    /**
+     * Creates a inventory
+     * 
+     * @return the created inventory
+     */
     IPlatformInventory buildInventory();
 
 }
