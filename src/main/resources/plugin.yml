@@ -9,7 +9,6 @@ commands:
     smoothtimber:
         description: SmoothTimber main command
         aliases: [sm, stimb]
-        permission: smoothtimber.use
         usage: &cSomething went wrong while running this command, please report this to developer.
         
 permissions:
