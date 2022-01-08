@@ -79,6 +79,10 @@ public class v1_13xChanger implements VersionChanger {
         if (CutterConfig.ENABLE_EXCLUSION && CutterConfig.EXCLUDED_MATERIALS.contains(material)) {
             return false;
         }
+        
+        if (CutterConfig.ENABLE_INCLUSION && CutterConfig.INCLUDED_MATERIALS.contains(material)) {
+            return true;
+        }
 
         return getWoodType(material) != null;
     }
@@ -141,7 +145,11 @@ public class v1_13xChanger implements VersionChanger {
 
     @Override
     public WoodType getWoodTypeFromBlock(Block block) {
-        return getWoodType(block.getBlockData().getMaterial());
+        Material blockMaterial = block.getBlockData().getMaterial();
+        if (CutterConfig.ENABLE_INCLUSION && CutterConfig.INCLUDED_MATERIALS.contains(blockMaterial)) {
+            return WoodType.OTHER;
+        }
+        return getWoodType(blockMaterial);
     }
 
     @Override

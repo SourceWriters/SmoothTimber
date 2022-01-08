@@ -47,6 +47,9 @@ public final class CutterConfig extends STConfig {
     public static boolean ENABLE_EXCLUSION = false;
     public static List<Material> EXCLUDED_MATERIALS = new ArrayList<>();
 
+    public static boolean ENABLE_INCLUSION = false;
+    public static List<Material> INCLUDED_MATERIALS = new ArrayList<>();
+
     public static boolean ENABLE_WORLD = false;
     public static boolean ENABLE_WORLD_BLACKLIST = false;
     public static List<String> WORLD_LIST;
@@ -115,6 +118,9 @@ public final class CutterConfig extends STConfig {
 
         ENABLE_EXCLUSION = check("exclusion.enabled", ENABLE_EXCLUSION);
         EXCLUDED_MATERIALS = check("exclusion.list", EXCLUDED_MATERIALS);
+
+        ENABLE_INCLUSION = check("inclusion.enabled", ENABLE_INCLUSION);
+        INCLUDED_MATERIALS = check("inclusion.list", INCLUDED_MATERIALS);
 
         ENABLE_WORLD = check("worlds.enabled", ENABLE_WORLD);
         ENABLE_WORLD_BLACKLIST = check("worlds.blacklist", ENABLE_WORLD_BLACKLIST);

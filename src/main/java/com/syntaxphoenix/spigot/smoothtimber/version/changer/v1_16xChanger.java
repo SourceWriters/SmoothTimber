@@ -18,6 +18,8 @@ import com.syntaxphoenix.spigot.smoothtimber.version.manager.VersionChanger;
 import com.syntaxphoenix.spigot.smoothtimber.version.manager.VersionExchanger;
 import com.syntaxphoenix.spigot.smoothtimber.version.manager.WoodType;
 
+import static org.bukkit.Bukkit.getLogger;
+
 public class v1_16xChanger implements VersionChanger {
 
     @Override
@@ -79,6 +81,11 @@ public class v1_16xChanger implements VersionChanger {
         if (CutterConfig.ENABLE_EXCLUSION && CutterConfig.EXCLUDED_MATERIALS.contains(material)) {
             return false;
         }
+        
+        if (CutterConfig.ENABLE_INCLUSION && CutterConfig.INCLUDED_MATERIALS.contains(material)) {
+            //getLogger().info("INCLUDED MAT : "+material.toString());
+            return true;
+        }
 
         return getWoodType(material) != null;
     }
@@ -136,7 +143,11 @@ public class v1_16xChanger implements VersionChanger {
 
     @Override
     public WoodType getWoodTypeFromBlock(Block block) {
-        return getWoodType(block.getBlockData().getMaterial());
+        Material blockMaterial = block.getBlockData().getMaterial();
+        if (CutterConfig.ENABLE_INCLUSION && CutterConfig.INCLUDED_MATERIALS.contains(blockMaterial)) {
+            return WoodType.OTHER;
+        }
+        return getWoodType(blockMaterial);
     }
 
     @Override
