@@ -9,6 +9,7 @@ public enum WoodType {
     DARKOAK,
     ACACIA,
     WARPED,
-    CRIMSON;
+    CRIMSON,
+    OTHER;
 
 }

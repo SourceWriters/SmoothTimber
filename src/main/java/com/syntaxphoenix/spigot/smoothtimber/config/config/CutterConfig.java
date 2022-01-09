@@ -17,6 +17,8 @@ import com.syntaxphoenix.spigot.smoothtimber.utilities.cooldown.CooldownHelper;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.limit.Limiter;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.locate.Locator;
 
+import static org.bukkit.Bukkit.getLogger;
+
 public final class CutterConfig extends STConfig {
 
     public static final CutterConfig INSTANCE = new CutterConfig();
@@ -46,6 +48,9 @@ public final class CutterConfig extends STConfig {
 
     public static boolean ENABLE_EXCLUSION = false;
     public static List<Material> EXCLUDED_MATERIALS = new ArrayList<>();
+
+    public static boolean ENABLE_INCLUSION = false;
+    public static List<Material> INCLUDED_MATERIALS = new ArrayList<>();
 
     public static boolean ENABLE_WORLD = false;
     public static boolean ENABLE_WORLD_BLACKLIST = false;
@@ -115,6 +120,19 @@ public final class CutterConfig extends STConfig {
 
         ENABLE_EXCLUSION = check("exclusion.enabled", ENABLE_EXCLUSION);
         EXCLUDED_MATERIALS = check("exclusion.list", EXCLUDED_MATERIALS);
+
+        ENABLE_INCLUSION = check("inclusion.enabled", ENABLE_INCLUSION);
+        List<Material> includedMaterials = check("inclusion.list", INCLUDED_MATERIALS);
+
+        // Materials have to be solid
+        INCLUDED_MATERIALS.clear();
+        for (Material includedMaterial : includedMaterials) {
+            if (includedMaterial.isSolid()) {
+                INCLUDED_MATERIALS.add(includedMaterial);
+            }else{
+                getLogger().info("Ignoring invalid material '"+includedMaterial+"' in the inclusion.list");
+            }
+        }
 
         ENABLE_WORLD = check("worlds.enabled", ENABLE_WORLD);
         ENABLE_WORLD_BLACKLIST = check("worlds.blacklist", ENABLE_WORLD_BLACKLIST);
