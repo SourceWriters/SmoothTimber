@@ -18,8 +18,6 @@ import com.syntaxphoenix.spigot.smoothtimber.version.manager.VersionChanger;
 import com.syntaxphoenix.spigot.smoothtimber.version.manager.VersionExchanger;
 import com.syntaxphoenix.spigot.smoothtimber.version.manager.WoodType;
 
-import static org.bukkit.Bukkit.getLogger;
-
 public class v1_16xChanger implements VersionChanger {
 
     @Override
@@ -83,7 +81,6 @@ public class v1_16xChanger implements VersionChanger {
         }
         
         if (CutterConfig.ENABLE_INCLUSION && CutterConfig.INCLUDED_MATERIALS.contains(material)) {
-            //getLogger().info("INCLUDED MAT : "+material.toString());
             return true;
         }
 

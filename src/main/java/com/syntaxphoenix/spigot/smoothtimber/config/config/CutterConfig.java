@@ -37,7 +37,7 @@ public final class CutterConfig extends STConfig {
 
     public static boolean ENABLE_BLOCK_LIMIT = true;
     public static int DEFAULT_BLOCK_LIMIT = 1000;
-    
+
     public static boolean ENABLE_COOLDOWN = false;
     public static long DEFAULT_COOLDOWN_TIME = 20000;
 
@@ -129,8 +129,8 @@ public final class CutterConfig extends STConfig {
         for (Material includedMaterial : includedMaterials) {
             if (includedMaterial.isSolid()) {
                 INCLUDED_MATERIALS.add(includedMaterial);
-            }else{
-                getLogger().info("Ignoring invalid material '"+includedMaterial+"' in the inclusion.list");
+            } else {
+                getLogger().info("Ignoring invalid material '" + includedMaterial + "' in the inclusion.list");
             }
         }
 
@@ -147,7 +147,7 @@ public final class CutterConfig extends STConfig {
         if (ROOT_DEPTH < 0) {
             set("cutter.depth", ROOT_DEPTH = Math.abs(ROOT_DEPTH));
         }
-        if(DEFAULT_COOLDOWN_TIME <= 0) {
+        if (DEFAULT_COOLDOWN_TIME <= 0) {
             set("cooldown.enabled", ENABLE_COOLDOWN = false);
             set("cooldown.time", DEFAULT_COOLDOWN_TIME = 20000);
         }
@@ -157,7 +157,7 @@ public final class CutterConfig extends STConfig {
 
         Locator.setSyncBlockDetection(SYNC_BLOCK_DETECTION);
         Limiter.setEnabled(ENABLE_BLOCK_LIMIT);
-        
+
         CooldownHelper.setEnabled(ENABLE_COOLDOWN);
 
     }
@@ -177,7 +177,11 @@ public final class CutterConfig extends STConfig {
             List<String> list = (List<String>) get(path);
             ArrayList<Material> output = new ArrayList<>();
             for (String value : list) {
-                output.add(Material.valueOf(value.toUpperCase()));
+                try {
+                    output.add(Material.valueOf(value.toUpperCase()));
+                } catch (IllegalArgumentException exp) {
+                    getLogger().info("The material '" + value + "' doesn't exist! (" + path + ")");
+                }
             }
             return output;
         } else {
