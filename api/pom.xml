@@ -13,13 +13,34 @@
 		<dependency>
 			<groupId>com.syntaxphoenix.avinity</groupId>
 			<artifactId>module</artifactId>
-			<version>2.0.0-f2a537d88407c7825d60de4a260a881e2b435b5d-SNAPSHOT</version>
+			<version>2.0.0-ad22c0a-20220120.081616-1</version>
 		</dependency>
 		<dependency>
 			<groupId>com.syntaxphoenix.avinity</groupId>
 			<artifactId>command</artifactId>
-			<version>2.0.0-f2a537d88407c7825d60de4a260a881e2b435b5d-SNAPSHOT</version>
+			<version>2.0.0-ad22c0a-20220120.081616-1</version>
 		</dependency>
 	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>3.3.1</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+                <configuration>
+                	<doclint>none</doclint>
+                </configuration>
+			</plugin>
+		</plugins>
+	</build>
 
 </project>

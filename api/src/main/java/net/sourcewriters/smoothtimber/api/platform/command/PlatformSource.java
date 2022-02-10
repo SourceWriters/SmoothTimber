@@ -10,8 +10,12 @@ public abstract class PlatformSource implements ISource {
         this.sender = sender;
     }
     
+    public final IPlatformSender getSender() {
+        return sender;
+    }
+    
     @Override
-    public boolean hasPermission(String id) {
+    public final boolean hasPermission(String id) {
         return sender.isPermitted(id);
     }
     

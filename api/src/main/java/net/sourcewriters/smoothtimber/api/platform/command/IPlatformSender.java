@@ -24,11 +24,25 @@ public interface IPlatformSender {
     boolean isPlayer();
 
     /**
+     * Gets if the sender is a entity or not
+     * 
+     * @return if the sender is entity or not
+     */
+    boolean isEntity();
+
+    /**
      * Gets if the sender is a console or not
      * 
      * @return if the sender is a console
      */
     boolean isConsole();
+
+    /**
+     * Gets the handle of this sender
+     * 
+     * @return the handle
+     */
+    Object getHandle();
 
     /**
      * Checks if the sender has a permission

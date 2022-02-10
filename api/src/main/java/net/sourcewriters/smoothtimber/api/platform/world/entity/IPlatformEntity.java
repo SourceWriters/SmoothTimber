@@ -3,10 +3,21 @@ package net.sourcewriters.smoothtimber.api.platform.world.entity;
 import java.util.UUID;
 
 import net.sourcewriters.smoothtimber.api.platform.command.IPlatformSender;
+import net.sourcewriters.smoothtimber.api.platform.world.IPlatformWorld;
 import net.sourcewriters.smoothtimber.api.resource.key.ResourceKey;
 import net.sourcewriters.smoothtimber.api.util.math.Vector3d;
 
 public interface IPlatformEntity extends IPlatformSender {
+    
+    @Override
+    default boolean isEntity() {
+        return true;
+    }
+    
+    @Override
+    default boolean isConsole() {
+        return false;
+    }
 
     /**
      * Get the namespaced key of the entity
@@ -14,6 +25,13 @@ public interface IPlatformEntity extends IPlatformSender {
      * @return the namespaced key
      */
     ResourceKey getType();
+    
+    /**
+     * Get the world that the entity is in
+     * 
+     * @return the world
+     */
+    IPlatformWorld getWorld();
 
     /**
      * Get the position of the entity

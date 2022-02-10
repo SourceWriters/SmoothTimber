@@ -6,12 +6,14 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.HashSet;
+import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 
+import net.sourcewriters.smoothtimber.api.module.SmoothTimberModule;
 import net.sourcewriters.smoothtimber.api.platform.event.IPlatformCancelable;
 import net.sourcewriters.smoothtimber.api.platform.event.PlatformEvent;
 
-final class PlatformEventHandler {
+public final class PlatformEventHandler {
 
     private final HashMap<Class<? extends PlatformEvent>, ArrayList<PlatformEventExecutor>> executors = new HashMap<>();
     private final ReentrantLock lock = new ReentrantLock();
@@ -21,7 +23,7 @@ final class PlatformEventHandler {
     }
 
     @SuppressWarnings("unchecked")
-    public void unregister(Object instance) {
+    public void unregister(SmoothTimberModule module) {
         Class<? extends PlatformEvent>[] eventTypes = executors.keySet().toArray(Class[]::new);
         for (Class<? extends PlatformEvent> eventType : eventTypes) {
             ArrayList<PlatformEventExecutor> list = executors.get(eventType);
@@ -35,7 +37,7 @@ final class PlatformEventHandler {
             }
             for (int index = 0; index < list.size(); index++) {
                 PlatformEventExecutor executor = list.get(index);
-                if (executor.getInstance() != instance) {
+                if (module.getWrapper().isFromModule(executor.getInstance().getClass())) {
                     continue;
                 }
                 lock.lock();
@@ -46,7 +48,29 @@ final class PlatformEventHandler {
         }
     }
 
-    public boolean register(Object instance) {
+    public int[] register(SmoothTimberModule module) {
+        List<IPlatformEventListener> listeners = module.getModuleManager().getExtensionManager().getExtensionsOf(module.getId(),
+            IPlatformEventListener.class);
+        if (listeners.isEmpty()) {
+            return new int[] {
+                0,
+                0
+            };
+        }
+        int count = 0;
+        for (IPlatformEventListener listener : listeners) {
+            if (register(listener)) {
+                count++;
+                continue;
+            }
+        }
+        return new int[] {
+            count,
+            listeners.size()
+        };
+    }
+
+    public boolean register(IPlatformEventListener instance) {
         Class<?> clazz = instance.getClass();
         HashSet<Method> methods = new HashSet<>();
         Collections.addAll(methods, clazz.getMethods());

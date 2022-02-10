@@ -15,6 +15,10 @@ public final class PlatformEventManager {
         this.adapter = adapter;
         this.executor = executor;
     }
+    
+    public PlatformEventHandler getHandler() {
+        return handler;
+    }
 
     //
     // Platform

@@ -11,6 +11,28 @@
 			<groupId>net.sourcewriters.minecraft.smoothtimber</groupId>
 			<artifactId>api</artifactId>
 			<version>${parent.version}</version>
+			<type>jar</type>
 		</dependency>
+		<dependency>
+			<groupId>net.sourcewriters.minecraft.smoothtimber</groupId>
+			<artifactId>api</artifactId>
+			<version>${parent.version}</version>
+			<type>javadoc</type>
+			<scope>provided</scope>
+		</dependency>
+		
+        <!-- Apache Commons -->
+        <dependency>
+            <groupId>commons-io</groupId>
+            <artifactId>commons-io</artifactId>
+            <version>2.11.0</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>commons-codec</groupId>
+            <artifactId>commons-codec</artifactId>
+            <version>1.15</version>
+            <scope>provided</scope>
+        </dependency>
 	</dependencies>
 </project>
