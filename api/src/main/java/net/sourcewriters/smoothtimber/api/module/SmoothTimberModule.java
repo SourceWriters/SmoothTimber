@@ -64,7 +64,7 @@ public abstract class SmoothTimberModule extends Module {
 
     private final ArrayList<String> commands = new ArrayList<>();
 
-    private void registerCommands() {
+    private final void registerCommands() {
         logger.log(LogTypeId.INFO, "Registering commands...");
         CommandManager<PlatformSource> commandManager = api.getCommandManager();
         List<IPlatformCommand> providers = getWrapper().getManager().getExtensionManager().getExtensionsOf(getId(), IPlatformCommand.class);
@@ -118,7 +118,7 @@ public abstract class SmoothTimberModule extends Module {
         logger.log(LogTypeId.INFO, "Registered " + count + " commands of " + providers.size() + "!");
     }
 
-    private void unregisterCommands() {
+    private final void unregisterCommands() {
         logger.log(LogTypeId.INFO, "Unregistering commands...");
         if (commands.isEmpty()) {
             logger.log(LogTypeId.INFO, "No commands to unregister.");
@@ -132,7 +132,7 @@ public abstract class SmoothTimberModule extends Module {
         logger.log(LogTypeId.INFO, "Unregistered all commands");
     }
 
-    private void registerListeners() {
+    private final void registerListeners() {
         logger.log(LogTypeId.INFO, "Registering listeners...");
         int[] status = api.getEventManager().getHandler().register(this);
         if (status.length == 0) {
@@ -142,7 +142,7 @@ public abstract class SmoothTimberModule extends Module {
         logger.log(LogTypeId.INFO, "Registered " + status[0] + " of " + status[1] + " listeners!");
     }
 
-    private void unregisterListeners() {
+    private final void unregisterListeners() {
         logger.log(LogTypeId.INFO, "Unregistering listeners...");
         api.getEventManager().getHandler().unregister(this);
         logger.log(LogTypeId.INFO, "Unregistered all listeners");
