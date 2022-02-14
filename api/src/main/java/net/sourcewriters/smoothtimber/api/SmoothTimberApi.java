@@ -6,6 +6,7 @@ import com.syntaxphoenix.syntaxapi.utils.java.tools.Container;
 import net.sourcewriters.smoothtimber.api.platform.ISmoothTimberPlatform;
 import net.sourcewriters.smoothtimber.api.platform.command.PlatformSource;
 import net.sourcewriters.smoothtimber.api.platform.event.manager.PlatformEventManager;
+import net.sourcewriters.smoothtimber.api.resource.key.ResourceKeyCache;
 
 public final class SmoothTimberApi {
 
@@ -19,6 +20,8 @@ public final class SmoothTimberApi {
     private final ISmoothTimberPlatform platform;
     private final PlatformEventManager eventManager;
     private final CommandManager<PlatformSource> commandManager;
+    
+    private final ResourceKeyCache keyCache = new ResourceKeyCache();
 
     /**
      * Constructs the core of SmoothTimber
@@ -52,6 +55,14 @@ public final class SmoothTimberApi {
      */
     public ISmoothTimberPlatform getPlatform() {
         return platform;
+    }
+    /**
+     * Gets the resource key cache
+     * 
+     * @return the cache
+     */
+    public final ResourceKeyCache getKeyCache() {
+        return keyCache;
     }
 
     /**

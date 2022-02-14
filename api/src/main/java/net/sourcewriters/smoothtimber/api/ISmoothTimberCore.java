@@ -39,4 +39,11 @@ public interface ISmoothTimberCore {
      */
     IResource getResource(SmoothTimberModule module);
 
+    /**
+     * Get the SmoothTimber registry
+     * 
+     * @return the registry
+     */
+    ISmoothTimberRegistry getRegistry();
+
 }

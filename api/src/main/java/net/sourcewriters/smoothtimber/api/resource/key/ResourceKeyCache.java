@@ -4,9 +4,23 @@ import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.concurrent.ConcurrentHashMap;
 
+import net.sourcewriters.smoothtimber.api.module.SmoothTimberModule;
+
 public final class ResourceKeyCache {
 
     private final ConcurrentHashMap<String, ResourceKey> keys = new ConcurrentHashMap<>();
+
+    public ResourceKey get(SmoothTimberModule module, String value) {
+        return get(module.getId(), value);
+    }
+
+    public ResourceKey get(String namespace, String value) {
+        try {
+            return keys.computeIfAbsent(namespace + ':' + value, (i) -> new ResourceKey(namespace, value));
+        } catch (KeyFormatException kfe) {
+            return null;
+        }
+    }
 
     public ResourceKey get(String value) {
         try {
@@ -14,6 +28,10 @@ public final class ResourceKeyCache {
         } catch (KeyFormatException kfe) {
             return null;
         }
+    }
+
+    public ResourceKey[] getNamespace(SmoothTimberModule module) {
+        return getNamespace(module.getId());
     }
 
     public ResourceKey[] getNamespace(String namespace) {

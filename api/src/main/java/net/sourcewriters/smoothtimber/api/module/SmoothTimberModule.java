@@ -19,6 +19,7 @@ import net.sourcewriters.smoothtimber.api.SmoothTimberApi;
 import net.sourcewriters.smoothtimber.api.platform.command.Command;
 import net.sourcewriters.smoothtimber.api.platform.command.IPlatformCommand;
 import net.sourcewriters.smoothtimber.api.platform.command.PlatformSource;
+import net.sourcewriters.smoothtimber.api.resource.key.ResourceKey;
 import net.sourcewriters.smoothtimber.api.util.ExtensionHelper;
 import net.sourcewriters.smoothtimber.api.util.IResource;
 
@@ -56,6 +57,10 @@ public abstract class SmoothTimberModule extends Module {
 
     public final IResource getResource() {
         return resource;
+    }
+
+    public final ResourceKey key(String name) {
+        return api.getKeyCache().get(this, name);
     }
 
     /*
