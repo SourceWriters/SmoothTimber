@@ -15,10 +15,23 @@ public abstract class TreeDetector {
         this.key = Objects.requireNonNull(module.key(name));
     }
 
+    /**
+     * Gets the id of the tree detector
+     * 
+     * @return the id key
+     */
     public final ResourceKey getKey() {
         return key;
     }
 
+    /**
+     * Detects if there is a tree at the given location
+     * 
+     * @param  world    the world that the tree is in
+     * @param  location the location that the tree is at
+     * 
+     * @return          the tree or null
+     */
     public abstract ITree detect(IPlatformWorld world, Vector3i location);
 
 }

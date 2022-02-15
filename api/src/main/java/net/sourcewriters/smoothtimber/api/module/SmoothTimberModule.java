@@ -33,6 +33,9 @@ public abstract class SmoothTimberModule extends Module {
     protected final ILogger logger = core.getLogger(this);
     protected final IResource resource = core.getResource(this);
 
+    /**
+     * Enables the module and registers everything that can be registered
+     */
     @Override
     public final void enable() throws Exception {
         onEnable();
@@ -40,6 +43,9 @@ public abstract class SmoothTimberModule extends Module {
         registerListeners();
     }
 
+    /**
+     * Disables the module and unregisters everything that is registered
+     */
     @Override
     public final void disable() throws Exception {
         unregisterListeners();
@@ -47,18 +53,41 @@ public abstract class SmoothTimberModule extends Module {
         onDisable();
     }
 
-    public void onEnable() {}
+    /**
+     * Is executed on module enable
+     */
+    protected void onEnable() {}
 
-    public void onDisable() {}
+    /**
+     * Is executed on module disable
+     */
+    protected void onDisable() {}
 
+    /**
+     * Gets the logger of this module
+     * 
+     * @return the module logger
+     */
     public final ILogger getLogger() {
         return logger;
     }
 
+    /**
+     * Gets the resource of this module
+     * 
+     * @return the module resource
+     */
     public final IResource getResource() {
         return resource;
     }
 
+    /**
+     * Gets a module namespaced key from the api key cache
+     * 
+     * @param  name the name of the key
+     * 
+     * @return      the namespaced key
+     */
     public final ResourceKey key(String name) {
         return api.getKeyCache().get(this, name);
     }
