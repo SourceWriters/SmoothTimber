@@ -1,5 +1,6 @@
 package net.sourcewriters.smoothtimber.api.resource.key;
 
+import java.util.Objects;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -20,8 +21,11 @@ public class ResourceKey {
      * @param key       the key
      */
     public ResourceKey(final String namespace, final String key) {
-        this.namespace = namespace;
-        this.key = key;
+        this.namespace = Objects.requireNonNull(namespace);
+        this.key = Objects.requireNonNull(key);
+        if(!VALID_NAMED_KEY.matcher(toString()).matches()) {
+            throw new IllegalArgumentException("'" + namespace + ':' + key + "' is not valid!");
+        }
     }
 
     /**

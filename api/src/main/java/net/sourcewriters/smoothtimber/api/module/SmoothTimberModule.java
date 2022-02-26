@@ -19,6 +19,7 @@ import net.sourcewriters.smoothtimber.api.SmoothTimberApi;
 import net.sourcewriters.smoothtimber.api.platform.command.Command;
 import net.sourcewriters.smoothtimber.api.platform.command.IPlatformCommand;
 import net.sourcewriters.smoothtimber.api.platform.command.PlatformSource;
+import net.sourcewriters.smoothtimber.api.resource.key.ResourceKey;
 import net.sourcewriters.smoothtimber.api.util.ExtensionHelper;
 import net.sourcewriters.smoothtimber.api.util.IResource;
 
@@ -32,6 +33,9 @@ public abstract class SmoothTimberModule extends Module {
     protected final ILogger logger = core.getLogger(this);
     protected final IResource resource = core.getResource(this);
 
+    /**
+     * Enables the module and registers everything that can be registered
+     */
     @Override
     public final void enable() throws Exception {
         onEnable();
@@ -39,6 +43,9 @@ public abstract class SmoothTimberModule extends Module {
         registerListeners();
     }
 
+    /**
+     * Disables the module and unregisters everything that is registered
+     */
     @Override
     public final void disable() throws Exception {
         unregisterListeners();
@@ -46,16 +53,43 @@ public abstract class SmoothTimberModule extends Module {
         onDisable();
     }
 
-    public void onEnable() {}
+    /**
+     * Is executed on module enable
+     */
+    protected void onEnable() {}
 
-    public void onDisable() {}
+    /**
+     * Is executed on module disable
+     */
+    protected void onDisable() {}
 
+    /**
+     * Gets the logger of this module
+     * 
+     * @return the module logger
+     */
     public final ILogger getLogger() {
         return logger;
     }
 
+    /**
+     * Gets the resource of this module
+     * 
+     * @return the module resource
+     */
     public final IResource getResource() {
         return resource;
+    }
+
+    /**
+     * Gets a module namespaced key from the api key cache
+     * 
+     * @param  name the name of the key
+     * 
+     * @return      the namespaced key
+     */
+    public final ResourceKey key(String name) {
+        return api.getKeyCache().get(this, name);
     }
 
     /*
@@ -64,7 +98,7 @@ public abstract class SmoothTimberModule extends Module {
 
     private final ArrayList<String> commands = new ArrayList<>();
 
-    private void registerCommands() {
+    private final void registerCommands() {
         logger.log(LogTypeId.INFO, "Registering commands...");
         CommandManager<PlatformSource> commandManager = api.getCommandManager();
         List<IPlatformCommand> providers = getWrapper().getManager().getExtensionManager().getExtensionsOf(getId(), IPlatformCommand.class);
@@ -118,7 +152,7 @@ public abstract class SmoothTimberModule extends Module {
         logger.log(LogTypeId.INFO, "Registered " + count + " commands of " + providers.size() + "!");
     }
 
-    private void unregisterCommands() {
+    private final void unregisterCommands() {
         logger.log(LogTypeId.INFO, "Unregistering commands...");
         if (commands.isEmpty()) {
             logger.log(LogTypeId.INFO, "No commands to unregister.");
@@ -132,7 +166,7 @@ public abstract class SmoothTimberModule extends Module {
         logger.log(LogTypeId.INFO, "Unregistered all commands");
     }
 
-    private void registerListeners() {
+    private final void registerListeners() {
         logger.log(LogTypeId.INFO, "Registering listeners...");
         int[] status = api.getEventManager().getHandler().register(this);
         if (status.length == 0) {
@@ -142,7 +176,7 @@ public abstract class SmoothTimberModule extends Module {
         logger.log(LogTypeId.INFO, "Registered " + status[0] + " of " + status[1] + " listeners!");
     }
 
-    private void unregisterListeners() {
+    private final void unregisterListeners() {
         logger.log(LogTypeId.INFO, "Unregistering listeners...");
         api.getEventManager().getHandler().unregister(this);
         logger.log(LogTypeId.INFO, "Unregistered all listeners");

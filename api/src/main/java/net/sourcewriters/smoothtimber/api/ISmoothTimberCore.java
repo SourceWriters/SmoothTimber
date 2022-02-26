@@ -8,21 +8,21 @@ import net.sourcewriters.smoothtimber.api.util.IResource;
 public interface ISmoothTimberCore {
 
     /**
-     * Get the system logger
+     * Gets the system logger
      * 
      * @return the logger
      */
     ILogger getSystemLogger();
 
     /**
-     * Get the system resource
+     * Gets the system resource
      * 
      * @return the resource
      */
     IResource getSystemResource();
 
     /**
-     * Get or create Logger for module
+     * Gets or creates the Logger for the module
      * 
      * @param  module the module that the logger is for
      * 
@@ -31,12 +31,19 @@ public interface ISmoothTimberCore {
     ILogger getLogger(SmoothTimberModule module);
 
     /**
-     * Get or create resource for module
+     * Gets or creates the resource for module
      * 
      * @param  module the module that the resource is for
      * 
      * @return        the resource
      */
     IResource getResource(SmoothTimberModule module);
+
+    /**
+     * Gets the SmoothTimber registry
+     * 
+     * @return the registry
+     */
+    ISmoothTimberRegistry getRegistry();
 
 }
