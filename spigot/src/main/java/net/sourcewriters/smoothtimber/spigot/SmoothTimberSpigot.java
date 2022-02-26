@@ -1,6 +1,7 @@
 package net.sourcewriters.smoothtimber.spigot;
 
 import java.io.File;
+import java.util.function.Consumer;
 
 import org.bukkit.Bukkit;
 import org.bukkit.ChatColor;
@@ -9,27 +10,25 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.syntaxphoenix.avinity.module.util.DependencyVersion;
 import com.syntaxphoenix.avinity.module.util.DependencyVersionParser;
-import com.syntaxphoenix.syntaxapi.logging.ILogger;
 
 import net.sourcewriters.smoothtimber.api.platform.ISmoothTimberPlugin;
-import net.sourcewriters.smoothtimber.core.util.ILogAssist;
-import net.sourcewriters.smoothtimber.core.util.JavaLogger;
+import net.sourcewriters.smoothtimber.core.SmoothTimberCore;
 
 public final class SmoothTimberSpigot extends JavaPlugin implements ISmoothTimberPlugin {
 
     private final DependencyVersion systemVersion;
-    private final JavaLogger logger;
+    private final SmoothTimberCore core;
 
     public SmoothTimberSpigot() {
         this.systemVersion = DependencyVersionParser.INSTANCE.analyze(getDescription().getVersion());
-        this.logger = new JavaLogger(new ILogAssist() {
+        this.core = new SmoothTimberCore(new Consumer<String>() {
             private final CommandSender sender = Bukkit.getConsoleSender();
 
             @Override
-            public void info(String message) {
+            public void accept(String message) {
                 sender.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
             }
-        });
+        }, new SpigotPlatform(this));
     }
 
     @Override
@@ -41,14 +40,13 @@ public final class SmoothTimberSpigot extends JavaPlugin implements ISmoothTimbe
     public void onDisable() {
 
     }
-    
+
     /*
      * Plug-in implementation
      */
 
-    @Override
-    public ILogger getSystemLogger() {
-        return logger;
+    public SmoothTimberCore getCore() {
+        return core;
     }
 
     @Override
