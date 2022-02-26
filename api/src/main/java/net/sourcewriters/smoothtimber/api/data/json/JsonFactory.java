@@ -22,7 +22,7 @@ public final class JsonFactory extends AbstractDataFactory<JsonValue> {
     private final JsonParser parser = new JsonParser();
     private final JsonWriter writer = new JsonWriter().setPretty(true).setSpaces(true).setIndent(4);
 
-    public JsonFactory(IDataAdapterRegistry<JsonValue> registry) {
+    public JsonFactory(final IDataAdapterRegistry<JsonValue> registry) {
         super(registry);
     }
 
@@ -35,30 +35,30 @@ public final class JsonFactory extends AbstractDataFactory<JsonValue> {
     }
 
     @Override
-    public JsonFactory toFile(IDataContainer container, File file) throws IOException {
+    public JsonFactory toFile(final IDataContainer container, final File file) throws IOException {
         writer.toFile(JsonAdapter.toJsonObject(registry, container), file);
         return this;
     }
 
     @Override
-    public JsonFactory toStream(IDataContainer container, OutputStream stream) throws IOException {
+    public JsonFactory toStream(final IDataContainer container, final OutputStream stream) throws IOException {
         writer.toStream(JsonAdapter.toJsonObject(registry, container), stream);
         return this;
     }
 
     @Override
-    public JsonFactory toString(IDataContainer container, StringBuilder builder) throws IOException {
+    public JsonFactory toString(final IDataContainer container, final StringBuilder builder) throws IOException {
         builder.append(writer.toString(JsonAdapter.toJsonObject(registry, container)));
         return this;
     }
 
     @Override
-    public JsonFactory fromFile(IDataContainer rawContainer, File file) throws IOException, JsonSyntaxException {
-        if(!(rawContainer instanceof JsonContainer)) {
+    public JsonFactory fromFile(final IDataContainer rawContainer, final File file) throws IOException, JsonSyntaxException {
+        if (!(rawContainer instanceof JsonContainer)) {
             throw new IllegalArgumentException("Unsupported container type: " + rawContainer.getClass().getSimpleName());
         }
-        JsonContainer container = (JsonContainer) rawContainer;
-        JsonValue<?> value = parser.fromFile(file);
+        final JsonContainer container = (JsonContainer) rawContainer;
+        final JsonValue<?> value = parser.fromFile(file);
         if (value == null || !value.hasType(ValueType.OBJECT)) {
             return this;
         }
@@ -67,12 +67,12 @@ public final class JsonFactory extends AbstractDataFactory<JsonValue> {
     }
 
     @Override
-    public JsonFactory fromStream(IDataContainer rawContainer, InputStream stream) throws IOException, JsonSyntaxException {
-        if(!(rawContainer instanceof JsonContainer)) {
+    public JsonFactory fromStream(final IDataContainer rawContainer, final InputStream stream) throws IOException, JsonSyntaxException {
+        if (!(rawContainer instanceof JsonContainer)) {
             throw new IllegalArgumentException("Unsupported container type: " + rawContainer.getClass().getSimpleName());
         }
-        JsonContainer container = (JsonContainer) rawContainer;
-        JsonValue<?> value = parser.fromStream(stream);
+        final JsonContainer container = (JsonContainer) rawContainer;
+        final JsonValue<?> value = parser.fromStream(stream);
         if (value == null || !value.hasType(ValueType.OBJECT)) {
             return this;
         }
@@ -81,12 +81,12 @@ public final class JsonFactory extends AbstractDataFactory<JsonValue> {
     }
 
     @Override
-    public JsonFactory fromString(IDataContainer rawContainer, String string) throws IOException, JsonSyntaxException {
-        if(!(rawContainer instanceof JsonContainer)) {
+    public JsonFactory fromString(final IDataContainer rawContainer, final String string) throws IOException, JsonSyntaxException {
+        if (!(rawContainer instanceof JsonContainer)) {
             throw new IllegalArgumentException("Unsupported container type: " + rawContainer.getClass().getSimpleName());
         }
-        JsonContainer container = (JsonContainer) rawContainer;
-        JsonValue<?> value = parser.fromString(string);
+        final JsonContainer container = (JsonContainer) rawContainer;
+        final JsonValue<?> value = parser.fromString(string);
         if (value == null || !value.hasType(ValueType.OBJECT)) {
             return this;
         }

@@ -16,7 +16,7 @@ public final class JsonContainer extends AbstractDataContainer<JsonValue> implem
 
     private JsonObject root = new JsonObject();
 
-    public JsonContainer(IDataAdapterRegistry<JsonValue> registry) {
+    public JsonContainer(final IDataAdapterRegistry<JsonValue> registry) {
         super(registry);
     }
 
@@ -31,18 +31,18 @@ public final class JsonContainer extends AbstractDataContainer<JsonValue> implem
     }
 
     @Override
-    public boolean has(String key) {
+    public boolean has(final String key) {
         return root.has(key);
     }
 
     @Override
-    public boolean remove(String key) {
+    public boolean remove(final String key) {
         return root.remove(key).isPresent();
     }
 
     @Override
     public Set<String> getKeyspaces() {
-        HashSet<String> set = new HashSet<>();
+        final HashSet<String> set = new HashSet<>();
         Collections.addAll(set, root.keys());
         return set;
     }
@@ -58,20 +58,20 @@ public final class JsonContainer extends AbstractDataContainer<JsonValue> implem
     }
 
     @Override
-    public JsonValue<?> getRaw(String key) {
+    public JsonValue<?> getRaw(final String key) {
         return root.get(key);
     }
 
     @Override
-    public void set(String key, JsonValue value) {
+    public void set(final String key, final JsonValue value) {
         root.set(key, value);
     }
 
-    final JsonObject getRoot() {
+    JsonObject getRoot() {
         return root;
     }
 
-    final JsonContainer setRoot(JsonObject root) {
+    JsonContainer setRoot(final JsonObject root) {
         this.root = root;
         return this;
     }

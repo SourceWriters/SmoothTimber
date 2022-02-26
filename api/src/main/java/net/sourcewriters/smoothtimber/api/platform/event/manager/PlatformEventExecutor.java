@@ -16,7 +16,8 @@ final class PlatformEventExecutor {
     private final boolean ignoreCancelled;
     private final PlatformEventPriority priority;
 
-    public PlatformEventExecutor(Class<? extends PlatformEvent> eventType, Object instance, Method target, PlatformEventListener listener) {
+    public PlatformEventExecutor(final Class<? extends PlatformEvent> eventType, final Object instance, final Method target,
+        final PlatformEventListener listener) {
         this.eventType = eventType;
         this.instance = instance;
         this.target = target;
@@ -24,7 +25,7 @@ final class PlatformEventExecutor {
         this.ignoreCancelled = listener.ignoreCancelled();
         this.priority = listener.priority();
     }
-    
+
     public Object getInstance() {
         return instance;
     }
@@ -41,7 +42,7 @@ final class PlatformEventExecutor {
         return eventType;
     }
 
-    public void call(PlatformEvent event) {
+    public void call(final PlatformEvent event) {
         if (!eventType.isAssignableFrom(event.getClass())) {
             return;
         }
@@ -54,7 +55,7 @@ final class PlatformEventExecutor {
         } catch (ClassCastException | IllegalAccessException | IllegalArgumentException | InvocationTargetException exp) {
             throw new PlatformEventException(
                 "Failed to invoke '" + target.getName() + "' on instance '" + instance.getClass().getSimpleName() + "'!", exp);
-        } catch (Exception exp) {
+        } catch (final Exception exp) {
             if (exp instanceof PlatformEventException) {
                 throw exp;
             }

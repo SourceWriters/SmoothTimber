@@ -25,7 +25,7 @@ public final class SmoothTimberSpigot extends JavaPlugin implements ISmoothTimbe
             private final CommandSender sender = Bukkit.getConsoleSender();
 
             @Override
-            public void accept(String message) {
+            public void accept(final String message) {
                 sender.sendMessage(ChatColor.translateAlternateColorCodes('&', message));
             }
         }, new SpigotPlatform(this));

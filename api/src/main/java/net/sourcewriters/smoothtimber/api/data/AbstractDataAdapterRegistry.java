@@ -16,17 +16,17 @@ public abstract class AbstractDataAdapterRegistry<B> implements IDataAdapterRegi
         Function<C, P> extractor);
 
     public AbstractDataAdapterRegistry() {
-        for (IDataType<?, ?> type : IDataType.PRIMITIVES) {
+        for (final IDataType<?, ?> type : IDataType.PRIMITIVES) {
             adapters.add(build(type.getPrimitive()));
         }
     }
 
     @Override
-    public B wrap(Object value) {
+    public B wrap(final Object value) {
         if (value == null) {
             return null;
         }
-        IDataAdapter<?, ? extends B, B> adapter = find(value.getClass(), IDataAdapter::getPrimitiveType);
+        final IDataAdapter<?, ? extends B, B> adapter = find(value.getClass(), IDataAdapter::getPrimitiveType);
         if (adapter == null) {
             return null;
         }
@@ -34,21 +34,21 @@ public abstract class AbstractDataAdapterRegistry<B> implements IDataAdapterRegi
     }
 
     @Override
-    public Object extract(B base) {
+    public Object extract(final B base) {
         if (base == null) {
             return null;
         }
-        IDataAdapter<?, ? extends B, B> adapter = find(base.getClass(), IDataAdapter::getComplexType);
+        final IDataAdapter<?, ? extends B, B> adapter = find(base.getClass(), IDataAdapter::getComplexType);
         return adapter == null ? null : adapter.extract(base);
     }
 
     @Override
-    public boolean has(Class<?> clazz) {
+    public boolean has(final Class<?> clazz) {
         return adapters.stream()
             .anyMatch(adapter -> Objects.equals(clazz, adapter.getPrimitiveType()) || Objects.equals(clazz, adapter.getComplexType()));
     }
 
-    private IDataAdapter<?, ? extends B, B> find(Class<?> clazz, Function<IDataAdapter<?, ? extends B, B>, Class<?>> mapper) {
+    private IDataAdapter<?, ? extends B, B> find(final Class<?> clazz, final Function<IDataAdapter<?, ? extends B, B>, Class<?>> mapper) {
         return adapters.stream().filter(adapter -> mapper.apply(adapter).isAssignableFrom(clazz)).findAny().orElseGet(() -> build(clazz));
     }
 

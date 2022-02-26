@@ -8,7 +8,7 @@ public final class PlatformBlockBreakEvent extends PlatformEvent {
     private final IPlatformPlayer player;
     private final IPlatformBlock block;
 
-    public PlatformBlockBreakEvent(IPlatformPlayer player, IPlatformBlock block) {
+    public PlatformBlockBreakEvent(final IPlatformPlayer player, final IPlatformBlock block) {
         this.player = player;
         this.block = block;
     }

@@ -24,8 +24,8 @@ public final class NumberConversion {
         throw new UnsupportedOperationException("Utility class");
     }
 
-    public static <E> E convert(Number number, Class<E> clazz) {
-        Function<Number, Number> mapper = MAP.get(clazz);
+    public static <E> E convert(final Number number, final Class<E> clazz) {
+        final Function<Number, Number> mapper = MAP.get(clazz);
         if (mapper == null) {
             return null;
         }

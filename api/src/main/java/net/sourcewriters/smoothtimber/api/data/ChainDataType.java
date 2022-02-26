@@ -13,15 +13,15 @@ public class ChainDataType<P extends Object, C extends Object> implements IDataT
      * Contains
      */
 
-    public boolean has(IDataType<?, ?> type) {
+    public boolean has(final IDataType<?, ?> type) {
         return hasExact(type) || hasComplex(type.getComplex());
     }
 
-    public boolean hasExact(IDataType<?, ?> type) {
+    public boolean hasExact(final IDataType<?, ?> type) {
         return types.contains(type);
     }
 
-    public boolean hasComplex(Class<?> complex) {
+    public boolean hasComplex(final Class<?> complex) {
         return types.stream().anyMatch(type -> Objects.equals(type.getComplex(), complex));
     }
 
@@ -29,18 +29,15 @@ public class ChainDataType<P extends Object, C extends Object> implements IDataT
      * Add
      */
 
-    public ChainDataType<P, C> add(IDataType<?, ?> type) {
-        if (type == null) {
-            return this;
-        }
-        if (has(type)) {
+    public ChainDataType<P, C> add(final IDataType<?, ?> type) {
+        if ((type == null) || has(type)) {
             return this;
         }
         types.add(type);
         return this;
     }
 
-    public ChainDataType<P, C> addAll(IDataType<?, ?>... types) {
+    public ChainDataType<P, C> addAll(final IDataType<?, ?>... types) {
         if (types == null) {
             return this;
         }
@@ -50,14 +47,14 @@ public class ChainDataType<P extends Object, C extends Object> implements IDataT
         return this;
     }
 
-    public ChainDataType<P, C> addAll(Iterable<IDataType<?, ?>> types) {
+    public ChainDataType<P, C> addAll(final Iterable<IDataType<?, ?>> types) {
         if (types == null) {
             return this;
         }
         return addAll(types.iterator());
     }
 
-    public ChainDataType<P, C> addAll(Iterator<IDataType<?, ?>> types) {
+    public ChainDataType<P, C> addAll(final Iterator<IDataType<?, ?>> types) {
         if (types == null) {
             return this;
         }
@@ -71,12 +68,12 @@ public class ChainDataType<P extends Object, C extends Object> implements IDataT
      * Remove
      */
 
-    public ChainDataType<P, C> remove(IDataType<?, ?> type) {
+    public ChainDataType<P, C> remove(final IDataType<?, ?> type) {
         types.remove(type);
         return this;
     }
 
-    public ChainDataType<P, C> removeAll(IDataType<?, ?>... types) {
+    public ChainDataType<P, C> removeAll(final IDataType<?, ?>... types) {
         if (types == null) {
             return this;
         }
@@ -86,14 +83,14 @@ public class ChainDataType<P extends Object, C extends Object> implements IDataT
         return this;
     }
 
-    public ChainDataType<P, C> removeAll(Iterable<IDataType<?, ?>> types) {
+    public ChainDataType<P, C> removeAll(final Iterable<IDataType<?, ?>> types) {
         if (types == null) {
             return this;
         }
         return removeAll(types.iterator());
     }
 
-    public ChainDataType<P, C> removeAll(Iterator<IDataType<?, ?>> types) {
+    public ChainDataType<P, C> removeAll(final Iterator<IDataType<?, ?>> types) {
         if (types == null) {
             return this;
         }
@@ -107,11 +104,11 @@ public class ChainDataType<P extends Object, C extends Object> implements IDataT
      * Get
      */
 
-    public IDataType<?, ?> get(int index) {
+    public IDataType<?, ?> get(final int index) {
         return types.get(index);
     }
 
-    public IDataType<?, ?>[] get(int start, int length) {
+    public IDataType<?, ?>[] get(final int start, final int length) {
         return types.subList(start, start + length).toArray(new IDataType[0]);
     }
 
@@ -137,12 +134,12 @@ public class ChainDataType<P extends Object, C extends Object> implements IDataT
      */
 
     @SuppressWarnings("unchecked")
-    public <T> Optional<ChainDataType<P, T>> asComplex(Class<T> complex) {
+    public <T> Optional<ChainDataType<P, T>> asComplex(final Class<T> complex) {
         return Optional.ofNullable(Objects.equals(getComplex(), complex) ? (ChainDataType<P, T>) this : null);
     }
 
     @SuppressWarnings("unchecked")
-    public <T> Optional<ChainDataType<T, C>> asPrimitive(Class<T> primitive) {
+    public <T> Optional<ChainDataType<T, C>> asPrimitive(final Class<T> primitive) {
         return Optional.ofNullable(Objects.equals(getPrimitive(), primitive) ? (ChainDataType<T, C>) this : null);
     }
 
@@ -164,7 +161,7 @@ public class ChainDataType<P extends Object, C extends Object> implements IDataT
 
     @SuppressWarnings("unchecked")
     @Override
-    public C fromPrimitive(IDataAdapterContext context, P primitive) {
+    public C fromPrimitive(final IDataAdapterContext context, final P primitive) {
         Object output = primitive;
         for (int index = size() - 1; index > -1; index--) {
             if (output == null) {
@@ -177,7 +174,7 @@ public class ChainDataType<P extends Object, C extends Object> implements IDataT
 
     @SuppressWarnings("unchecked")
     @Override
-    public P toPrimitive(IDataAdapterContext context, C complex) {
+    public P toPrimitive(final IDataAdapterContext context, final C complex) {
         Object output = complex;
         for (int index = size() - 1; index > -1; index--) {
             if (output == null) {

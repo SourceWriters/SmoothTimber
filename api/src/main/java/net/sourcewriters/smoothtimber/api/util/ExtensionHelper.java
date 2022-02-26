@@ -12,7 +12,7 @@ public final class ExtensionHelper {
         throw new UnsupportedOperationException("Utility class");
     }
 
-    public static Optional<Field> getField(Class<?> clazz, String field) {
+    public static Optional<Field> getField(final Class<?> clazz, final String field) {
         try {
             return Optional.of(clazz.getField(field));
         } catch (NoSuchFieldException | SecurityException e) {
@@ -26,7 +26,7 @@ public final class ExtensionHelper {
         return Optional.empty();
     }
 
-    public static Optional<Method> getMethod(Class<?> clazz, String method, Class<?>... arguments) {
+    public static Optional<Method> getMethod(final Class<?> clazz, final String method, final Class<?>... arguments) {
         try {
             return Optional.of(clazz.getMethod(method, arguments));
         } catch (NoSuchMethodException | SecurityException e) {
@@ -40,17 +40,18 @@ public final class ExtensionHelper {
         return Optional.empty();
     }
 
-    public static <A extends Annotation> Optional<A> getAnnotation(AnnotatedElement element, Class<A> annotation) {
+    public static <A extends Annotation> Optional<A> getAnnotation(final AnnotatedElement element, final Class<A> annotation) {
         return Optional.ofNullable(element.getAnnotation(annotation))
             .or(() -> Optional.ofNullable(element.getDeclaredAnnotation(annotation)));
     }
 
-    public static <A extends Annotation> Optional<A> getAnnotationOfField(Class<A> annotation, Class<?> clazz, String fieldName) {
+    public static <A extends Annotation> Optional<A> getAnnotationOfField(final Class<A> annotation, final Class<?> clazz,
+        final String fieldName) {
         return getField(clazz, fieldName).flatMap(method -> getAnnotation(method, annotation));
     }
 
-    public static <A extends Annotation> Optional<A> getAnnotationOfMethod(Class<A> annotation, Class<?> clazz, String methodName,
-        Class<?>... arguments) {
+    public static <A extends Annotation> Optional<A> getAnnotationOfMethod(final Class<A> annotation, final Class<?> clazz,
+        final String methodName, final Class<?>... arguments) {
         return getMethod(clazz, methodName, arguments).flatMap(method -> getAnnotation(method, annotation));
     }
 

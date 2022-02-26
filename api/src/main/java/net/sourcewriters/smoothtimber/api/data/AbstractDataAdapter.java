@@ -10,13 +10,15 @@ public abstract class AbstractDataAdapter<P, C, B> implements IDataAdapter<P, C,
     private final Class<P> primitiveType;
     private final Class<C> complexType;
 
-    public AbstractDataAdapter(Class<P> primitiveType, Class<C> complexType, Function<P, C> builder, Function<C, P> extractor) {
+    public AbstractDataAdapter(final Class<P> primitiveType, final Class<C> complexType, final Function<P, C> builder,
+        final Function<C, P> extractor) {
         this.primitiveType = primitiveType;
         this.complexType = complexType;
         this.builder = builder;
         this.extractor = extractor;
     }
 
+    @Override
     public abstract Class<B> getBaseType();
 
     @Override
@@ -29,15 +31,18 @@ public abstract class AbstractDataAdapter<P, C, B> implements IDataAdapter<P, C,
         return complexType;
     }
 
-    public P extract(B input) {
+    @Override
+    public P extract(final B input) {
         return complexType.isInstance(input) ? extractor.apply(complexType.cast(input)) : null;
     }
 
-    public C build(Object input) {
+    @Override
+    public C build(final Object input) {
         return primitiveType.isInstance(input) ? builder.apply(primitiveType.cast(input)) : null;
     }
 
-    public boolean isInstance(B base) {
+    @Override
+    public boolean isInstance(final B base) {
         return complexType.isInstance(base);
     }
 

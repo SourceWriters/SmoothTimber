@@ -9,7 +9,7 @@ public abstract class AbstractDataFactory<B> implements IDataFactory<B> {
 
     protected final IDataAdapterRegistry<B> registry;
 
-    public AbstractDataFactory(IDataAdapterRegistry<B> registry) {
+    public AbstractDataFactory(final IDataAdapterRegistry<B> registry) {
         this.registry = registry;
     }
 

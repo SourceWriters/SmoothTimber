@@ -55,7 +55,7 @@ public final class SmoothTimberCore implements ISmoothTimberCore {
     }
 
     @Override
-    public ILogger getLogger(SmoothTimberModule module) {
+    public ILogger getLogger(final SmoothTimberModule module) {
         if (module.getLogger() == null) {
             return new ModuleLogger(logger, module);
         }
@@ -63,7 +63,7 @@ public final class SmoothTimberCore implements ISmoothTimberCore {
     }
 
     @Override
-    public IResource getResource(SmoothTimberModule module) {
+    public IResource getResource(final SmoothTimberModule module) {
         if (module.getResource() == null) {
             return new ResourceImpl(module);
         }

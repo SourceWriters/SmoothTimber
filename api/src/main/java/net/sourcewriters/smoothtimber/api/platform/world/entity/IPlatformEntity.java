@@ -8,12 +8,12 @@ import net.sourcewriters.smoothtimber.api.resource.key.ResourceKey;
 import net.sourcewriters.smoothtimber.api.util.math.Vector3d;
 
 public interface IPlatformEntity extends IPlatformSender {
-    
+
     @Override
     default boolean isEntity() {
         return true;
     }
-    
+
     @Override
     default boolean isConsole() {
         return false;
@@ -25,7 +25,7 @@ public interface IPlatformEntity extends IPlatformSender {
      * @return the namespaced key
      */
     ResourceKey getType();
-    
+
     /**
      * Get the world that the entity is in
      * 

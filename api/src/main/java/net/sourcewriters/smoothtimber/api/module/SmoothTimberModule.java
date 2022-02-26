@@ -88,7 +88,7 @@ public abstract class SmoothTimberModule extends Module {
      * 
      * @return      the namespaced key
      */
-    public final ResourceKey key(String name) {
+    public final ResourceKey key(final String name) {
         return api.getKeyCache().get(this, name);
     }
 
@@ -100,25 +100,26 @@ public abstract class SmoothTimberModule extends Module {
 
     private final void registerCommands() {
         logger.log(LogTypeId.INFO, "Registering commands...");
-        CommandManager<PlatformSource> commandManager = api.getCommandManager();
-        List<IPlatformCommand> providers = getWrapper().getManager().getExtensionManager().getExtensionsOf(getId(), IPlatformCommand.class);
+        final CommandManager<PlatformSource> commandManager = api.getCommandManager();
+        final List<IPlatformCommand> providers = getWrapper().getManager().getExtensionManager().getExtensionsOf(getId(),
+            IPlatformCommand.class);
         if (providers.isEmpty()) {
             logger.log(LogTypeId.INFO, "No commands to register.");
             return;
         }
         int count = 0;
-        for (IPlatformCommand provider : providers) {
-            Optional<Command> option = ExtensionHelper.getAnnotation(provider.getClass(), Command.class);
+        for (final IPlatformCommand provider : providers) {
+            final Optional<Command> option = ExtensionHelper.getAnnotation(provider.getClass(), Command.class);
             if (option.isEmpty()) {
                 logger.log(LogTypeId.ERROR, "Couldn't find @Command at '" + provider.getClass().getSimpleName() + "'!");
                 continue;
             }
-            Command command = option.get();
+            final Command command = option.get();
             if (!COMMAND_NAME.test(command.name())) {
                 logger.log(LogTypeId.ERROR, "Invalid command name '" + command.name() + "'!");
                 continue;
             }
-            List<String> list = Arrays.asList(command.alias());
+            final List<String> list = Arrays.asList(command.alias());
             if (!list.isEmpty()) {
                 for (int idx = 0; idx < list.size(); idx++) {
                     if (COMMAND_NAME.test(list.get(idx))) {
@@ -131,12 +132,12 @@ public abstract class SmoothTimberModule extends Module {
             RootNode<PlatformSource> node;
             try {
                 node = provider.build(command.name());
-            } catch (Exception exception) {
+            } catch (final Exception exception) {
                 logger.log(LogTypeId.ERROR, "Failed to create command instance of '" + command.name() + "'!");
                 logger.log(LogTypeId.ERROR, exception);
                 continue;
             }
-            CommandState state = commandManager.register(node, list.toArray(String[]::new));
+            final CommandState state = commandManager.register(node, list.toArray(String[]::new));
             if (state == CommandState.FAILED) {
                 logger.log(LogTypeId.ERROR, "Failed to register command '" + command.name() + "'!");
                 continue;
@@ -158,8 +159,8 @@ public abstract class SmoothTimberModule extends Module {
             logger.log(LogTypeId.INFO, "No commands to unregister.");
             return;
         }
-        CommandManager<PlatformSource> commandManager = api.getCommandManager();
-        for (String command : commands) {
+        final CommandManager<PlatformSource> commandManager = api.getCommandManager();
+        for (final String command : commands) {
             commandManager.unregister(command);
         }
         commands.clear();
@@ -168,7 +169,7 @@ public abstract class SmoothTimberModule extends Module {
 
     private final void registerListeners() {
         logger.log(LogTypeId.INFO, "Registering listeners...");
-        int[] status = api.getEventManager().getHandler().register(this);
+        final int[] status = api.getEventManager().getHandler().register(this);
         if (status.length == 0) {
             logger.log(LogTypeId.INFO, "No listeners to register.");
             return;

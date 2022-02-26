@@ -10,36 +10,36 @@ public final class ResourceKeyCache {
 
     private final ConcurrentHashMap<String, ResourceKey> keys = new ConcurrentHashMap<>();
 
-    public ResourceKey get(SmoothTimberModule module, String value) {
+    public ResourceKey get(final SmoothTimberModule module, final String value) {
         return get(module.getId(), value);
     }
 
-    public ResourceKey get(String namespace, String value) {
+    public ResourceKey get(final String namespace, final String value) {
         try {
-            return keys.computeIfAbsent(namespace + ':' + value, (i) -> new ResourceKey(namespace, value));
-        } catch (KeyFormatException kfe) {
+            return keys.computeIfAbsent(namespace + ':' + value, i -> new ResourceKey(namespace, value));
+        } catch (final KeyFormatException kfe) {
             return null;
         }
     }
 
-    public ResourceKey get(String value) {
+    public ResourceKey get(final String value) {
         try {
             return keys.computeIfAbsent(value, ResourceKey::fromString);
-        } catch (KeyFormatException kfe) {
+        } catch (final KeyFormatException kfe) {
             return null;
         }
     }
 
-    public ResourceKey[] getNamespace(SmoothTimberModule module) {
+    public ResourceKey[] getNamespace(final SmoothTimberModule module) {
         return getNamespace(module.getId());
     }
 
-    public ResourceKey[] getNamespace(String namespace) {
-        Iterator<String> iterator = keys.keys().asIterator();
-        ArrayList<ResourceKey> output = new ArrayList<>();
+    public ResourceKey[] getNamespace(final String namespace) {
+        final Iterator<String> iterator = keys.keys().asIterator();
+        final ArrayList<ResourceKey> output = new ArrayList<>();
         while (iterator.hasNext()) {
-            String key = iterator.next();
-            ResourceKey current = keys.get(key);
+            final String key = iterator.next();
+            final ResourceKey current = keys.get(key);
             if (current == null || !current.getNamespace().equals(namespace)) {
                 continue;
             }
@@ -48,18 +48,18 @@ public final class ResourceKeyCache {
         return output.toArray(ResourceKey[]::new);
     }
 
-    public void clearNamespace(String namespace) {
-        Iterator<String> iterator = keys.keys().asIterator();
-        ArrayList<String> remove = new ArrayList<>();
+    public void clearNamespace(final String namespace) {
+        final Iterator<String> iterator = keys.keys().asIterator();
+        final ArrayList<String> remove = new ArrayList<>();
         while (iterator.hasNext()) {
-            String key = iterator.next();
-            ResourceKey current = keys.get(key);
+            final String key = iterator.next();
+            final ResourceKey current = keys.get(key);
             if (current == null || !current.getNamespace().equals(namespace)) {
                 continue;
             }
             remove.add(key);
         }
-        for (String key : remove) {
+        for (final String key : remove) {
             keys.remove(key);
         }
         remove.clear();

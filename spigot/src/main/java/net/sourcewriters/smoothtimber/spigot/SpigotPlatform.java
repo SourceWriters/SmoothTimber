@@ -16,7 +16,7 @@ public final class SpigotPlatform implements ISmoothTimberPlatform {
 
     private final SmoothTimberSpigot plugin;
 
-    public SpigotPlatform(SmoothTimberSpigot plugin) {
+    public SpigotPlatform(final SmoothTimberSpigot plugin) {
         this.plugin = plugin;
     }
 
@@ -51,22 +51,22 @@ public final class SpigotPlatform implements ISmoothTimberPlatform {
     }
 
     @Override
-    public IPlatformWorld getWorldByIndex(int index) {
+    public IPlatformWorld getWorldByIndex(final int index) {
         return null;
     }
 
     @Override
-    public IPlatformWorld getWorldById(UUID uniqueId) {
+    public IPlatformWorld getWorldById(final UUID uniqueId) {
         return null;
     }
 
     @Override
-    public IPlatformWorld getWorldByName(String name) {
+    public IPlatformWorld getWorldByName(final String name) {
         return null;
     }
 
     @Override
-    public IPlatformItem buildItem(ResourceKey key) {
+    public IPlatformItem buildItem(final ResourceKey key) {
         return null;
     }
 

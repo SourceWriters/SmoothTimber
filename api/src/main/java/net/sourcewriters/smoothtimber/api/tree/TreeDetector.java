@@ -11,7 +11,7 @@ public abstract class TreeDetector {
 
     private final ResourceKey key;
 
-    public TreeDetector(SmoothTimberModule module, String name) {
+    public TreeDetector(final SmoothTimberModule module, final String name) {
         this.key = Objects.requireNonNull(module.key(name));
     }
 

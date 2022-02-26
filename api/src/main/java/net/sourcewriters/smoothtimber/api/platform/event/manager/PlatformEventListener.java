@@ -15,7 +15,7 @@ public @interface PlatformEventListener {
     boolean ignoreCancelled() default false;
 
     PlatformEventPriority priority() default PlatformEventPriority.NORMAL;
-    
+
     Class<? extends PlatformEvent> eventType() default PlatformEvent.class;
 
 }

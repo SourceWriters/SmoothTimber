@@ -9,7 +9,7 @@ public class PlatformFallingBlockEvent extends PlatformEvent {
     private final ResourceKey fromType;
     private final ResourceKey toType;
 
-    public PlatformFallingBlockEvent(IPlatformFallingBlock entity, ResourceKey fromType, ResourceKey toType) {
+    public PlatformFallingBlockEvent(final IPlatformFallingBlock entity, final ResourceKey fromType, final ResourceKey toType) {
         this.entity = entity;
         this.fromType = fromType;
         this.toType = toType;

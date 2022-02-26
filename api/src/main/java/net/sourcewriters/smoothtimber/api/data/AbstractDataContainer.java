@@ -6,7 +6,7 @@ public abstract class AbstractDataContainer<B> implements IDataContainer {
 
     protected final IDataAdapterRegistry<B> registry;
 
-    public AbstractDataContainer(IDataAdapterRegistry<B> registry) {
+    public AbstractDataContainer(final IDataAdapterRegistry<B> registry) {
         this.registry = registry;
     }
 
@@ -16,8 +16,8 @@ public abstract class AbstractDataContainer<B> implements IDataContainer {
     }
 
     @Override
-    public Object get(String key) {
-        B raw = getRaw(key);
+    public Object get(final String key) {
+        final B raw = getRaw(key);
         if (raw == null) {
             return raw;
         }
@@ -25,15 +25,15 @@ public abstract class AbstractDataContainer<B> implements IDataContainer {
     }
 
     @Override
-    public <E> E get(String key, IDataType<?, E> type) {
-        Object value = registry.getBase().isAssignableFrom(type.getPrimitive()) ? getRaw(key) : get(key);
+    public <E> E get(final String key, final IDataType<?, E> type) {
+        final Object value = registry.getBase().isAssignableFrom(type.getPrimitive()) ? getRaw(key) : get(key);
         if (value == null || !type.isPrimitive(value)) {
             if (Number.class.isAssignableFrom(type.getComplex())) {
                 return NumberConversion.convert(0, type.getComplex());
             }
             return null;
         }
-        E output = type.fromPrimitiveObj(getContext(), value);
+        final E output = type.fromPrimitiveObj(getContext(), value);
         if (output == null && Number.class.isAssignableFrom(type.getComplex())) {
             return NumberConversion.convert(0, type.getComplex());
         }
@@ -41,16 +41,16 @@ public abstract class AbstractDataContainer<B> implements IDataContainer {
     }
 
     @Override
-    public boolean has(String key, IDataType<?, ?> type) {
+    public boolean has(final String key, final IDataType<?, ?> type) {
         if (!has(key)) {
             return false;
         }
-        Object value = registry.getBase().isAssignableFrom(type.getPrimitive()) ? getRaw(key) : get(key);
+        final Object value = registry.getBase().isAssignableFrom(type.getPrimitive()) ? getRaw(key) : get(key);
         return value != null && type.isPrimitive(value);
     }
 
     @Override
-    public <V, E> void set(String key, E value, IDataType<V, E> type) {
+    public <V, E> void set(final String key, final E value, final IDataType<V, E> type) {
         set(key, registry.wrap(type.toPrimitive(getContext(), value)));
     }
 
@@ -59,32 +59,32 @@ public abstract class AbstractDataContainer<B> implements IDataContainer {
      */
 
     @Override
-    public Object get(ResourceKey key) {
+    public Object get(final ResourceKey key) {
         return get(key.toString());
     }
 
     @Override
-    public <E> E get(ResourceKey key, IDataType<?, E> type) {
+    public <E> E get(final ResourceKey key, final IDataType<?, E> type) {
         return get(key.toString(), type);
     }
 
     @Override
-    public <V, E> void set(ResourceKey key, E value, IDataType<V, E> type) {
+    public <V, E> void set(final ResourceKey key, final E value, final IDataType<V, E> type) {
         set(key.toString(), value, type);
     }
 
     @Override
-    public boolean has(ResourceKey key) {
+    public boolean has(final ResourceKey key) {
         return has(key.toString());
     }
 
     @Override
-    public boolean has(ResourceKey key, IDataType<?, ?> type) {
+    public boolean has(final ResourceKey key, final IDataType<?, ?> type) {
         return has(key.toString(), type);
     }
 
     @Override
-    public boolean remove(ResourceKey key) {
+    public boolean remove(final ResourceKey key) {
         return remove(key.toString());
     }
 
@@ -99,13 +99,13 @@ public abstract class AbstractDataContainer<B> implements IDataContainer {
 
     public abstract B getRaw(String key);
 
-    public B getRaw(ResourceKey key) {
+    public B getRaw(final ResourceKey key) {
         return getRaw(key.toString());
     }
 
     public abstract void set(String key, B value);
 
-    public void set(ResourceKey key, B value) {
+    public void set(final ResourceKey key, final B value) {
         set(key.toString(), value);
     }
 

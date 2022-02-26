@@ -10,7 +10,7 @@ public final class PathSource extends DataSource {
 
     private final Path path;
 
-    public PathSource(Path path) {
+    public PathSource(final Path path) {
         this.path = path;
     }
 

@@ -13,7 +13,7 @@ public abstract class TreeAnimation {
 
     private final ResourceKey key;
 
-    public TreeAnimation(SmoothTimberModule module, String name) {
+    public TreeAnimation(final SmoothTimberModule module, final String name) {
         this.key = Objects.requireNonNull(module.key(name));
     }
 

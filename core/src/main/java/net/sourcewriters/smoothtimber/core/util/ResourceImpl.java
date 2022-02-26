@@ -59,7 +59,7 @@ public final class ResourceImpl implements IResource {
         }
         try {
             return root.replace(jarFile ? getPathFor(jarUri, "/") : Paths.get(jarUri).resolve("classes")).lock().get();
-        } catch (IOException e) {
+        } catch (final IOException e) {
             logger.log(LogTypeId.ERROR, "Failed to retrieve resource root!");
             logger.log(LogTypeId.ERROR, e);
             return null;
@@ -67,12 +67,12 @@ public final class ResourceImpl implements IResource {
     }
 
     @Override
-    public Path getPath(String path) {
+    public Path getPath(final String path) {
         return getRootPath().resolveSibling(path);
     }
 
     @Override
-    public Path getPathAsExternal(String path) {
+    public Path getPathAsExternal(final String path) {
         final File target = new File(folder, path);
         try {
             final Path root = getRootPath().resolveSibling(path);
@@ -91,13 +91,13 @@ public final class ResourceImpl implements IResource {
     }
 
     @Override
-    public DataSource getSource(String path) {
+    public DataSource getSource(final String path) {
         return new PathSource(getPath(path));
     }
 
     @Override
-    public DataSource getSourceAsExternal(String path) {
-        Path pathObj = getPath(path);
+    public DataSource getSourceAsExternal(final String path) {
+        final Path pathObj = getPath(path);
         if (PathUtils.isDirectory(pathObj)) {
             return null;
         }
@@ -114,10 +114,10 @@ public final class ResourceImpl implements IResource {
      * Utils
      */
 
-    private URI buildUri(File jarFile) {
+    private URI buildUri(final File jarFile) {
         try {
             return new URI(("jar:file:/" + jarFile.getAbsolutePath().replace('\\', '/').replace(" ", "%20") + "!/").replace("//", "/"));
-        } catch (URISyntaxException e) {
+        } catch (final URISyntaxException e) {
             logger.log(e);
             return jarFile.toURI();
         }

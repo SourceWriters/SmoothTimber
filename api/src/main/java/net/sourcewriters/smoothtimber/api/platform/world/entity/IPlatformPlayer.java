@@ -3,7 +3,7 @@ package net.sourcewriters.smoothtimber.api.platform.world.entity;
 import net.sourcewriters.smoothtimber.api.platform.util.STGameMode;
 
 public interface IPlatformPlayer extends IPlatformLivingEntity {
-    
+
     @Override
     default boolean isPlayer() {
         return true;

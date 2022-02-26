@@ -15,7 +15,7 @@ public final class ModuleLogger implements ILogger {
     private final JavaLogger delegate;
     private final String module;
 
-    public ModuleLogger(JavaLogger delegate, SmoothTimberModule module) {
+    public ModuleLogger(final JavaLogger delegate, final SmoothTimberModule module) {
         this.delegate = delegate;
         this.module = module.getId();
     }
@@ -41,7 +41,7 @@ public final class ModuleLogger implements ILogger {
     }
 
     @Override
-    public LogType getType(String name) {
+    public LogType getType(final String name) {
         return delegate.getType(name);
     }
 
@@ -56,75 +56,75 @@ public final class ModuleLogger implements ILogger {
     }
 
     @Override
-    public ILogger log(String message) {
+    public ILogger log(final String message) {
         return log(LogTypeId.INFO, message);
     }
 
     @Override
-    public ILogger log(String... messages) {
+    public ILogger log(final String... messages) {
         return log(LogTypeId.INFO, messages);
     }
 
     @Override
-    public ILogger log(Throwable throwable) {
+    public ILogger log(final Throwable throwable) {
         return log(LogTypeId.ERROR, throwable);
     }
 
     @Override
-    public ILogger log(LogTypeId type, String message) {
+    public ILogger log(final LogTypeId type, final String message) {
         return log(type.id(), message);
     }
 
     @Override
-    public ILogger log(LogTypeId type, String... messages) {
+    public ILogger log(final LogTypeId type, final String... messages) {
         return log(type.id(), messages);
     }
 
     @Override
-    public ILogger log(LogTypeId type, Throwable throwable) {
+    public ILogger log(final LogTypeId type, final Throwable throwable) {
         return log(type.id(), throwable);
     }
 
     @Override
-    public ILogger log(String type, String message) {
+    public ILogger log(final String type, final String message) {
         delegate.printModule(type, module, message);
         return this;
     }
 
     @Override
-    public ILogger log(String type, String... messages) {
+    public ILogger log(final String type, final String... messages) {
         delegate.printModule(type, module, messages);
         return this;
     }
 
     @Override
-    public ILogger log(String type, Throwable throwable) {
+    public ILogger log(final String type, final Throwable throwable) {
         delegate.printModule(type, module, throwable);
         return this;
     }
 
     @Override
-    public ILogger setColored(boolean paramBoolean) {
+    public ILogger setColored(final boolean paramBoolean) {
         throw new UnsupportedOperationException("Only delegate");
     }
 
     @Override
-    public ILogger setCustom(BiConsumer<Boolean, String> paramBiConsumer) {
+    public ILogger setCustom(final BiConsumer<Boolean, String> paramBiConsumer) {
         throw new UnsupportedOperationException("Only delegate");
     }
 
     @Override
-    public ILogger setState(LoggerState paramLoggerState) {
+    public ILogger setState(final LoggerState paramLoggerState) {
         throw new UnsupportedOperationException("Only delegate");
     }
 
     @Override
-    public ILogger setThreadName(String paramString) {
+    public ILogger setThreadName(final String paramString) {
         throw new UnsupportedOperationException("Only delegate");
     }
 
     @Override
-    public ILogger setType(LogType paramLogType) {
+    public ILogger setType(final LogType paramLogType) {
         throw new UnsupportedOperationException("Only delegate");
     }
 

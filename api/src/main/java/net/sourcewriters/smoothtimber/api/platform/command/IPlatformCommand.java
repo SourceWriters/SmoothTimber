@@ -6,7 +6,7 @@ import com.syntaxphoenix.avinity.module.extension.IExtension;
 
 @ExtensionPoint
 public interface IPlatformCommand extends IExtension {
-    
+
     RootNode<PlatformSource> build(String name) throws Exception;
 
 }

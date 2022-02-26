@@ -69,7 +69,7 @@ public final class SmoothTimberApi {
      * 
      * @return the data registry
      */
-    public final JsonAdapterRegistry getDataRegistry() {
+    public JsonAdapterRegistry getDataRegistry() {
         return dataRegistry;
     }
 
@@ -78,7 +78,7 @@ public final class SmoothTimberApi {
      * 
      * @return the data factory
      */
-    public final JsonFactory getDataFactory() {
+    public JsonFactory getDataFactory() {
         return dataFactory;
     }
 
@@ -87,7 +87,7 @@ public final class SmoothTimberApi {
      * 
      * @return the configuration
      */
-    public final JsonContainer getConfiguration() {
+    public JsonContainer getConfiguration() {
         return configuration;
     }
 
@@ -96,7 +96,7 @@ public final class SmoothTimberApi {
      * 
      * @return the cache
      */
-    public final ResourceKeyCache getKeyCache() {
+    public ResourceKeyCache getKeyCache() {
         return keyCache;
     }
 
