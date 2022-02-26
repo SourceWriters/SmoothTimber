@@ -7,6 +7,7 @@ import com.syntaxphoenix.syntaxapi.event.EventManager;
 import com.syntaxphoenix.syntaxapi.logging.ILogger;
 
 import net.sourcewriters.smoothtimber.api.ISmoothTimberCore;
+import net.sourcewriters.smoothtimber.api.ISmoothTimberRegistry;
 import net.sourcewriters.smoothtimber.api.SmoothTimberApi;
 import net.sourcewriters.smoothtimber.api.module.SmoothTimberModule;
 import net.sourcewriters.smoothtimber.api.platform.ISmoothTimberPlatform;
@@ -67,6 +68,11 @@ public final class SmoothTimberCore implements ISmoothTimberCore {
             return new ResourceImpl(module);
         }
         return module.getResource();
+    }
+
+    @Override
+    public ISmoothTimberRegistry getRegistry() {
+        return null;
     }
 
 }
