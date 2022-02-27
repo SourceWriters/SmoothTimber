@@ -6,6 +6,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -13,6 +14,7 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.plugin.Plugin;
 
 import com.syntaxphoenix.spigot.smoothtimber.SmoothTimber;
 import com.syntaxphoenix.spigot.smoothtimber.config.Message;
@@ -100,6 +102,9 @@ public class BlockBreakListener implements Listener {
                         @Override
                         public void run() {
                             AsyncPlayerTreeFallEvent event = SmoothTimber.buildFallEvent(player, location, change, tool);
+                            boolean animated = CutterConfig.ENABLE_ANIMATION;
+                            boolean collect = CutterConfig.INSTANT_COLLECT;
+                            Plugin plugin = SmoothTimber.get();
                             for (Location woodBlock : woodBlocks) {
                                 Block block = woodBlock.getBlock();
                                 WoodType wood = change.getWoodTypeFromBlock(block);
@@ -108,8 +113,22 @@ public class BlockBreakListener implements Listener {
                                         break;
                                     }
                                     event.add(wood);
-                                    change.toFallingBlock(block).setMetadata("STAnimate",
-                                        new FixedMetadataValue(SmoothTimber.get(), maxItems <= 1 ? maxItems : generateAmount(maxItems)));
+                                    int amount = maxItems <= 1 ? maxItems : generateAmount(maxItems);
+                                    if (animated) {
+                                        Entity entity = change.toFallingBlock(block);
+                                        entity.setMetadata("STAnimate", new FixedMetadataValue(plugin, amount));
+                                        if (collect) {
+                                            entity.setMetadata("STCollect", new FixedMetadataValue(plugin, player.getUniqueId().toString()));
+                                        }
+                                        continue;
+                                    }
+                                    if (collect) {
+                                        ItemStack stack = change.getItemFromBlock(block);
+                                        stack.setAmount(amount);
+                                        player.getInventory().addItem(stack);
+                                        continue;
+                                    }
+                                    change.dropItemByBlock(block, amount);
                                 }
                             }
                             Bukkit.getScheduler().runTaskAsynchronously(PluginUtils.MAIN, () -> SmoothTimber.triggerFallEvent(event));

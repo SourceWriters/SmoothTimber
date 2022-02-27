@@ -37,13 +37,30 @@ public interface VersionChanger {
 
     public ItemStack getItemInHand(Player p);
 
+    public ItemStack getItemFromBlock(Block block);
+
+    public ItemStack getItemFromFallingBlock(FallingBlock block);
+
     public ItemStack getAirItem();
 
     public Entity toFallingBlock(Block block);
 
+    public void setAirBlock(Block block);
+
     public EntityType getFallingBlockType();
 
-    public void dropItemByFallingBlock(FallingBlock block, int amount);
+    public default void dropItemByFallingBlock(FallingBlock block, int amount) {
+        ItemStack item = getItemFromFallingBlock(block);
+        item.setAmount(amount);
+        block.getWorld().dropItemNaturally(block.getLocation(), item);
+    }
+
+    public default void dropItemByBlock(Block block, int amount) {
+        ItemStack item = getItemFromBlock(block);
+        item.setAmount(amount);
+        setAirBlock(block);
+        block.getWorld().dropItemNaturally(block.getLocation(), item);
+    }
 
     public int getMaxDropCount(ItemStack tool);
 

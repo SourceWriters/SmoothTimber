@@ -110,10 +110,25 @@ public class v1_16xChanger implements VersionChanger {
     public ItemStack getItemInHand(Player p) {
         return p.getEquipment().getItemInMainHand();
     }
+    
+    @Override
+    public ItemStack getItemFromBlock(Block block) {
+        return new ItemStack(block.getBlockData().getMaterial());
+    }
+    
+    @Override
+    public ItemStack getItemFromFallingBlock(FallingBlock block) {
+        return new ItemStack(block.getBlockData().getMaterial());
+    }
 
     @Override
     public ItemStack getAirItem() {
         return new ItemStack(Material.AIR);
+    }
+    
+    @Override
+    public void setAirBlock(Block block) {
+        block.setType(Material.AIR);
     }
 
     @Override
@@ -126,11 +141,6 @@ public class v1_16xChanger implements VersionChanger {
     @Override
     public EntityType getFallingBlockType() {
         return EntityType.FALLING_BLOCK;
-    }
-
-    @Override
-    public void dropItemByFallingBlock(FallingBlock block, int amount) {
-        block.getWorld().dropItemNaturally(block.getLocation(), new ItemStack(block.getBlockData().getMaterial(), amount));
     }
 
     @Override

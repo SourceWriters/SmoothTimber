@@ -110,8 +110,24 @@ public class v1_8xChanger implements VersionChanger {
     }
 
     @Override
+    public ItemStack getItemFromBlock(Block block) {
+        return getItemStack(block.getType(), block.getData(), 1);
+    }
+
+    @Override
+    public ItemStack getItemFromFallingBlock(FallingBlock block) {
+        return getItemStack((Material) Storage.MATERIAL.run("type", Storage.FALLING_BLOCK.run(block, "id")),
+            (byte) Storage.FALLING_BLOCK.run(block, "data"), 1);
+    }
+
+    @Override
     public ItemStack getAirItem() {
         return new ItemStack(Material.AIR);
+    }
+    
+    @Override
+    public void setAirBlock(Block block) {
+        block.setType(Material.AIR);
     }
 
     @Override
@@ -125,13 +141,6 @@ public class v1_8xChanger implements VersionChanger {
     @Override
     public EntityType getFallingBlockType() {
         return EntityType.FALLING_BLOCK;
-    }
-
-    @Override
-    public void dropItemByFallingBlock(FallingBlock block, int amount) {
-        block.getWorld().dropItem(block.getLocation(),
-            getItemStack((Material) Storage.MATERIAL.run("type", Storage.FALLING_BLOCK.run(block, "id")),
-                (byte) Storage.FALLING_BLOCK.run(block, "data"), amount));
     }
 
     public ItemStack getItemStack(Material type, byte id, int amount) {
@@ -151,7 +160,7 @@ public class v1_8xChanger implements VersionChanger {
             case JUNGLE:
                 return new MaterialData(type, (byte) 3).toItemStack(amount);
             default:
-                return new ItemStack(type, amount);
+                return new MaterialData(type, id).toItemStack(amount);
         }
     }
 

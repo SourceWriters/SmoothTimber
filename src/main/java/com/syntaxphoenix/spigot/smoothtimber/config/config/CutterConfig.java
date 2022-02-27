@@ -59,12 +59,15 @@ public final class CutterConfig extends STConfig {
     public static boolean GLOBAL_DEBUG = false;
     public static int GLOBAL_SYNC_TIME = 50;
 
+    public static boolean ENABLE_ANIMATION = true;
+    public static boolean INSTANT_COLLECT = false;
+
     /*
      * 
      */
 
     private CutterConfig() {
-        super(new File("plugins/SmoothTimber", "config.yml"), CutterMigration.class, 8);
+        super(new File("plugins/SmoothTimber", "config.yml"), CutterMigration.class, 9);
     }
 
     /*
@@ -103,6 +106,9 @@ public final class CutterConfig extends STConfig {
         SNEAK = ActionType.check(this, "options.sneak", SNEAK);
         TOGGLEABLE = ActionType.check(this, "options.toggleable", TOGGLEABLE);
         SYNC_BLOCK_DETECTION = check("options.sync-detection", SYNC_BLOCK_DETECTION);
+
+        ENABLE_ANIMATION = check("options.animation", ENABLE_ANIMATION);
+        INSTANT_COLLECT = check("options.collect-instantly", INSTANT_COLLECT);
 
         ENABLE_WOOD_PERMISSIONS = check("options.permission.wood-type", ENABLE_WOOD_PERMISSIONS);
         ENABLE_CUTTER_PERMISSIONS = check("options.permission.cutter-type", ENABLE_CUTTER_PERMISSIONS);
