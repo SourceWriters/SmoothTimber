@@ -20,17 +20,17 @@ body:
       label: Java Version
       description: The version of Java that you are using.
       options:
-        - "8"
-        - "9"
-        - "10"
-        - "11"
-        - "12"
-        - "13"
-        - "14"
-        - "15"
-        - "16"
-        - "17"
-        - "18"
+        - "Java 8"
+        - "Java 9"
+        - "Java 10"
+        - "Java 11"
+        - "Java 12"
+        - "Java 13"
+        - "Java 14"
+        - "Java 15"
+        - "Java 16"
+        - "Java 17"
+        - "Java 18"
     validations:
       required: false
   - type: input
