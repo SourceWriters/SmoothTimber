@@ -69,7 +69,7 @@
 							<target>
 								<copy
 									file="${project.build.directory}/${project.build.finalName}.jar"
-									tofile="D:\Java - Jar\TestServers\1.16.5\plugins\${project.artifactId}.jar" />
+									tofile="D:\Java - Jar\TestServers\1.18.1\plugins\${project.artifactId}.jar" />
 							</target>
 						</configuration>
 					</execution>

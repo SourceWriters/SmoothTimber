@@ -1,0 +1,36 @@
+name: Revision request
+description: Request a revision of a part code
+title: "[REVISION]:"
+labels: ["Revision", "Priority: Optional"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this revision request!
+  - type: textarea
+    id: problem-related
+    attributes:
+      label: Is your feature request related to a problem? Please describe.
+      description: A clear and concise description of what the problem is.
+      placeholder: I'm always frustrated when [...]
+    validations:
+      required: false
+  - type: textarea
+    id: solution
+    attributes:
+      label: Describe the solution you'd like
+      description: A clear and concise description of what you want to happen.
+    validations:
+      required: true
+  - type: textarea
+    id: required-modification
+    attributes:
+      label: Specify the classes and lines which would be affected
+      description: A list of all classes and lines which would be affected by this revision
+    validations:
+      required: true
+  - type: textarea
+    id: additional-information
+    attributes:
+      label: Additional Information
+      description: Any additional information that you would like to share.

@@ -1,0 +1,62 @@
+name: Help request or question
+description: Request for help or to ask a question
+title: "[HELP]:"
+labels: ["Help"]
+body:
+  - type: markdown
+    attributes:
+      value: |
+        Thanks for taking the time to fill out this help request!
+  - type: textarea
+    id: description
+    attributes:
+      label: With what do you need help?
+      description: A clear and concise description of what you need help with or the question you got
+    validations:
+      required: true
+  - type: dropdown
+    id: java-version
+    attributes:
+      label: Java Version
+      description: The version of Java that you are using.
+      options:
+        - "8"
+        - "9"
+        - "10"
+        - "11"
+        - "12"
+        - "13"
+        - "14"
+        - "15"
+        - "16"
+        - "17"
+        - "18"
+    validations:
+      required: false
+  - type: input
+    id: server-software
+    attributes:
+      label: Server Software
+      description: The software that you are using to run the server.
+      placeholder: "Spigot"
+    validations:
+      required: false
+  - type: input
+    id: minecraft-version
+    attributes:
+      label: Minecraft Version
+      description: The version of Minecraft that you are using.
+      placeholder: "1.18.2"
+    validations:
+      required: false
+  - type: input
+    id: plugin-version
+    attributes:
+      label: Plugin Version
+      description: The version of the plugin that you are using.
+    validations:
+      required: false
+    id: additional-information
+    attributes:
+      label: Additional Information
+      description: Any additional information that you would like to share.
