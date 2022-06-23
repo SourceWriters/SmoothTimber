@@ -20,6 +20,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
+@SuppressWarnings("deprecation")
 public class SyntaxPhoenixStats {
 
     public static final double SYNTAXPHOENIX_STATS_VERSION = 0.4;

@@ -8,6 +8,7 @@ public enum WoodType {
     JUNGLE,
     DARKOAK,
     ACACIA,
+    MANGROVE,
     WARPED,
     CRIMSON,
     OTHER;
