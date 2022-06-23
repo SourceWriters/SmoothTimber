@@ -15,6 +15,10 @@ public interface VersionChanger {
 
     final RandomNumberGenerator RANDOM = NumberGeneratorType.MURMUR.create(System.currentTimeMillis());
 
+    public default boolean isValid() {
+        return true;
+    }
+    
     public boolean hasCuttingItemInHand(Player player);
 
     public boolean hasPermissionForCuttingItem(Player player, ItemStack stack);

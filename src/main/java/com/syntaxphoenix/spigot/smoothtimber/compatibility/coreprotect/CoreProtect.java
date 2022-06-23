@@ -42,7 +42,7 @@ public class CoreProtect extends CompatibilityAddon {
         case v1_19x:
             compat = new CoreCompat_v1_13_x(pluginPackage.getPlugin());
             break;
-        case Unsupported:
+        default:
             return;
         }
         Bukkit.getPluginManager().registerEvents(chopListener = new CoreProtectChopListener(compat), smoothTimber);

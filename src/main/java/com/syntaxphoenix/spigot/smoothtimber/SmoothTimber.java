@@ -32,16 +32,20 @@ public class SmoothTimber extends JavaPlugin {
 
     public void onEnable() {
         PluginUtils.setUp(this);
-        if (PluginUtils.CHANGER != null) {
-            STORAGE = new ToggleStorage(this);
+        if (!PluginUtils.CHANGER.isValid()) {
+            return;
         }
-        
+        STORAGE = new ToggleStorage(this);
+
         // Load classes
         CooldownHelper.class.getClass();
         ClassCache.class.getClass();
     }
 
     public void onDisable() {
+        if (!PluginUtils.CHANGER.isValid()) {
+            return;
+        }
         Bukkit.getScheduler().cancelTasks(this);
         CooldownHelper.COOLDOWN.getTimer().kill();
     }

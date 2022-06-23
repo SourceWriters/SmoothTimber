@@ -26,7 +26,7 @@ public class WorldGuard extends CompatibilityAddon {
         case v1_19x:
             listener = new WorldGuardChopListener_v7_x();
             break;
-        case Unsupported:
+        default:
             return;
         }
         Bukkit.getPluginManager().registerEvents(listener, smoothTimber);

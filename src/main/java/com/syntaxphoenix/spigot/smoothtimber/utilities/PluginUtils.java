@@ -52,15 +52,16 @@ public class PluginUtils {
     public PluginUtils() {
         MessageConfig.INSTANCE.reload();
         CHANGER = VersionExchanger.getVersionChanger(VersionExchanger.getMinecraftVersion());
-        if (CHANGER != null) {
-            CompatibilityHandler.registerDefaults();
-            CutterConfig.INSTANCE.reload();
-            registerCommands();
-            registerListener();
-            registerTasks();
-            checkPlugins();
-            STATS = new SyntaxPhoenixStats("7vTfe4hf", MAIN);
+        if (!CHANGER.isValid()) {
+            return;
         }
+        CompatibilityHandler.registerDefaults();
+        CutterConfig.INSTANCE.reload();
+        registerCommands();
+        registerListener();
+        registerTasks();
+        checkPlugins();
+        STATS = new SyntaxPhoenixStats("7vTfe4hf", MAIN);
     }
 
     /*
