@@ -60,7 +60,7 @@ public interface ISmoothTimberPlatform {
      * 
      * @return all worlds
      */
-    IPlatformWorld getWorlds();
+    IPlatformWorld[] getWorlds();
 
     /**
      * Gets the world at the specific index

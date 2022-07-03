@@ -3,6 +3,7 @@ package net.sourcewriters.smoothtimber.api;
 import com.syntaxphoenix.syntaxapi.logging.ILogger;
 
 import net.sourcewriters.smoothtimber.api.module.SmoothTimberModule;
+import net.sourcewriters.smoothtimber.api.tree.ITreePermissionManager;
 import net.sourcewriters.smoothtimber.api.util.IResource;
 
 public interface ISmoothTimberCore {
@@ -38,6 +39,13 @@ public interface ISmoothTimberCore {
      * @return        the resource
      */
     IResource getResource(SmoothTimberModule module);
+    
+    /**
+     * Gets the SmoothTimber tree permission manager
+     * 
+     * @return the permission manager
+     */
+    ITreePermissionManager getPermissionManager();
 
     /**
      * Gets the SmoothTimber registry

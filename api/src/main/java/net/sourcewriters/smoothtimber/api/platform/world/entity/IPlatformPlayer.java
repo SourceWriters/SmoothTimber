@@ -1,6 +1,7 @@
 package net.sourcewriters.smoothtimber.api.platform.world.entity;
 
 import net.sourcewriters.smoothtimber.api.platform.util.STGameMode;
+import net.sourcewriters.smoothtimber.api.platform.world.inventory.IPlatformInventory;
 
 public interface IPlatformPlayer extends IPlatformLivingEntity {
 
@@ -8,6 +9,13 @@ public interface IPlatformPlayer extends IPlatformLivingEntity {
     default boolean isPlayer() {
         return true;
     }
+
+    /**
+     * Gets the inventory of the player
+     * 
+     * @return the player inventory
+     */
+    IPlatformInventory getInventory();
 
     /**
      * Gets the current food level of the player
@@ -50,5 +58,12 @@ public interface IPlatformPlayer extends IPlatformLivingEntity {
      * @param gameMode the game mode to be set
      */
     void setGameMode(STGameMode gameMode);
+
+    /**
+     * Opens a inventory
+     * 
+     * @param inventory the inventory to be opened
+     */
+    void openInventory(IPlatformInventory inventory);
 
 }

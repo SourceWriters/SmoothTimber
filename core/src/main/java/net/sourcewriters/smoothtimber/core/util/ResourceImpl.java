@@ -27,6 +27,7 @@ import net.sourcewriters.smoothtimber.api.module.SmoothTimberModule;
 import net.sourcewriters.smoothtimber.api.platform.ISmoothTimberPlugin;
 import net.sourcewriters.smoothtimber.api.util.IResource;
 import net.sourcewriters.smoothtimber.api.util.source.DataSource;
+import net.sourcewriters.smoothtimber.api.util.source.FileSource;
 import net.sourcewriters.smoothtimber.api.util.source.PathSource;
 
 public final class ResourceImpl implements IResource {
@@ -53,7 +54,7 @@ public final class ResourceImpl implements IResource {
     }
 
     @Override
-    public Path getRootPath() {
+    public Path getInternalRootPath() {
         if (root.isPresent()) {
             return root.get();
         }
@@ -67,15 +68,15 @@ public final class ResourceImpl implements IResource {
     }
 
     @Override
-    public Path getPath(final String path) {
-        return getRootPath().resolveSibling(path);
+    public Path getInternalPath(final String path) {
+        return getInternalRootPath().resolveSibling(path);
     }
 
     @Override
-    public Path getPathAsExternal(final String path) {
+    public Path getInternalPathAsExternal(final String path) {
         final File target = new File(folder, path);
         try {
-            final Path root = getRootPath().resolveSibling(path);
+            final Path root = getInternalRootPath().resolveSibling(path);
             if (root == null) {
                 return target.toPath();
             }
@@ -91,13 +92,13 @@ public final class ResourceImpl implements IResource {
     }
 
     @Override
-    public DataSource getSource(final String path) {
-        return new PathSource(getPath(path));
+    public DataSource getInternalSource(final String path) {
+        return new PathSource(getInternalPath(path));
     }
 
     @Override
-    public DataSource getSourceAsExternal(final String path) {
-        final Path pathObj = getPath(path);
+    public DataSource getInternalSourceAsExternal(final String path) {
+        final Path pathObj = getInternalPath(path);
         if (PathUtils.isDirectory(pathObj)) {
             return null;
         }
@@ -110,6 +111,26 @@ public final class ResourceImpl implements IResource {
         }
     }
 
+    @Override
+    public File getExternalRoot() {
+        return folder;
+    }
+
+    @Override
+    public File getExternalFile(String path) {
+        return new File(folder, path);
+    }
+
+    @Override
+    public Path getExternalPath(String path) {
+        return folder.toPath().resolveSibling(path);
+    }
+
+    @Override
+    public DataSource getExternalSource(String path) {
+        return new FileSource(getExternalFile(path));
+    }
+
     /*
      * Utils
      */
@@ -118,7 +139,9 @@ public final class ResourceImpl implements IResource {
         try {
             return new URI(("jar:file:/" + jarFile.getAbsolutePath().replace('\\', '/').replace(" ", "%20") + "!/").replace("//", "/"));
         } catch (final URISyntaxException e) {
-            logger.log(e);
+            logger.log(LogTypeId.WARNING, "Failed to build resource uri");
+            logger.log(LogTypeId.WARNING, e);
+            logger.log(LogTypeId.WARNING, "Falling back to jar uri, could cause problems");
             return jarFile.toURI();
         }
     }

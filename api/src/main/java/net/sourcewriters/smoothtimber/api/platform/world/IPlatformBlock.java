@@ -6,6 +6,13 @@ import net.sourcewriters.smoothtimber.api.util.math.Vector3i;
 public interface IPlatformBlock {
 
     /**
+     * Gets the handle of this block
+     * 
+     * @return the handle
+     */
+    Object getHandle();
+
+    /**
      * Get the namespaced key of the block
      * 
      * @return the namespaced key

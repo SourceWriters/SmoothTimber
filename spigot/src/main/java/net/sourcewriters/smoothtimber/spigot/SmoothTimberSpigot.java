@@ -16,10 +16,11 @@ import net.sourcewriters.smoothtimber.core.SmoothTimberCore;
 
 public final class SmoothTimberSpigot extends JavaPlugin implements ISmoothTimberPlugin {
 
-    private final DependencyVersion systemVersion;
-    private final SmoothTimberCore core;
+    private DependencyVersion systemVersion;
+    private SmoothTimberCore core;
 
-    public SmoothTimberSpigot() {
+    @Override
+    public void onLoad() {
         this.systemVersion = DependencyVersionParser.INSTANCE.analyze(getDescription().getVersion());
         this.core = new SmoothTimberCore(new Consumer<String>() {
             private final CommandSender sender = Bukkit.getConsoleSender();
@@ -33,12 +34,12 @@ public final class SmoothTimberSpigot extends JavaPlugin implements ISmoothTimbe
 
     @Override
     public void onEnable() {
-
+        core.enable();
     }
 
     @Override
     public void onDisable() {
-
+        core.disable();
     }
 
     /*

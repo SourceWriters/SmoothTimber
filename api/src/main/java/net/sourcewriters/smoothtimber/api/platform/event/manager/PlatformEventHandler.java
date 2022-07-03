@@ -22,6 +22,11 @@ public final class PlatformEventHandler {
         return executors.computeIfAbsent(eventType, ignore -> new ArrayList<>());
     }
 
+    /**
+     * Unregisteres the listeners of a module
+     * 
+     * @param module the owning module
+     */
     @SuppressWarnings("unchecked")
     public void unregister(final SmoothTimberModule module) {
         final Class<? extends PlatformEvent>[] eventTypes = executors.keySet().toArray(Class[]::new);
@@ -48,6 +53,13 @@ public final class PlatformEventHandler {
         }
     }
 
+    /**
+     * Registers a modules' listeners
+     * 
+     * @param  module the owning module
+     * 
+     * @return        integer array of how many listeners were found and registered
+     */
     public int[] register(final SmoothTimberModule module) {
         final List<IPlatformEventListener> listeners = module.getModuleManager().getExtensionManager().getExtensionsOf(module.getId(),
             IPlatformEventListener.class);
@@ -70,6 +82,13 @@ public final class PlatformEventHandler {
         };
     }
 
+    /**
+     * Registers a single listener
+     * 
+     * @param  instance the listener to register
+     * 
+     * @return          if it was registered or not
+     */
     public boolean register(final IPlatformEventListener instance) {
         final Class<?> clazz = instance.getClass();
         final HashSet<Method> methods = new HashSet<>();
@@ -115,6 +134,11 @@ public final class PlatformEventHandler {
         return list;
     }
 
+    /**
+     * Calls an event
+     * 
+     * @param event the event to be called
+     */
     public void call(final PlatformEvent event) {
         final ArrayList<PlatformEventExecutor> list = getExecutorsFor(event.getClass());
         if (list.isEmpty()) {

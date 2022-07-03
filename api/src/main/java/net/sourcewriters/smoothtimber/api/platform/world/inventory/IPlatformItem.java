@@ -5,6 +5,13 @@ import net.sourcewriters.smoothtimber.api.resource.key.ResourceKey;
 public interface IPlatformItem {
 
     /**
+     * Gets the handle of this item
+     * 
+     * @return the handle
+     */
+    Object getHandle();
+
+    /**
      * Gets the type of the item
      * 
      * @return the item type
@@ -28,6 +35,20 @@ public interface IPlatformItem {
      * @return     if the item has changed or not
      */
     boolean setType(ResourceKey key);
+
+    /**
+     * Gets the amount of the item
+     * 
+     * @return the item amount
+     */
+    int getAmount();
+
+    /**
+     * Sets the amount of the item
+     * 
+     * @param amount the target amount
+     */
+    void setAmount(int amount);
 
     /**
      * Gets the maximal stack amount of the item type

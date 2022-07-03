@@ -1,6 +1,12 @@
 package net.sourcewriters.smoothtimber.spigot;
 
+import java.util.List;
 import java.util.UUID;
+
+import org.bukkit.Bukkit;
+import org.bukkit.Material;
+import org.bukkit.World;
+import org.bukkit.inventory.ItemStack;
 
 import net.sourcewriters.smoothtimber.api.platform.ISmoothTimberExecutor;
 import net.sourcewriters.smoothtimber.api.platform.ISmoothTimberPlatform;
@@ -11,13 +17,17 @@ import net.sourcewriters.smoothtimber.api.platform.world.entity.IPlatformPlayer;
 import net.sourcewriters.smoothtimber.api.platform.world.inventory.IPlatformInventory;
 import net.sourcewriters.smoothtimber.api.platform.world.inventory.IPlatformItem;
 import net.sourcewriters.smoothtimber.api.resource.key.ResourceKey;
+import net.sourcewriters.smoothtimber.spigot.world.SpigotWorld;
+import net.sourcewriters.smoothtimber.spigot.world.inventory.SpigotItem;
 
 public final class SpigotPlatform implements ISmoothTimberPlatform {
 
     private final SmoothTimberSpigot plugin;
+    private final SpigotExecutor executor;
 
     public SpigotPlatform(final SmoothTimberSpigot plugin) {
         this.plugin = plugin;
+        this.executor = new SpigotExecutor(plugin);
     }
 
     @Override
@@ -27,7 +37,7 @@ public final class SpigotPlatform implements ISmoothTimberPlatform {
 
     @Override
     public ISmoothTimberExecutor getExecutor() {
-        return null;
+        return executor;
     }
 
     @Override
@@ -42,36 +52,53 @@ public final class SpigotPlatform implements ISmoothTimberPlatform {
 
     @Override
     public int getWorldAmount() {
-        return 0;
+        return Bukkit.getWorlds().size();
     }
 
     @Override
-    public IPlatformWorld getWorlds() {
-        return null;
+    public IPlatformWorld[] getWorlds() {
+        return Bukkit.getWorlds().stream().map(SpigotWorld::new).toArray(IPlatformWorld[]::new);
     }
 
     @Override
     public IPlatformWorld getWorldByIndex(final int index) {
-        return null;
+        List<World> list = Bukkit.getWorlds();
+        if (list.size() <= index || index < 0) {
+            return null;
+        }
+        return new SpigotWorld(list.get(index));
     }
 
     @Override
     public IPlatformWorld getWorldById(final UUID uniqueId) {
-        return null;
+        World world = Bukkit.getWorld(uniqueId);
+        if (world == null) {
+            return null;
+        }
+        return new SpigotWorld(world);
     }
 
     @Override
     public IPlatformWorld getWorldByName(final String name) {
-        return null;
+        World world = Bukkit.getWorld(name);
+        if (world == null) {
+            return null;
+        }
+        return new SpigotWorld(world);
     }
 
     @Override
     public IPlatformItem buildItem(final ResourceKey key) {
-        return null;
+        Material material = SpigotConversionRegistry.getMaterial(key);
+        if (material == null) {
+            return null;
+        }
+        return SpigotItem.of(new ItemStack(material));
     }
 
     @Override
     public IPlatformInventory buildInventory() {
+        // TODO: Editable inventory
         return null;
     }
 

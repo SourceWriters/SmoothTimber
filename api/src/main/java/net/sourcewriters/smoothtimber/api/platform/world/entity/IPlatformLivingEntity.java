@@ -1,7 +1,6 @@
 package net.sourcewriters.smoothtimber.api.platform.world.entity;
 
 import net.sourcewriters.smoothtimber.api.platform.world.inventory.IPlatformEquipment;
-import net.sourcewriters.smoothtimber.api.platform.world.inventory.IPlatformInventory;
 
 public interface IPlatformLivingEntity extends IPlatformEntity {
 
@@ -11,13 +10,6 @@ public interface IPlatformLivingEntity extends IPlatformEntity {
      * @return the entity equipment
      */
     IPlatformEquipment getEquipment();
-
-    /**
-     * Gets the inventory of the entity
-     * 
-     * @return the entity inventory
-     */
-    IPlatformInventory getInventory();
 
     /**
      * Checks if the entity is visible or not

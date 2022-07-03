@@ -13,6 +13,12 @@ public abstract class TreeAnimation {
 
     private final ResourceKey key;
 
+    /**
+     * Constructors an tree cutting animation
+     * 
+     * @param module the owning module
+     * @param name   the animation name
+     */
     public TreeAnimation(final SmoothTimberModule module, final String name) {
         this.key = Objects.requireNonNull(module.key(name));
     }

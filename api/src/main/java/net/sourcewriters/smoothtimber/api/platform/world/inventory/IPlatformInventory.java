@@ -1,8 +1,16 @@
 package net.sourcewriters.smoothtimber.api.platform.world.inventory;
 
 import net.sourcewriters.smoothtimber.api.resource.key.ResourceKey;
+import net.sourcewriters.smoothtimber.api.util.math.TableMath;
 
 public interface IPlatformInventory {
+    
+    /**
+     * Gets the handle of this inventory
+     * 
+     * @return the handle
+     */
+    Object getHandle();
 
     /**
      * Add an item to the inventory
@@ -22,11 +30,13 @@ public interface IPlatformInventory {
     /**
      * Sets a specific slot to an item
      * 
-     * @param column the column of the target inventory slot
      * @param row    the row of the target inventory slot
+     * @param column the column of the target inventory slot
      * @param item   the item to be set
      */
-    void set(int column, int row, IPlatformItem item);
+    default void set(int row, int column, IPlatformItem item) {
+        set(TableMath.getId(row, column), item);
+    }
 
     /**
      * Gets the item that is in a specific slot
@@ -45,21 +55,29 @@ public interface IPlatformInventory {
      * 
      * @return        the item that is in that slot or {@code null}
      */
-    IPlatformItem get(int column, int row);
+    default IPlatformItem get(int row, int column) {
+        return get(TableMath.getId(row, column));
+    }
 
     /**
      * Gets the name of the inventory
      * 
-     * @return the inventory name
+     * @return the inventory name or null
      */
-    String getName();
+    default String getName() {
+        return null;
+    }
 
     /**
      * Sets the name of the inventory
      * 
-     * @param name the name to be set
+     * @param  name the name to be set
+     * 
+     * @return      if the name changed or not
      */
-    void setName(String name);
+    default boolean setName(String name) {
+        return false;
+    }
 
     /**
      * Gets the amount of slots that are in the inventory
@@ -71,9 +89,13 @@ public interface IPlatformInventory {
     /**
      * Sets the amount of slots that are in the inventory
      * 
-     * @param size the amount of inventory slots
+     * @param  size the amount of inventory slots
+     * 
+     * @return      if the size changed or not
      */
-    void setSize(int size);
+    default boolean setSize(int size) {
+        return false;
+    }
 
     /**
      * Gets the type of the inventory
@@ -85,8 +107,12 @@ public interface IPlatformInventory {
     /**
      * Sets the type of the inventory
      * 
-     * @param key the inventory type to be set
+     * @param  key the inventory type to be set
+     * 
+     * @return     if the type changed or not
      */
-    boolean setType(ResourceKey key);
+    default boolean setType(ResourceKey key) {
+        return false;
+    }
 
 }

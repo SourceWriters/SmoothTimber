@@ -13,10 +13,20 @@ public final class PlatformBlockBreakEvent extends PlatformEvent {
         this.block = block;
     }
 
+    /**
+     * Gets the player that broke the block
+     * 
+     * @return the player
+     */
     public IPlatformPlayer getPlayer() {
         return player;
     }
 
+    /**
+     * Gets the block that was broken
+     * 
+     * @return the block
+     */
     public IPlatformBlock getBlock() {
         return block;
     }

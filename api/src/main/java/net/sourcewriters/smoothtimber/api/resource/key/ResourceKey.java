@@ -15,14 +15,14 @@ public class ResourceKey {
     private String string;
 
     /**
-     * Constructs a namespaced key
+     * Constructs a resource key
      * 
-     * @param namespace the namespace
-     * @param key       the key
+     * @param namespace the namespace of the resource
+     * @param key       the id of the resource
      */
     public ResourceKey(final String namespace, final String key) {
-        this.namespace = Objects.requireNonNull(namespace);
-        this.key = Objects.requireNonNull(key);
+        this.namespace = Objects.requireNonNull(namespace).toLowerCase();
+        this.key = Objects.requireNonNull(key).toLowerCase();
         if (!VALID_NAMED_KEY.matcher(toString()).matches()) {
             throw new IllegalArgumentException("'" + namespace + ':' + key + "' is not valid!");
         }
@@ -53,6 +53,15 @@ public class ResourceKey {
      */
     protected String asString() {
         return namespace + ':' + key;
+    }
+
+    /**
+     * Gets or builds the resource string representation of this namespaced key
+     * 
+     * @return the full string representation
+     */
+    public String toResourceString() {
+        return toString();
     }
 
     /**

@@ -4,6 +4,8 @@ public class NamedResourceKey extends ResourceKey {
 
     protected final String name;
 
+    private String resourceString;
+
     /**
      * Constructs a named namespaced key
      * 
@@ -23,6 +25,11 @@ public class NamedResourceKey extends ResourceKey {
      */
     public final String getName() {
         return name;
+    }
+
+    @Override
+    public String toResourceString() {
+        return resourceString == null ? (resourceString = super.asString()) : resourceString;
     }
 
     /**

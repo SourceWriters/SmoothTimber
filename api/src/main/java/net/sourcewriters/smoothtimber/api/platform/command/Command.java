@@ -10,8 +10,18 @@ import java.lang.annotation.Target;
 @Target(TYPE)
 public @interface Command {
 
+    /**
+     * Gets the name of the command
+     * 
+     * @return the name
+     */
     String name();
 
+    /**
+     * Gets the aliases of the command
+     * 
+     * @return the aliases
+     */
     String[] alias() default {};
 
 }

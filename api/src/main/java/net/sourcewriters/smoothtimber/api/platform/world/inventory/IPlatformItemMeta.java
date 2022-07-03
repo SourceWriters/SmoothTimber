@@ -2,6 +2,7 @@ package net.sourcewriters.smoothtimber.api.platform.world.inventory;
 
 import java.util.List;
 
+import net.sourcewriters.smoothtimber.api.platform.util.STItemFlag;
 import net.sourcewriters.smoothtimber.api.resource.key.ResourceKey;
 
 public interface IPlatformItemMeta {
@@ -114,20 +115,6 @@ public interface IPlatformItemMeta {
     void setEnchantment(ResourceKey key, int level);
 
     /**
-     * Gets the amount of the item
-     * 
-     * @return the item amount
-     */
-    int getAmount();
-
-    /**
-     * Sets the amount of the item
-     * 
-     * @param amount the target amount
-     */
-    void setAmount(int amount);
-
-    /**
      * Gets the durability of the item
      * 
      * @return the durability of the item
@@ -163,11 +150,21 @@ public interface IPlatformItemMeta {
     boolean isBreakable();
 
     /**
+     * Sets the flag to that item
+     * 
+     * @param flag  the flag to set
+     * @param state the state to set it to
+     */
+    void setFlag(STItemFlag flag, boolean state);
+
+    /**
      * Checks if a flag is set
+     * 
+     * @param flag  the flag to check
      * 
      * @return if the flag is set
      */
-    boolean hasFlag(String name);
+    boolean hasFlag(STItemFlag flag);
 
     /**
      * Applies the meta to the owning item
