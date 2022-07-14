@@ -9,16 +9,24 @@ import org.bukkit.util.Vector;
 
 import net.sourcewriters.smoothtimber.api.platform.world.IPlatformWorld;
 import net.sourcewriters.smoothtimber.api.platform.world.entity.IPlatformEntity;
+import net.sourcewriters.smoothtimber.api.platform.world.entity.IPlatformEntityData;
 import net.sourcewriters.smoothtimber.api.resource.key.ResourceKey;
 import net.sourcewriters.smoothtimber.api.util.math.Vector3d;
 import net.sourcewriters.smoothtimber.spigot.SpigotConversionRegistry;
 
-public class SpigotEntity<E extends Entity> implements IPlatformEntity {
+public class SpigotEntity<P extends IPlatformEntity, E extends Entity> implements IPlatformEntity {
 
     protected final E entity;
+    protected final IPlatformEntityData<P> data;
 
     public SpigotEntity(final E entity) {
         this.entity = entity;
+        this.data = SpigotConversionRegistry.getEntityData(this);
+    }
+
+    @Override
+    public IPlatformEntityData<P> getData() {
+        return data;
     }
 
     @Override
@@ -48,7 +56,7 @@ public class SpigotEntity<E extends Entity> implements IPlatformEntity {
 
     @Override
     public ResourceKey getType() {
-        return SpigotConversionRegistry.fromBukkit(entity.getType().getKey());
+        return SpigotConversionRegistry.getKey(entity.getType());
     }
 
     @Override

@@ -19,6 +19,7 @@ import net.sourcewriters.smoothtimber.api.platform.world.entity.IPlatformPlayer;
 import net.sourcewriters.smoothtimber.api.platform.world.inventory.IPlatformItem;
 import net.sourcewriters.smoothtimber.api.resource.key.ResourceKey;
 import net.sourcewriters.smoothtimber.spigot.SpigotConversionRegistry;
+import net.sourcewriters.smoothtimber.spigot.version.VersionHelper;
 import net.sourcewriters.smoothtimber.spigot.world.entity.SpigotArmorStand;
 import net.sourcewriters.smoothtimber.spigot.world.entity.SpigotFallingBlock;
 import net.sourcewriters.smoothtimber.spigot.world.entity.SpigotItemEntity;
@@ -27,6 +28,7 @@ import net.sourcewriters.smoothtimber.spigot.world.entity.SpigotPlayer;
 public final class SpigotWorld implements IPlatformWorld {
 
     private final World world;
+    private final VersionHelper helper = VersionHelper.get();
 
     public SpigotWorld(final World world) {
         this.world = world;
@@ -58,7 +60,7 @@ public final class SpigotWorld implements IPlatformWorld {
         if (data == null) {
             return;
         }
-        world.setBlockData(x, y, z, data);
+        helper.setBlock(world, x, y, z, data);
     }
 
     @Override

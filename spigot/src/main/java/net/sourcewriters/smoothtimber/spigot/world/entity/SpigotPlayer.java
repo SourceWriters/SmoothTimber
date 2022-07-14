@@ -11,7 +11,7 @@ import net.sourcewriters.smoothtimber.api.platform.world.entity.IPlatformPlayer;
 import net.sourcewriters.smoothtimber.api.platform.world.inventory.IPlatformInventory;
 import net.sourcewriters.smoothtimber.spigot.world.inventory.SpigotImmutableInventory;
 
-public final class SpigotPlayer extends SpigotLivingEntity<Player> implements IPlatformPlayer {
+public final class SpigotPlayer extends SpigotLivingEntity<IPlatformPlayer, Player> implements IPlatformPlayer {
 
     public SpigotPlayer(Player entity) {
         super(entity);

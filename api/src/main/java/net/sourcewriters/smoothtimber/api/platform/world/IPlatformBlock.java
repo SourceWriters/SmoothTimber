@@ -13,6 +13,13 @@ public interface IPlatformBlock {
     Object getHandle();
 
     /**
+     * Sets the block type
+     * 
+     * @param type the type to be changed to
+     */
+    void setType(ResourceKey type);
+
+    /**
      * Get the namespaced key of the block
      * 
      * @return the namespaced key

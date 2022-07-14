@@ -18,6 +18,13 @@ public interface IPlatformEntity extends IPlatformSender {
     default boolean isConsole() {
         return false;
     }
+    
+    /**
+     * Gets the data of the entity
+     * 
+     * @return the data
+     */
+    IPlatformEntityData<? extends IPlatformEntity> getData();
 
     /**
      * Get the namespaced key of the entity

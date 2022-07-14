@@ -3,6 +3,7 @@ package net.sourcewriters.smoothtimber.spigot.world.inventory;
 import java.util.List;
 
 import org.bukkit.enchantments.Enchantment;
+import org.bukkit.inventory.ItemFlag;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
@@ -12,11 +13,14 @@ import net.sourcewriters.smoothtimber.api.platform.world.inventory.IPlatformItem
 import net.sourcewriters.smoothtimber.api.platform.world.inventory.IPlatformItemMeta;
 import net.sourcewriters.smoothtimber.api.resource.key.ResourceKey;
 import net.sourcewriters.smoothtimber.spigot.SpigotConversionRegistry;
+import net.sourcewriters.smoothtimber.spigot.version.VersionHelper;
 
 public final class SpigotItemMeta implements IPlatformItemMeta {
 
     private final SpigotItem owner;
     private final ItemMeta meta;
+    
+    private final VersionHelper helper = VersionHelper.get();
 
     public SpigotItemMeta(final SpigotItem owner) {
         this.owner = owner;
@@ -25,17 +29,17 @@ public final class SpigotItemMeta implements IPlatformItemMeta {
 
     @Override
     public int getModel() {
-        return meta.getCustomModelData();
+        return helper.getCustomModel(meta);
     }
 
     @Override
     public boolean hasModel() {
-        return meta.hasCustomModelData();
+        return helper.hasCustomModel(meta);
     }
 
     @Override
     public void setModel(int model) {
-        meta.setCustomModelData(model);
+        helper.setCustomModel(meta, model);
     }
 
     @Override
@@ -139,12 +143,23 @@ public final class SpigotItemMeta implements IPlatformItemMeta {
 
     @Override
     public void setFlag(STItemFlag flag, boolean state) {
-        
+        ItemFlag itemFlag = SpigotConversionRegistry.getFlag(flag);
+        if (meta.hasItemFlag(itemFlag)) {
+            if (state) {
+                return;
+            }
+            meta.removeItemFlags(itemFlag);
+            return;
+        }
+        if (!state) {
+            return;
+        }
+        meta.addItemFlags(itemFlag);
     }
 
     @Override
-    public boolean hasFlag(STItemFlag name) {
-        return false;
+    public boolean hasFlag(STItemFlag flag) {
+        return meta.hasItemFlag(SpigotConversionRegistry.getFlag(flag));
     }
 
     @Override

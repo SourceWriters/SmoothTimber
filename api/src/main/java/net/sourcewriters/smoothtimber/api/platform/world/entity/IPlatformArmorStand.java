@@ -1,6 +1,8 @@
 package net.sourcewriters.smoothtimber.api.platform.world.entity;
 
 public interface IPlatformArmorStand extends IPlatformLivingEntity {
+    
+    IPlatformEntityData<IPlatformArmorStand> getData();
 
     /**
      * Gets if the armor stand is small or normal sized

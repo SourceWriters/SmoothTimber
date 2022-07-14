@@ -9,6 +9,8 @@ public interface IPlatformPlayer extends IPlatformLivingEntity {
     default boolean isPlayer() {
         return true;
     }
+    
+    IPlatformEntityData<IPlatformPlayer> getData();
 
     /**
      * Gets the inventory of the player

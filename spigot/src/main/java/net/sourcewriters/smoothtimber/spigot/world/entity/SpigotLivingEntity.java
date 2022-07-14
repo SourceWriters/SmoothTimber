@@ -4,9 +4,12 @@ import org.bukkit.entity.LivingEntity;
 
 import net.sourcewriters.smoothtimber.api.platform.world.entity.IPlatformLivingEntity;
 import net.sourcewriters.smoothtimber.api.platform.world.inventory.IPlatformEquipment;
+import net.sourcewriters.smoothtimber.spigot.version.VersionHelper;
 import net.sourcewriters.smoothtimber.spigot.world.inventory.SpigotEquipment;
 
-public class SpigotLivingEntity<E extends LivingEntity> extends SpigotEntity<E> implements IPlatformLivingEntity {
+public class SpigotLivingEntity<P extends IPlatformLivingEntity, E extends LivingEntity> extends SpigotEntity<P, E> implements IPlatformLivingEntity {
+    
+    private final VersionHelper helper = VersionHelper.get();
 
     public SpigotLivingEntity(E entity) {
         super(entity);
@@ -19,12 +22,12 @@ public class SpigotLivingEntity<E extends LivingEntity> extends SpigotEntity<E> 
 
     @Override
     public boolean isInvisible() {
-        return entity.isInvisible();
+        return helper.isInvisible(entity);
     }
 
     @Override
     public void setInvisible(boolean invisible) {
-        entity.setInvisible(invisible);
+        helper.setInvisible(entity, invisible);
     }
 
     @Override

@@ -1,10 +1,10 @@
 package net.sourcewriters.smoothtimber.api.platform.world.entity;
 
-import java.util.UUID;
-
 import net.sourcewriters.smoothtimber.api.platform.world.inventory.IPlatformItem;
 
 public interface IPlatformItemEntity extends IPlatformEntity {
+
+    IPlatformEntityData<IPlatformItemEntity> getData();
     
     int getPickupDelay();
     
@@ -13,7 +13,5 @@ public interface IPlatformItemEntity extends IPlatformEntity {
     IPlatformItem getItem();
     
     void setItem(IPlatformItem item);
-    
-    UUID getOwner();
 
 }

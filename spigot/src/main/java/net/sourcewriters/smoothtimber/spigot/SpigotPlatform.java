@@ -6,6 +6,7 @@ import java.util.UUID;
 import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.World;
+import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 
 import net.sourcewriters.smoothtimber.api.platform.ISmoothTimberExecutor;
@@ -18,7 +19,9 @@ import net.sourcewriters.smoothtimber.api.platform.world.inventory.IPlatformInve
 import net.sourcewriters.smoothtimber.api.platform.world.inventory.IPlatformItem;
 import net.sourcewriters.smoothtimber.api.resource.key.ResourceKey;
 import net.sourcewriters.smoothtimber.spigot.world.SpigotWorld;
+import net.sourcewriters.smoothtimber.spigot.world.entity.SpigotPlayer;
 import net.sourcewriters.smoothtimber.spigot.world.inventory.SpigotItem;
+import net.sourcewriters.smoothtimber.spigot.world.inventory.SpigotModifiableInventory;
 
 public final class SpigotPlatform implements ISmoothTimberPlatform {
 
@@ -47,7 +50,12 @@ public final class SpigotPlatform implements ISmoothTimberPlatform {
 
     @Override
     public IPlatformPlayer[] getPlayers() {
-        return null;
+        Player[] players = Bukkit.getOnlinePlayers().toArray(Player[]::new);
+        IPlatformPlayer[] platform = new IPlatformPlayer[players.length];
+        for (int index = 0; index < players.length; index++) {
+            platform[index] = new SpigotPlayer(players[index]);
+        }
+        return platform;
     }
 
     @Override
@@ -98,8 +106,7 @@ public final class SpigotPlatform implements ISmoothTimberPlatform {
 
     @Override
     public IPlatformInventory buildInventory() {
-        // TODO: Editable inventory
-        return null;
+        return new SpigotModifiableInventory();
     }
 
 }

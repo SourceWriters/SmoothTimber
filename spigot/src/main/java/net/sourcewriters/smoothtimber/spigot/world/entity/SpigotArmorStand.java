@@ -4,7 +4,7 @@ import org.bukkit.entity.ArmorStand;
 
 import net.sourcewriters.smoothtimber.api.platform.world.entity.IPlatformArmorStand;
 
-public final class SpigotArmorStand extends SpigotLivingEntity<ArmorStand> implements IPlatformArmorStand {
+public final class SpigotArmorStand extends SpigotLivingEntity<IPlatformArmorStand, ArmorStand> implements IPlatformArmorStand {
 
     public SpigotArmorStand(ArmorStand entity) {
         super(entity);

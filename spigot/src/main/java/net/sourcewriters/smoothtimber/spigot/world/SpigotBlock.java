@@ -1,6 +1,7 @@
 package net.sourcewriters.smoothtimber.spigot.world;
 
 import org.bukkit.block.Block;
+import org.bukkit.block.data.BlockData;
 
 import net.sourcewriters.smoothtimber.api.platform.world.IPlatformBlock;
 import net.sourcewriters.smoothtimber.api.resource.key.ResourceKey;
@@ -14,10 +15,19 @@ public final class SpigotBlock implements IPlatformBlock {
     public SpigotBlock(final Block block) {
         this.block = block;
     }
-    
+
     @Override
     public Block getHandle() {
         return block;
+    }
+
+    @Override
+    public void setType(ResourceKey type) {
+        BlockData data = SpigotConversionRegistry.getBlockData(type);
+        if (data == null) {
+            return;
+        }
+        block.setBlockData(data);
     }
 
     @Override

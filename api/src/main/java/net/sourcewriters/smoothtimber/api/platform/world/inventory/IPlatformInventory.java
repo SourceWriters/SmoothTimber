@@ -4,7 +4,7 @@ import net.sourcewriters.smoothtimber.api.resource.key.ResourceKey;
 import net.sourcewriters.smoothtimber.api.util.math.TableMath;
 
 public interface IPlatformInventory {
-    
+
     /**
      * Gets the handle of this inventory
      * 
@@ -57,6 +57,15 @@ public interface IPlatformInventory {
      */
     default IPlatformItem get(int row, int column) {
         return get(TableMath.getId(row, column));
+    }
+
+    /**
+     * Checks if the inventory name, size and type is modifiable
+     * 
+     * @return if name, size and type is modifiable or not
+     */
+    default boolean isModifiable() {
+        return false;
     }
 
     /**
