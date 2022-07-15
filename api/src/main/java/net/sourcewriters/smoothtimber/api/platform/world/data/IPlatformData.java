@@ -1,5 +1,7 @@
 package net.sourcewriters.smoothtimber.api.platform.world.data;
 
+import java.util.UUID;
+
 import net.sourcewriters.smoothtimber.api.resource.key.ResourceKey;
 
 public interface IPlatformData {
@@ -21,6 +23,8 @@ public interface IPlatformData {
     void set(ResourceKey key, double value);
 
     void set(ResourceKey key, String value);
+    
+    void set(ResourceKey key, UUID value);
 
     void set(ResourceKey key, byte[] array);
 
@@ -43,6 +47,8 @@ public interface IPlatformData {
     double getOrDefault(ResourceKey key, double value);
 
     String getOrDefault(ResourceKey key, String value);
+    
+    UUID getOrDefault(ResourceKey key, UUID value);
 
     byte[] getOrDefault(ResourceKey key, byte[] value);
 
@@ -63,6 +69,8 @@ public interface IPlatformData {
     double getDouble(ResourceKey key);
 
     String getString(ResourceKey key);
+    
+    UUID getUUID(ResourceKey key);
 
     byte[] getByteArray(ResourceKey key);
 
@@ -87,6 +95,8 @@ public interface IPlatformData {
     boolean hasDouble(ResourceKey key);
 
     boolean hasString(ResourceKey key);
+    
+    boolean hasUUID(ResourceKey key);
 
     boolean hasByteArray(ResourceKey key);
 

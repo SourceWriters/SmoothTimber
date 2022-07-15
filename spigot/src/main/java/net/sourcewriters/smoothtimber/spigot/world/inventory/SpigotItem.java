@@ -22,6 +22,11 @@ public final class SpigotItem implements IPlatformItem {
     }
 
     @Override
+    public SpigotItem clone() {
+        return new SpigotItem(handle.clone());
+    }
+
+    @Override
     public ResourceKey getType() {
         return SpigotConversionRegistry.fromBukkit(handle.getType().getKey());
     }

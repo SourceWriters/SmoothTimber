@@ -45,6 +45,15 @@ public interface ISmoothTimberPlatform {
      */
     IPlatformPlayer[] getPlayers();
 
+    /**
+     * Gets a online player
+     * 
+     * @param  uniqueId the unique id of the player
+     * 
+     * @return          the player or null
+     */
+    IPlatformPlayer getPlayer(UUID uniqueId);
+
     //
     // Worlds
 

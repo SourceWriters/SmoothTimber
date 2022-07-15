@@ -12,6 +12,13 @@ public interface IPlatformItem {
     Object getHandle();
 
     /**
+     * Creates a exact copy of this item
+     * 
+     * @return the copy item
+     */
+    IPlatformItem clone();
+
+    /**
      * Gets the type of the item
      * 
      * @return the item type

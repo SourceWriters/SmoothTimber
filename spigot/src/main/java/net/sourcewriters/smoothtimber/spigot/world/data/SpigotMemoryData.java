@@ -1,5 +1,6 @@
 package net.sourcewriters.smoothtimber.spigot.world.data;
 
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 import com.syntaxphoenix.syntaxapi.utils.java.Primitives;
@@ -65,6 +66,11 @@ public final class SpigotMemoryData implements IPlatformData {
 
     @Override
     public void set(ResourceKey key, String value) {
+        map.put(key.toResourceString(), value);
+    }
+
+    @Override
+    public void set(ResourceKey key, UUID value) {
         map.put(key.toResourceString(), value);
     }
 
@@ -176,6 +182,18 @@ public final class SpigotMemoryData implements IPlatformData {
     }
 
     @Override
+    public UUID getOrDefault(ResourceKey key, UUID value) {
+        Object object = map.getOrDefault(key.toResourceString(), value);
+        if (object == null) {
+            return null;
+        }
+        if (object instanceof UUID) {
+            return (UUID) object;
+        }
+        return value;
+    }
+
+    @Override
     public byte[] getOrDefault(ResourceKey key, byte[] value) {
         Object object = map.getOrDefault(key.toResourceString(), value);
         if (object == null) {
@@ -248,6 +266,15 @@ public final class SpigotMemoryData implements IPlatformData {
             return null;
         }
         return (String) object;
+    }
+
+    @Override
+    public UUID getUUID(ResourceKey key) {
+        Object object = map.get(key.toResourceString());
+        if (object == null || !(object instanceof UUID)) {
+            return null;
+        }
+        return (UUID) object;
     }
 
     @Override
@@ -340,6 +367,12 @@ public final class SpigotMemoryData implements IPlatformData {
     public boolean hasString(ResourceKey key) {
         Object object = map.get(key.toResourceString());
         return object != null && object.getClass() == String.class;
+    }
+
+    @Override
+    public boolean hasUUID(ResourceKey key) {
+        Object object = map.get(key.toResourceString());
+        return object != null && object.getClass() == UUID.class;
     }
 
     @Override

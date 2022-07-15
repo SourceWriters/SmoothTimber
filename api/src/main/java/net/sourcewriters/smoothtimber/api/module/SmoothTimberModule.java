@@ -62,6 +62,24 @@ public abstract class SmoothTimberModule extends Module {
      * Is executed on module disable
      */
     protected void onDisable() {}
+    
+    /**
+     * Gets the SmoothTimber api
+     * 
+     * @return the api
+     */
+    public final SmoothTimberApi getApi() {
+        return api;
+    }
+    
+    /**
+     * Gets the SmoothTimber core
+     * 
+     * @return the core
+     */
+    public final ISmoothTimberCore getCore() {
+        return core;
+    }
 
     /**
      * Gets the logger of this module

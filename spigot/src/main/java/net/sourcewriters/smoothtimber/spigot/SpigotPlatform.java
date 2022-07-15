@@ -68,6 +68,15 @@ public final class SpigotPlatform implements ISmoothTimberPlatform {
         }
         return platform;
     }
+    
+    @Override
+    public IPlatformPlayer getPlayer(UUID uniqueId) {
+        Player player = Bukkit.getPlayer(uniqueId);
+        if(player == null) {
+            return null;
+        }
+        return new SpigotPlayer(player);
+    }
 
     @Override
     public int getWorldAmount() {

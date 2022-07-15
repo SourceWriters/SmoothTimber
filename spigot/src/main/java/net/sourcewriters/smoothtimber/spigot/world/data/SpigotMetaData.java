@@ -1,5 +1,6 @@
 package net.sourcewriters.smoothtimber.spigot.world.data;
 
+import java.util.UUID;
 import java.util.concurrent.ConcurrentHashMap;
 
 import org.bukkit.metadata.FixedMetadataValue;
@@ -72,6 +73,11 @@ public final class SpigotMetaData implements IPlatformData {
 
     @Override
     public void set(ResourceKey key, String value) {
+        set(key.toResourceString(), value);
+    }
+
+    @Override
+    public void set(ResourceKey key, UUID value) {
         set(key.toResourceString(), value);
     }
 
@@ -180,6 +186,15 @@ public final class SpigotMetaData implements IPlatformData {
     }
 
     @Override
+    public UUID getOrDefault(ResourceKey key, UUID value) {
+        Object object = get(key.toResourceString());
+        if (object != null && object instanceof UUID) {
+            return (UUID) object;
+        }
+        return value;
+    }
+
+    @Override
     public byte[] getOrDefault(ResourceKey key, byte[] value) {
         Object object = get(key.toResourceString());
         if (object != null && object instanceof byte[]) {
@@ -243,6 +258,15 @@ public final class SpigotMetaData implements IPlatformData {
             return null;
         }
         return (String) object;
+    }
+
+    @Override
+    public UUID getUUID(ResourceKey key) {
+        Object object = get(key.toResourceString());
+        if (object == null || !(object instanceof UUID)) {
+            return null;
+        }
+        return (UUID) object;
     }
 
     @Override
@@ -335,6 +359,12 @@ public final class SpigotMetaData implements IPlatformData {
     public boolean hasString(ResourceKey key) {
         Object object = get(key.toResourceString());
         return object != null && object.getClass() == String.class;
+    }
+
+    @Override
+    public boolean hasUUID(ResourceKey key) {
+        Object object = get(key.toResourceString());
+        return object != null && object.getClass() == UUID.class;
     }
 
     @Override

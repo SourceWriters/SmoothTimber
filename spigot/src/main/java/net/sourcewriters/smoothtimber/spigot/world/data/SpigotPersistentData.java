@@ -1,8 +1,9 @@
 package net.sourcewriters.smoothtimber.spigot.world.data;
 
+import java.util.UUID;
+
 import org.bukkit.NamespacedKey;
 import org.bukkit.persistence.PersistentDataContainer;
-import org.bukkit.persistence.PersistentDataType;
 
 import net.sourcewriters.smoothtimber.api.platform.world.data.IPlatformData;
 import net.sourcewriters.smoothtimber.api.resource.key.ResourceKey;
@@ -29,52 +30,57 @@ public final class SpigotPersistentData implements IPlatformData {
 
     @Override
     public void set(ResourceKey key, byte value) {
-        container.set(helper.convert(key), PersistentDataType.BYTE, value);
+        container.set(helper.convert(key), SpigotDataType.BYTE, value);
     }
 
     @Override
     public void set(ResourceKey key, short value) {
-        container.set(helper.convert(key), PersistentDataType.SHORT, value);
+        container.set(helper.convert(key), SpigotDataType.SHORT, value);
     }
 
     @Override
     public void set(ResourceKey key, int value) {
-        container.set(helper.convert(key), PersistentDataType.INTEGER, value);
+        container.set(helper.convert(key), SpigotDataType.INTEGER, value);
     }
 
     @Override
     public void set(ResourceKey key, long value) {
-        container.set(helper.convert(key), PersistentDataType.LONG, value);
+        container.set(helper.convert(key), SpigotDataType.LONG, value);
     }
 
     @Override
     public void set(ResourceKey key, float value) {
-        container.set(helper.convert(key), PersistentDataType.FLOAT, value);
+        container.set(helper.convert(key), SpigotDataType.FLOAT, value);
     }
 
     @Override
     public void set(ResourceKey key, double value) {
-        container.set(helper.convert(key), PersistentDataType.DOUBLE, value);
+        container.set(helper.convert(key), SpigotDataType.DOUBLE, value);
     }
 
     @Override
     public void set(ResourceKey key, String value) {
-        container.set(helper.convert(key), PersistentDataType.STRING, value);
+        container.set(helper.convert(key), SpigotDataType.STRING, value);
+    }
+
+    @Override
+    public void set(ResourceKey key, UUID value) {
+        container.set(helper.convert(key), SpigotDataType.UUID, value);
     }
 
     @Override
     public void set(ResourceKey key, byte[] array) {
-        container.set(helper.convert(key), PersistentDataType.BYTE_ARRAY, array);
+        container.set(helper.convert(key), SpigotDataType.BYTE_ARRAY, array);
     }
 
     @Override
     public void set(ResourceKey key, int[] array) {
-        container.set(helper.convert(key), PersistentDataType.INTEGER_ARRAY, array);
+        container.set(helper.convert(key), SpigotDataType.INTEGER_ARRAY, array);
     }
 
     @Override
     public void set(ResourceKey key, long[] array) {
-        container.set(helper.convert(key), PersistentDataType.LONG_ARRAY, array);
+        container.set(helper.convert(key), SpigotDataType.LONG_ARRAY, array);
     }
 
     @Override
@@ -82,177 +88,192 @@ public final class SpigotPersistentData implements IPlatformData {
         if (!(data instanceof SpigotPersistentData)) {
             return;
         }
-        container.set(helper.convert(key), PersistentDataType.TAG_CONTAINER, ((SpigotPersistentData) data).container);
+        container.set(helper.convert(key), SpigotDataType.TAG_CONTAINER, ((SpigotPersistentData) data).container);
     }
 
     @Override
     public byte getOrDefault(ResourceKey key, byte value) {
-        return container.getOrDefault(helper.convert(key), PersistentDataType.BYTE, value);
+        return container.getOrDefault(helper.convert(key), SpigotDataType.BYTE, value);
     }
 
     @Override
     public short getOrDefault(ResourceKey key, short value) {
-        return container.getOrDefault(helper.convert(key), PersistentDataType.SHORT, value);
+        return container.getOrDefault(helper.convert(key), SpigotDataType.SHORT, value);
     }
 
     @Override
     public int getOrDefault(ResourceKey key, int value) {
-        return container.getOrDefault(helper.convert(key), PersistentDataType.INTEGER, value);
+        return container.getOrDefault(helper.convert(key), SpigotDataType.INTEGER, value);
     }
 
     @Override
     public long getOrDefault(ResourceKey key, long value) {
-        return container.getOrDefault(helper.convert(key), PersistentDataType.LONG, value);
+        return container.getOrDefault(helper.convert(key), SpigotDataType.LONG, value);
     }
 
     @Override
     public float getOrDefault(ResourceKey key, float value) {
-        return container.getOrDefault(helper.convert(key), PersistentDataType.FLOAT, value);
+        return container.getOrDefault(helper.convert(key), SpigotDataType.FLOAT, value);
     }
 
     @Override
     public double getOrDefault(ResourceKey key, double value) {
-        return container.getOrDefault(helper.convert(key), PersistentDataType.DOUBLE, value);
+        return container.getOrDefault(helper.convert(key), SpigotDataType.DOUBLE, value);
     }
 
     @Override
     public String getOrDefault(ResourceKey key, String value) {
-        return container.getOrDefault(helper.convert(key), PersistentDataType.STRING, value);
+        return container.getOrDefault(helper.convert(key), SpigotDataType.STRING, value);
+    }
+
+    @Override
+    public UUID getOrDefault(ResourceKey key, UUID value) {
+        return container.getOrDefault(helper.convert(key), SpigotDataType.UUID, value);
     }
 
     @Override
     public byte[] getOrDefault(ResourceKey key, byte[] value) {
-        return container.getOrDefault(helper.convert(key), PersistentDataType.BYTE_ARRAY, value);
+        return container.getOrDefault(helper.convert(key), SpigotDataType.BYTE_ARRAY, value);
     }
 
     @Override
     public int[] getOrDefault(ResourceKey key, int[] value) {
-        return container.getOrDefault(helper.convert(key), PersistentDataType.INTEGER_ARRAY, value);
+        return container.getOrDefault(helper.convert(key), SpigotDataType.INTEGER_ARRAY, value);
     }
 
     @Override
     public long[] getOrDefault(ResourceKey key, long[] value) {
-        return container.getOrDefault(helper.convert(key), PersistentDataType.LONG_ARRAY, value);
+        return container.getOrDefault(helper.convert(key), SpigotDataType.LONG_ARRAY, value);
     }
 
     @Override
     public boolean hasByte(ResourceKey key) {
-        return container.has(helper.convert(key), PersistentDataType.BYTE);
+        return container.has(helper.convert(key), SpigotDataType.BYTE);
     }
 
     @Override
     public boolean hasShort(ResourceKey key) {
-        return container.has(helper.convert(key), PersistentDataType.SHORT);
+        return container.has(helper.convert(key), SpigotDataType.SHORT);
     }
 
     @Override
     public boolean hasInt(ResourceKey key) {
-        return container.has(helper.convert(key), PersistentDataType.INTEGER);
+        return container.has(helper.convert(key), SpigotDataType.INTEGER);
     }
 
     @Override
     public boolean hasLong(ResourceKey key) {
-        return container.has(helper.convert(key), PersistentDataType.LONG);
+        return container.has(helper.convert(key), SpigotDataType.LONG);
     }
 
     @Override
     public boolean hasFloat(ResourceKey key) {
-        return container.has(helper.convert(key), PersistentDataType.FLOAT);
+        return container.has(helper.convert(key), SpigotDataType.FLOAT);
     }
 
     @Override
     public boolean hasDouble(ResourceKey key) {
-        return container.has(helper.convert(key), PersistentDataType.DOUBLE);
+        return container.has(helper.convert(key), SpigotDataType.DOUBLE);
     }
 
     @Override
     public boolean hasString(ResourceKey key) {
-        return container.has(helper.convert(key), PersistentDataType.STRING);
+        return container.has(helper.convert(key), SpigotDataType.STRING);
+    }
+
+    @Override
+    public boolean hasUUID(ResourceKey key) {
+        return container.has(helper.convert(key), SpigotDataType.UUID);
     }
 
     @Override
     public boolean hasByteArray(ResourceKey key) {
-        return container.has(helper.convert(key), PersistentDataType.BYTE_ARRAY);
+        return container.has(helper.convert(key), SpigotDataType.BYTE_ARRAY);
     }
 
     @Override
     public boolean hasIntArray(ResourceKey key) {
-        return container.has(helper.convert(key), PersistentDataType.INTEGER_ARRAY);
+        return container.has(helper.convert(key), SpigotDataType.INTEGER_ARRAY);
     }
 
     @Override
     public boolean hasLongArray(ResourceKey key) {
-        return container.has(helper.convert(key), PersistentDataType.LONG_ARRAY);
+        return container.has(helper.convert(key), SpigotDataType.LONG_ARRAY);
     }
 
     @Override
     public boolean hasData(ResourceKey key) {
-        return container.has(helper.convert(key), PersistentDataType.TAG_CONTAINER);
+        return container.has(helper.convert(key), SpigotDataType.TAG_CONTAINER);
     }
 
     @Override
     public byte getByte(ResourceKey key) {
-        return container.get(helper.convert(key), PersistentDataType.BYTE);
+        return container.get(helper.convert(key), SpigotDataType.BYTE);
     }
 
     @Override
     public short getShort(ResourceKey key) {
-        return container.get(helper.convert(key), PersistentDataType.SHORT);
+        return container.get(helper.convert(key), SpigotDataType.SHORT);
     }
 
     @Override
     public int getInt(ResourceKey key) {
-        return container.get(helper.convert(key), PersistentDataType.INTEGER);
+        return container.get(helper.convert(key), SpigotDataType.INTEGER);
     }
 
     @Override
     public long getLong(ResourceKey key) {
-        return container.get(helper.convert(key), PersistentDataType.LONG);
+        return container.get(helper.convert(key), SpigotDataType.LONG);
     }
 
     @Override
     public float getFloat(ResourceKey key) {
-        return container.get(helper.convert(key), PersistentDataType.FLOAT);
+        return container.get(helper.convert(key), SpigotDataType.FLOAT);
     }
 
     @Override
     public double getDouble(ResourceKey key) {
-        return container.get(helper.convert(key), PersistentDataType.DOUBLE);
+        return container.get(helper.convert(key), SpigotDataType.DOUBLE);
     }
 
     @Override
     public String getString(ResourceKey key) {
-        return container.get(helper.convert(key), PersistentDataType.STRING);
+        return container.get(helper.convert(key), SpigotDataType.STRING);
+    }
+
+    @Override
+    public UUID getUUID(ResourceKey key) {
+        return container.get(helper.convert(key), SpigotDataType.UUID);
     }
 
     @Override
     public byte[] getByteArray(ResourceKey key) {
-        return container.get(helper.convert(key), PersistentDataType.BYTE_ARRAY);
+        return container.get(helper.convert(key), SpigotDataType.BYTE_ARRAY);
     }
 
     @Override
     public int[] getIntArray(ResourceKey key) {
-        return container.get(helper.convert(key), PersistentDataType.INTEGER_ARRAY);
+        return container.get(helper.convert(key), SpigotDataType.INTEGER_ARRAY);
     }
 
     @Override
     public long[] getLongArray(ResourceKey key) {
-        return container.get(helper.convert(key), PersistentDataType.LONG_ARRAY);
+        return container.get(helper.convert(key), SpigotDataType.LONG_ARRAY);
     }
 
     @Override
     public IPlatformData getData(ResourceKey key) {
-        return new SpigotPersistentData(container.get(helper.convert(key), PersistentDataType.TAG_CONTAINER));
+        return new SpigotPersistentData(container.get(helper.convert(key), SpigotDataType.TAG_CONTAINER));
     }
 
     @Override
     public IPlatformData getDataOrNew(ResourceKey key) {
         NamespacedKey bukkitKey = helper.convert(key);
-        if (container.has(bukkitKey, PersistentDataType.TAG_CONTAINER)) {
-            return new SpigotPersistentData(container.get(bukkitKey, PersistentDataType.TAG_CONTAINER));
+        if (container.has(bukkitKey, SpigotDataType.TAG_CONTAINER)) {
+            return new SpigotPersistentData(container.get(bukkitKey, SpigotDataType.TAG_CONTAINER));
         }
         PersistentDataContainer newContainer = container.getAdapterContext().newPersistentDataContainer();
-        container.set(bukkitKey, PersistentDataType.TAG_CONTAINER, newContainer);
+        container.set(bukkitKey, SpigotDataType.TAG_CONTAINER, newContainer);
         return new SpigotPersistentData(newContainer);
     }
 

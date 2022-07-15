@@ -6,6 +6,7 @@ import java.util.regex.Pattern;
 
 public class ResourceKey {
 
+    public static final Pattern VALID_KEY = Pattern.compile("(?<Namespace>[0-9a-zA-Z]+):(?<Key>[0-9a-zA-Z]([/.]?[0-9a-zA-Z])*)");
     public static final Pattern VALID_NAMED_KEY = Pattern
         .compile("(?<Namespace>[0-9a-zA-Z]+):(?<Key>[0-9a-zA-Z]([/.]?[0-9a-zA-Z])*)(@\\\"(?<Name>.+)\\\")?");
 
@@ -23,7 +24,7 @@ public class ResourceKey {
     public ResourceKey(final String namespace, final String key) {
         this.namespace = Objects.requireNonNull(namespace).toLowerCase();
         this.key = Objects.requireNonNull(key).toLowerCase();
-        if (!VALID_NAMED_KEY.matcher(toString()).matches()) {
+        if (!VALID_KEY.matcher(toString()).matches()) {
             throw new IllegalArgumentException("'" + namespace + ':' + key + "' is not valid!");
         }
     }
@@ -127,7 +128,7 @@ public class ResourceKey {
         final String namespace = matcher.group("Namespace");
         final String key = matcher.group("Key");
         final String name = matcher.group("Name");
-        return name == null ? new ResourceKey(namespace, key) : new NamedResourceKey(namespace, key, name);
+        return (name == null || name.isBlank()) ? new ResourceKey(namespace, key) : new NamedResourceKey(namespace, key, name);
     }
 
 }
