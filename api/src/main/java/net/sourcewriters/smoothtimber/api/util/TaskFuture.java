@@ -1,4 +1,4 @@
-package net.sourcewriters.smoothtimber.spigot.util;
+package net.sourcewriters.smoothtimber.api.util;
 
 import java.util.concurrent.Callable;
 import java.util.concurrent.ExecutionException;

@@ -18,6 +18,8 @@ import net.sourcewriters.smoothtimber.api.platform.world.entity.IPlatformPlayer;
 import net.sourcewriters.smoothtimber.api.platform.world.inventory.IPlatformInventory;
 import net.sourcewriters.smoothtimber.api.platform.world.inventory.IPlatformItem;
 import net.sourcewriters.smoothtimber.api.resource.key.ResourceKey;
+import net.sourcewriters.smoothtimber.spigot.event.SpigotEventAdapter;
+import net.sourcewriters.smoothtimber.spigot.event.adapter.*;
 import net.sourcewriters.smoothtimber.spigot.world.SpigotWorld;
 import net.sourcewriters.smoothtimber.spigot.world.entity.SpigotPlayer;
 import net.sourcewriters.smoothtimber.spigot.world.inventory.SpigotItem;
@@ -28,9 +30,18 @@ public final class SpigotPlatform implements ISmoothTimberPlatform {
     private final SmoothTimberSpigot plugin;
     private final SpigotExecutor executor;
 
+    private final SpigotEventAdapter eventAdapter;
+
     public SpigotPlatform(final SmoothTimberSpigot plugin) {
         this.plugin = plugin;
         this.executor = new SpigotExecutor(plugin);
+        this.eventAdapter = new SpigotEventAdapter(plugin);
+        registerAdapters();
+    }
+
+    private void registerAdapters() {
+        eventAdapter.register(new EntityChangeBlockAdapter());
+        eventAdapter.register(new BlockBreakAdapter());
     }
 
     @Override
@@ -45,7 +56,7 @@ public final class SpigotPlatform implements ISmoothTimberPlatform {
 
     @Override
     public IPlatformEventAdapter getEventAdapter() {
-        return null;
+        return eventAdapter;
     }
 
     @Override

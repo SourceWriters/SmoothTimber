@@ -1,17 +1,19 @@
 package net.sourcewriters.smoothtimber.api.platform.event;
 
 import net.sourcewriters.smoothtimber.api.platform.world.IPlatformBlock;
-import net.sourcewriters.smoothtimber.api.platform.world.entity.IPlatformFallingBlock;
+import net.sourcewriters.smoothtimber.api.platform.world.entity.IPlatformEntity;
 import net.sourcewriters.smoothtimber.api.resource.key.ResourceKey;
 
-public class PlatformFallingBlockEvent extends PlatformEvent {
+public class PlatformEntityChangeBlockEvent extends PlatformEvent {
 
-    private final IPlatformFallingBlock entity;
+    private final IPlatformEntity entity;
     private final IPlatformBlock block;
     private final ResourceKey fromType;
     private final ResourceKey toType;
+    
+    private boolean cancelled;
 
-    public PlatformFallingBlockEvent(final IPlatformFallingBlock entity, final IPlatformBlock block, final ResourceKey fromType,
+    public PlatformEntityChangeBlockEvent(final IPlatformEntity entity, final IPlatformBlock block, final ResourceKey fromType,
         final ResourceKey toType) {
         this.entity = entity;
         this.block = block;
@@ -20,11 +22,11 @@ public class PlatformFallingBlockEvent extends PlatformEvent {
     }
 
     /**
-     * Gets the falling block entity
+     * Gets the involved entity
      * 
-     * @return the falling block entity
+     * @return the entity
      */
-    public IPlatformFallingBlock getEntity() {
+    public IPlatformEntity getEntity() {
         return entity;
     }
 
@@ -53,6 +55,24 @@ public class PlatformFallingBlockEvent extends PlatformEvent {
      */
     public ResourceKey getToType() {
         return toType;
+    }
+
+    /**
+     * Checks if the event is cancelled
+     * 
+     * @return if the event is cancelled or not
+     */
+    public boolean isCancelled() {
+        return cancelled;
+    }
+
+    /**
+     * Sets the cancel state of the event
+     * 
+     * @param cancelled the state to set
+     */
+    public void setCancelled(boolean cancelled) {
+        this.cancelled = cancelled;
     }
 
 }

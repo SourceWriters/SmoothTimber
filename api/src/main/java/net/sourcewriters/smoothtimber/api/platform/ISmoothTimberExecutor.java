@@ -41,4 +41,11 @@ public interface ISmoothTimberExecutor {
      */
     <E> Future<E> supplySync(Callable<E> task);
 
+    /**
+     * Checks if the current thread is the main thread
+     * 
+     * @return if it is the main thread
+     */
+    boolean isSync();
+
 }

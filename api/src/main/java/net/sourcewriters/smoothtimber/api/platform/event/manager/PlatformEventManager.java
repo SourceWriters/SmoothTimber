@@ -35,12 +35,14 @@ public final class PlatformEventManager {
      * 
      * @param  event                 the event to be called
      * 
+     * @return                       the future of the event call
+     * 
      * @throws UnknownEventException if the event is unknown to the platform
      * 
      * @see                          net.sourcewriters.smoothtimber.api.platform.event.manager.IPlatformEventAdapter#call(PlatformEvent)
      */
-    public void callPlatform(final PlatformEvent event) throws UnknownEventException {
-        adapter.call(event);
+    public Future<?> callPlatform(final PlatformEvent event) throws UnknownEventException {
+        return adapter.call(event);
     }
 
     /**
@@ -50,13 +52,15 @@ public final class PlatformEventManager {
      * @param  async                 if the event should be called synchronous or
      *                                   asynchronous to the main thread
      * 
+     * @return                       the future of the event call
+     * 
      * @throws UnknownEventException if the event is unknown to the platform
      * 
      * @see                          net.sourcewriters.smoothtimber.api.platform.event.manager.IPlatformEventAdapter#call(PlatformEvent,
      *                                   boolean)
      */
-    public void callPlatform(final PlatformEvent event, final boolean async) throws UnknownEventException {
-        adapter.call(event, async);
+    public Future<?> callPlatform(final PlatformEvent event, final boolean async) throws UnknownEventException {
+        return adapter.call(event, async);
     }
 
     //
@@ -83,7 +87,10 @@ public final class PlatformEventManager {
      * @return       the task future
      */
     public Future<?> call(final PlatformEvent event, final boolean async) {
-        return async ? executor.runAsync(() -> handler.call(event)) : executor.runSync(() -> handler.call(event));
+        if (async) {
+            return executor.runAsync(() -> handler.call(event));
+        }
+        return executor.runSync(() -> handler.call(event));
     }
 
 }

@@ -1,4 +1,4 @@
-package net.sourcewriters.smoothtimber.spigot.util;
+package net.sourcewriters.smoothtimber.api.util;
 
 import java.util.concurrent.Future;
 import java.util.concurrent.TimeUnit;

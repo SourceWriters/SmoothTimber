@@ -8,6 +8,8 @@ public final class PlatformBlockBreakEvent extends PlatformEvent {
     private final IPlatformPlayer player;
     private final IPlatformBlock block;
 
+    private boolean cancelled;
+
     public PlatformBlockBreakEvent(final IPlatformPlayer player, final IPlatformBlock block) {
         this.player = player;
         this.block = block;
@@ -29,6 +31,24 @@ public final class PlatformBlockBreakEvent extends PlatformEvent {
      */
     public IPlatformBlock getBlock() {
         return block;
+    }
+
+    /**
+     * Checks if the event is cancelled
+     * 
+     * @return if the event is cancelled or not
+     */
+    public boolean isCancelled() {
+        return cancelled;
+    }
+
+    /**
+     * Sets the cancel state of the event
+     * 
+     * @param cancelled the state to set
+     */
+    public void setCancelled(boolean cancelled) {
+        this.cancelled = cancelled;
     }
 
 }
