@@ -5,6 +5,8 @@ import java.util.UUID;
 import net.sourcewriters.smoothtimber.api.resource.key.ResourceKey;
 
 public interface IPlatformData {
+    
+    // TODO: Add documentation
 
     boolean isPersistent();
 
