@@ -4,10 +4,12 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.Future;
 
 import org.bukkit.Bukkit;
+import org.bukkit.event.Cancellable;
 import org.bukkit.event.Event;
 import org.bukkit.plugin.PluginManager;
 
 import net.sourcewriters.smoothtimber.api.platform.ISmoothTimberExecutor;
+import net.sourcewriters.smoothtimber.api.platform.event.IPlatformCancellable;
 import net.sourcewriters.smoothtimber.api.platform.event.PlatformEvent;
 import net.sourcewriters.smoothtimber.api.platform.event.manager.IPlatformEventAdapter;
 import net.sourcewriters.smoothtimber.api.platform.event.manager.UnknownEventException;
@@ -37,7 +39,11 @@ public final class SpigotEventAdapter implements IPlatformEventAdapter {
         if (adapter == null) {
             return null;
         }
-        return adapter.toBukkitAbstract(plugin.getCore(), platform);
+        Event bukkit = adapter.toBukkitAbstract(plugin.getCore(), platform);
+        if (bukkit instanceof Cancellable && platform instanceof IPlatformCancellable) {
+            ((Cancellable) bukkit).setCancelled(((IPlatformCancellable) platform).isCancelled());
+        }
+        return bukkit;
     }
 
     public PlatformEvent fromBukkit(Event bukkit) {
@@ -48,7 +54,11 @@ public final class SpigotEventAdapter implements IPlatformEventAdapter {
         if (adapter == null) {
             return null;
         }
-        return adapter.fromBukkitAbstract(plugin.getCore(), bukkit);
+        PlatformEvent platform = adapter.fromBukkitAbstract(plugin.getCore(), bukkit);
+        if (bukkit instanceof Cancellable && platform instanceof IPlatformCancellable) {
+            ((IPlatformCancellable) platform).setCancelled(((Cancellable) bukkit).isCancelled());
+        }
+        return platform;
     }
 
     public boolean register(SpigotEvent<?, ?> event) {

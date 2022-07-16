@@ -33,4 +33,11 @@ public interface IPlatformBlock {
      */
     Vector3i getPosition();
 
+    /**
+     * Get the world that the block is in
+     * 
+     * @return the world
+     */
+    IPlatformWorld getWorld();
+
 }

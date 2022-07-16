@@ -3,7 +3,7 @@ package net.sourcewriters.smoothtimber.api.platform.event;
 import net.sourcewriters.smoothtimber.api.platform.world.IPlatformBlock;
 import net.sourcewriters.smoothtimber.api.platform.world.entity.IPlatformPlayer;
 
-public final class PlatformBlockBreakEvent extends PlatformEvent {
+public final class PlatformBlockBreakEvent extends PlatformEvent implements IPlatformCancellable {
 
     private final IPlatformPlayer player;
     private final IPlatformBlock block;
@@ -38,6 +38,7 @@ public final class PlatformBlockBreakEvent extends PlatformEvent {
      * 
      * @return if the event is cancelled or not
      */
+    @Override
     public boolean isCancelled() {
         return cancelled;
     }
@@ -47,6 +48,7 @@ public final class PlatformBlockBreakEvent extends PlatformEvent {
      * 
      * @param cancelled the state to set
      */
+    @Override
     public void setCancelled(boolean cancelled) {
         this.cancelled = cancelled;
     }

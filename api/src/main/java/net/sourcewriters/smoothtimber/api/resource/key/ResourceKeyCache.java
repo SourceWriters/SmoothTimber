@@ -30,6 +30,14 @@ public final class ResourceKeyCache {
         }
     }
 
+    public ResourceKey minecraft(final String keyValue) {
+        try {
+            return keys.computeIfAbsent(keyValue, ResourceKey::minecraft);
+        } catch (final KeyFormatException kfe) {
+            return null;
+        }
+    }
+
     public ResourceKey[] getNamespace(final SmoothTimberModule module) {
         return getNamespace(module.getId());
     }

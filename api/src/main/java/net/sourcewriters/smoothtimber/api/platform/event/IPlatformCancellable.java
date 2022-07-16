@@ -1,6 +1,6 @@
 package net.sourcewriters.smoothtimber.api.platform.event;
 
-public interface IPlatformCancelable {
+public interface IPlatformCancellable {
 
     /**
      * Sets if the event is cancelled or not

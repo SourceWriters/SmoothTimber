@@ -60,6 +60,11 @@ public final class SpigotPlatform implements ISmoothTimberPlatform {
     }
 
     @Override
+    public boolean isValidMaterial(ResourceKey key) {
+        return SpigotConversionRegistry.getMaterial(key) != null;
+    }
+
+    @Override
     public IPlatformPlayer[] getPlayers() {
         Player[] players = Bukkit.getOnlinePlayers().toArray(Player[]::new);
         IPlatformPlayer[] platform = new IPlatformPlayer[players.length];
@@ -68,11 +73,11 @@ public final class SpigotPlatform implements ISmoothTimberPlatform {
         }
         return platform;
     }
-    
+
     @Override
     public IPlatformPlayer getPlayer(UUID uniqueId) {
         Player player = Bukkit.getPlayer(uniqueId);
-        if(player == null) {
+        if (player == null) {
             return null;
         }
         return new SpigotPlayer(player);

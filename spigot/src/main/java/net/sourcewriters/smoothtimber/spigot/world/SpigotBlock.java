@@ -4,6 +4,7 @@ import org.bukkit.block.Block;
 import org.bukkit.block.data.BlockData;
 
 import net.sourcewriters.smoothtimber.api.platform.world.IPlatformBlock;
+import net.sourcewriters.smoothtimber.api.platform.world.IPlatformWorld;
 import net.sourcewriters.smoothtimber.api.resource.key.ResourceKey;
 import net.sourcewriters.smoothtimber.api.util.math.Vector3i;
 import net.sourcewriters.smoothtimber.spigot.SpigotConversionRegistry;
@@ -38,6 +39,11 @@ public final class SpigotBlock implements IPlatformBlock {
     @Override
     public Vector3i getPosition() {
         return new Vector3i(block.getX(), block.getY(), block.getZ());
+    }
+
+    @Override
+    public IPlatformWorld getWorld() {
+        return new SpigotWorld(block.getWorld());
     }
 
 }

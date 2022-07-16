@@ -2,10 +2,18 @@ package net.sourcewriters.smoothtimber.api.tree;
 
 import net.sourcewriters.smoothtimber.api.platform.world.IPlatformBlock;
 import net.sourcewriters.smoothtimber.api.platform.world.IPlatformWorld;
+import net.sourcewriters.smoothtimber.api.resource.key.ResourceKey;
 import net.sourcewriters.smoothtimber.api.util.math.Cube;
 import net.sourcewriters.smoothtimber.api.util.math.Vector3i;
 
 public interface ITree {
+
+    /**
+     * Get the namespaced id of the tree
+     * 
+     * @return the id
+     */
+    ResourceKey getId();
 
     /**
      * Get the blocks relative to the position with a maximum amount of blocks.

@@ -34,6 +34,11 @@ public interface ISmoothTimberPlatform {
      * @return the platform specific event adapter
      */
     IPlatformEventAdapter getEventAdapter();
+    
+    //
+    // Types
+    
+    boolean isValidMaterial(final ResourceKey key);
 
     //
     // Players

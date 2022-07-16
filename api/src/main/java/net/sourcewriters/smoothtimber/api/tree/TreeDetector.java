@@ -3,9 +3,9 @@ package net.sourcewriters.smoothtimber.api.tree;
 import java.util.Objects;
 
 import net.sourcewriters.smoothtimber.api.module.SmoothTimberModule;
-import net.sourcewriters.smoothtimber.api.platform.world.IPlatformWorld;
 import net.sourcewriters.smoothtimber.api.resource.key.ResourceKey;
 import net.sourcewriters.smoothtimber.api.util.math.Vector3i;
+import net.sourcewriters.smoothtimber.api.util.world.PlatformBlockCache;
 
 public abstract class TreeDetector {
 
@@ -33,11 +33,11 @@ public abstract class TreeDetector {
     /**
      * Detects if there is a tree at the given location
      * 
-     * @param  world    the world that the tree is in
-     * @param  location the location that the tree is at
+     * @param  blockCache the blockCache for the world that the tree is in
+     * @param  location   the location that the tree is at
      * 
-     * @return          the tree or null
+     * @return            the tree or null
      */
-    public abstract ITree detect(IPlatformWorld world, Vector3i location);
+    public abstract ITree detect(PlatformBlockCache blockCache, Vector3i location);
 
 }

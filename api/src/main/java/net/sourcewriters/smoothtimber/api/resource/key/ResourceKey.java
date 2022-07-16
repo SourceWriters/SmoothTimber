@@ -131,4 +131,49 @@ public class ResourceKey {
         return (name == null || name.isBlank()) ? new ResourceKey(namespace, key) : new NamedResourceKey(namespace, key, name);
     }
 
+    /**
+     * Parses the string argument as a minecraft namespaced key.
+     * <p>
+     * An exception of type {@code KeyFormatException} is thrown if any of the
+     * following situations occurs:
+     * <ul>
+     * <li>The first argument is {@code null} or is a length of zero.
+     * <li>The string doesn't meet the required format of 'namespace:key'
+     * <li>Any character of the namespace string is not a lowercase alphanumeric
+     * character, period, underscore, hyphen
+     * <li>Any character of the key string is not a lowercase alphanumeric
+     * character, period, underscore, hyphen or forward slash
+     * <p>
+     * Examples: <blockquote>
+     * 
+     * <pre>
+     * minecraft("stone") returns a valid ResourceKey ("minecraft:stone")
+     * minecraft("stone@\"test\"") returns a valid NamedResourceKey ("minecraft:stone@\"test\"")
+     * minecraft("minecraft:stone") throws a KeyFormatException
+     * minecraft("stone:stone") throws a KeyFormatException
+     * minecraft(":stone") throws a KeyFormatException
+     * </pre>
+     * 
+     * </blockquote>
+     * 
+     * @param  value              the {@code String} containing named key
+     *                                representation to be parsed
+     * 
+     * @return                    the namespaced key represented by the string
+     *                                argument
+     * 
+     * @throws KeyFormatException if the {@code String} does not contain a parseable
+     *                                named key
+     */
+    public static ResourceKey minecraft(final String keyValue) throws KeyFormatException {
+        final Matcher matcher = VALID_NAMED_KEY.matcher("minecraft:" + keyValue);
+        if (!matcher.matches()) {
+            throw new KeyFormatException("0");
+        }
+        final String namespace = matcher.group("Namespace");
+        final String key = matcher.group("Key");
+        final String name = matcher.group("Name");
+        return (name == null || name.isBlank()) ? new ResourceKey(namespace, key) : new NamedResourceKey(namespace, key, name);
+    }
+
 }

@@ -91,4 +91,13 @@ public final class Vector3d {
         return z;
     }
 
+    /**
+     * Creates a exact copy of this vector
+     * 
+     * @return the copy
+     */
+    public Vector3d clone() {
+        return new Vector3d(x, y, z);
+    }
+
 }

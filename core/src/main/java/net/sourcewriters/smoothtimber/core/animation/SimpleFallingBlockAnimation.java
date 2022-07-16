@@ -10,15 +10,15 @@ import net.sourcewriters.smoothtimber.api.tree.IWoodType;
 import net.sourcewriters.smoothtimber.api.tree.TreeAnimation;
 import net.sourcewriters.smoothtimber.api.util.math.Vector3i;
 
-public final class DefaultAnimation extends TreeAnimation {
+public final class SimpleFallingBlockAnimation extends TreeAnimation {
 
-    public DefaultAnimation(SmoothTimberModule module) {
-        super(module, "default");
+    public SimpleFallingBlockAnimation(SmoothTimberModule module) {
+        super(module, "simple_falling_block");
     }
 
     @Override
     public Map<IWoodType, Integer> cutTree(IPlatformPlayer player, IPlatformItem item, ITree tree, Vector3i relative) {
-        // TODO Auto-generated method stub
+        
         return null;
     }
 

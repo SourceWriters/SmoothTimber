@@ -4,13 +4,13 @@ import net.sourcewriters.smoothtimber.api.platform.world.IPlatformBlock;
 import net.sourcewriters.smoothtimber.api.platform.world.entity.IPlatformEntity;
 import net.sourcewriters.smoothtimber.api.resource.key.ResourceKey;
 
-public class PlatformEntityChangeBlockEvent extends PlatformEvent {
+public class PlatformEntityChangeBlockEvent extends PlatformEvent implements IPlatformCancellable {
 
     private final IPlatformEntity entity;
     private final IPlatformBlock block;
     private final ResourceKey fromType;
     private final ResourceKey toType;
-    
+
     private boolean cancelled;
 
     public PlatformEntityChangeBlockEvent(final IPlatformEntity entity, final IPlatformBlock block, final ResourceKey fromType,
@@ -62,6 +62,7 @@ public class PlatformEntityChangeBlockEvent extends PlatformEvent {
      * 
      * @return if the event is cancelled or not
      */
+    @Override
     public boolean isCancelled() {
         return cancelled;
     }
@@ -71,6 +72,7 @@ public class PlatformEntityChangeBlockEvent extends PlatformEvent {
      * 
      * @param cancelled the state to set
      */
+    @Override
     public void setCancelled(boolean cancelled) {
         this.cancelled = cancelled;
     }

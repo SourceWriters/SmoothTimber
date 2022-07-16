@@ -91,4 +91,13 @@ public final class Vector3i {
         return z;
     }
 
+    /**
+     * Creates a exact copy of this vector
+     * 
+     * @return the copy
+     */
+    public Vector3i clone() {
+        return new Vector3i(x, y, z);
+    }
+
 }
