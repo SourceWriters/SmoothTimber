@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.concurrent.locks.ReentrantLock;
 
 import net.sourcewriters.smoothtimber.api.module.SmoothTimberModule;
-import net.sourcewriters.smoothtimber.api.platform.event.IPlatformCancelable;
+import net.sourcewriters.smoothtimber.api.platform.event.IPlatformCancellable;
 import net.sourcewriters.smoothtimber.api.platform.event.PlatformEvent;
 
 public final class PlatformEventHandler {
@@ -145,8 +145,8 @@ public final class PlatformEventHandler {
             return;
         }
         list.sort(PlatformEventExecutorComparator.COMPARATOR);
-        if (event instanceof IPlatformCancelable) {
-            final IPlatformCancelable cancel = (IPlatformCancelable) event;
+        if (event instanceof IPlatformCancellable) {
+            final IPlatformCancellable cancel = (IPlatformCancellable) event;
             for (final PlatformEventExecutor executor : list) {
                 if (!executor.doesIgnoreCancelled() && cancel.isCancelled()) {
                     continue;
