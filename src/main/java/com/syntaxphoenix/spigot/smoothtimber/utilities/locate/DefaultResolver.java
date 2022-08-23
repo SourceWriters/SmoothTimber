@@ -27,7 +27,7 @@ public final class DefaultResolver extends LocationResolver {
         ArrayList<Location> resolved = new ArrayList<>();
         for (int cx = x - radius; cx <= x + radius; cx++) {
             for (int cz = z - radius; cz <= z + radius; cz++) {
-                if (limit >= 0 && counter.get() == limit) {
+                if (limit >= 0 && counter.get() >= limit) {
                     return resolved;
                 }
                 Location location = new Location(world, cx, y, cz);

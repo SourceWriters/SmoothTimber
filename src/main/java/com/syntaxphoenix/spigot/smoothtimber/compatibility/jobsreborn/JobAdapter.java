@@ -19,7 +19,6 @@ public abstract class JobAdapter {
     public void addPointsAndMoney(JobsPlayer player, double pointValue, double moneyValue) {
         BufferedEconomy economy = getEconomy();
         if (economy == null || (pointValue + moneyValue) <= 0) {
-            System.out.println(player.getName() + " / (" + (economy == null) + ") -> " + pointValue + "/" + moneyValue);
             return;
         }
         HashMap<CurrencyType, Double> map = new HashMap<>();
