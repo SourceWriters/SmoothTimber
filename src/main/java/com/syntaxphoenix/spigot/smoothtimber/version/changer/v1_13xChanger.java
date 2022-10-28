@@ -145,13 +145,18 @@ public class v1_13xChanger implements VersionChanger {
     @Override
     public boolean isSupported(WoodType type) {
         switch (type) {
-        case WARPED:
-        case CRIMSON:
-            return false;
-        default:
+        case OAK:
+        case SPRUCE:
+        case BIRCH:
+        case JUNGLE:
+        case ACACIA:
+        case DARKOAK:
+        case OTHER:
             return true;
-        }
+        default:
+            return false;
     }
+}
 
     @Override
     public WoodType getWoodTypeFromBlock(Block block) {
@@ -202,7 +207,7 @@ public class v1_13xChanger implements VersionChanger {
             case STRIPPED_ACACIA_WOOD:
                 return WoodType.ACACIA;
             default:
-                return null;
+                return WoodType.OTHER;
         }
     }
 

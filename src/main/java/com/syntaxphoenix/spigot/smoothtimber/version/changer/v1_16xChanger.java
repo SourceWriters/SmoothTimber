@@ -145,7 +145,20 @@ public class v1_16xChanger implements VersionChanger {
 
     @Override
     public boolean isSupported(WoodType type) {
-        return true;
+        switch (type) {
+        case OAK:
+        case SPRUCE:
+        case BIRCH:
+        case JUNGLE:
+        case ACACIA:
+        case DARKOAK:
+        case CRIMSON:
+        case WARPED:
+        case OTHER:
+            return true;
+        default:
+            return false;
+        }
     }
 
     @Override
@@ -209,7 +222,7 @@ public class v1_16xChanger implements VersionChanger {
             case STRIPPED_WARPED_HYPHAE:
                 return WoodType.WARPED;
             default:
-                return null;
+                return WoodType.OTHER;
         }
     }
 
