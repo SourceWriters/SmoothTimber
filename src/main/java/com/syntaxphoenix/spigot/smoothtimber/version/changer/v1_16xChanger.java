@@ -84,7 +84,7 @@ public class v1_16xChanger implements VersionChanger {
             return true;
         }
 
-        return getWoodType(material) != null;
+        return getWoodType(material) != WoodType.OTHER;
     }
 
     @Override
