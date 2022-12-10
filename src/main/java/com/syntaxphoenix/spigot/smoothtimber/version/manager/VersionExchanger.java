@@ -25,6 +25,9 @@ public class VersionExchanger {
     }
 
     private static VersionChanger initVersionChanger(MCVersion core) {
+        if(core == null) {
+            return null;
+        }
         switch (core) {
         case v1_8x:
             return new v1_8xChanger();
