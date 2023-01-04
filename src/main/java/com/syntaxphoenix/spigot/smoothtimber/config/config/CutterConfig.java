@@ -1,5 +1,7 @@
 package com.syntaxphoenix.spigot.smoothtimber.config.config;
 
+import static org.bukkit.Bukkit.getLogger;
+
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,8 +18,6 @@ import com.syntaxphoenix.spigot.smoothtimber.utilities.PluginUtils;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.cooldown.CooldownHelper;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.limit.Limiter;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.locate.Locator;
-
-import static org.bukkit.Bukkit.getLogger;
 
 public final class CutterConfig extends STConfig {
 
@@ -128,11 +128,11 @@ public final class CutterConfig extends STConfig {
         EXCLUDED_MATERIALS = check("exclusion.list", EXCLUDED_MATERIALS);
 
         ENABLE_INCLUSION = check("inclusion.enabled", ENABLE_INCLUSION);
-        List<Material> includedMaterials = check("inclusion.list", INCLUDED_MATERIALS);
+        final List<Material> includedMaterials = check("inclusion.list", INCLUDED_MATERIALS);
 
         // Materials have to be solid
         INCLUDED_MATERIALS.clear();
-        for (Material includedMaterial : includedMaterials) {
+        for (final Material includedMaterial : includedMaterials) {
             if (includedMaterial.isSolid()) {
                 INCLUDED_MATERIALS.add(includedMaterial);
             } else {
@@ -178,28 +178,27 @@ public final class CutterConfig extends STConfig {
      */
 
     @SuppressWarnings("unchecked")
-    private List<Material> check(String path, List<Material> input) {
+    private List<Material> check(final String path, final List<Material> input) {
         if (config.contains(path)) {
-            List<String> list = (List<String>) get(path);
-            ArrayList<Material> output = new ArrayList<>();
-            for (String value : list) {
+            final List<String> list = (List<String>) get(path);
+            final ArrayList<Material> output = new ArrayList<>();
+            for (final String value : list) {
                 try {
                     output.add(Material.valueOf(value.toUpperCase()));
-                } catch (IllegalArgumentException exp) {
+                } catch (final IllegalArgumentException exp) {
                     getLogger().info("The material '" + value + "' doesn't exist! (" + path + ")");
                 }
             }
             return output;
-        } else {
-            ArrayList<String> write = new ArrayList<>();
-            if (!input.isEmpty()) {
-                for (Material material : input) {
-                    write.add(material.name());
-                }
-            }
-            config.set(path, write);
-            return input;
         }
+        final ArrayList<String> write = new ArrayList<>();
+        if (!input.isEmpty()) {
+            for (final Material material : input) {
+                write.add(material.name());
+            }
+        }
+        config.set(path, write);
+        return input;
     }
 
     private static List<String> worldStringList() {
@@ -209,7 +208,7 @@ public final class CutterConfig extends STConfig {
         }
 
         WORLD_LIST = new ArrayList<>();
-        for (World world : Bukkit.getWorlds()) {
+        for (final World world : Bukkit.getWorlds()) {
             WORLD_LIST.add(world.getName());
         }
         return WORLD_LIST;

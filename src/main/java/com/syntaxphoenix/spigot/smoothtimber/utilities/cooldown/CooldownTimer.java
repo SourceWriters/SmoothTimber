@@ -17,7 +17,7 @@ public class CooldownTimer extends TimerTask {
         new Timer("Cooldown", true).scheduleAtFixedRate(this, 0, 1);
     }
 
-    void add(Cooldown cooldown) {
+    void add(final Cooldown cooldown) {
         active.add(cooldown);
     }
 
@@ -26,14 +26,14 @@ public class CooldownTimer extends TimerTask {
         if (!running) {
             return;
         }
-        for (Cooldown cooldown : active) {
+        for (final Cooldown cooldown : active) {
             if (!cooldown.isTriggerable()) {
                 cooldown.decrement();
             }
         }
     }
 
-    public void setRunning(boolean running) {
+    public void setRunning(final boolean running) {
         this.running = running;
     }
 

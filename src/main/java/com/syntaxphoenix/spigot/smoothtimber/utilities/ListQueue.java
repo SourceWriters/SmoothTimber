@@ -24,7 +24,7 @@ public class ListQueue<E> implements Queue<E> {
     }
 
     @Override
-    public boolean contains(Object o) {
+    public boolean contains(final Object o) {
         return list.contains(o);
     }
 
@@ -39,32 +39,32 @@ public class ListQueue<E> implements Queue<E> {
     }
 
     @Override
-    public <T> T[] toArray(T[] a) {
+    public <T> T[] toArray(final T[] a) {
         return list.toArray(a);
     }
 
     @Override
-    public boolean remove(Object o) {
+    public boolean remove(final Object o) {
         return list.remove(o);
     }
 
     @Override
-    public boolean containsAll(Collection<?> c) {
+    public boolean containsAll(final Collection<?> c) {
         return list.containsAll(c);
     }
 
     @Override
-    public boolean addAll(Collection<? extends E> c) {
+    public boolean addAll(final Collection<? extends E> c) {
         return list.addAll(c);
     }
 
     @Override
-    public boolean removeAll(Collection<?> c) {
+    public boolean removeAll(final Collection<?> c) {
         return list.removeAll(c);
     }
 
     @Override
-    public boolean retainAll(Collection<?> c) {
+    public boolean retainAll(final Collection<?> c) {
         return list.retainAll(c);
     }
 
@@ -74,7 +74,7 @@ public class ListQueue<E> implements Queue<E> {
     }
 
     @Override
-    public boolean add(E e) {
+    public boolean add(final E e) {
         if (list.contains(e)) {
             return false;
         }
@@ -82,10 +82,10 @@ public class ListQueue<E> implements Queue<E> {
     }
 
     @Override
-    public boolean offer(E e) {
+    public boolean offer(final E e) {
         try {
             return add(e);
-        } catch (IllegalStateException ignore) {
+        } catch (final IllegalStateException ignore) {
             return false;
         }
     }
@@ -99,7 +99,7 @@ public class ListQueue<E> implements Queue<E> {
     public E poll() {
         try {
             return remove();
-        } catch (IndexOutOfBoundsException ignore) {
+        } catch (final IndexOutOfBoundsException ignore) {
             return null;
         }
     }
@@ -113,7 +113,7 @@ public class ListQueue<E> implements Queue<E> {
     public E peek() {
         try {
             return element();
-        } catch (IndexOutOfBoundsException ignore) {
+        } catch (final IndexOutOfBoundsException ignore) {
             return null;
         }
     }

@@ -15,15 +15,15 @@ public final class LandsChopListener implements Listener {
 
     private final Lands addon;
 
-    protected LandsChopListener(Lands addon) {
+    protected LandsChopListener(final Lands addon) {
         this.addon = addon;
     }
 
     @EventHandler(ignoreCancelled = true)
-    public void onChopEvent(AsyncPlayerChopTreeEvent event) {
-        LandsIntegration integration = addon.getIntegration();
-        for (Location location : event.getBlockLocations()) {
-            Area area = integration.getAreaByLoc(location);
+    public void onChopEvent(final AsyncPlayerChopTreeEvent event) {
+        final LandsIntegration integration = addon.getIntegration();
+        for (final Location location : event.getBlockLocations()) {
+            final Area area = integration.getAreaByLoc(location);
             if (area == null) {
                 continue;
             }

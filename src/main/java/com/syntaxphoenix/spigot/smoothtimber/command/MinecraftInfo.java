@@ -9,7 +9,7 @@ public class MinecraftInfo extends BaseInfo {
 
     private final CommandSender sender;
 
-    public MinecraftInfo(CommandManager manager, String label, CommandSender sender) {
+    public MinecraftInfo(final CommandManager manager, final String label, final CommandSender sender) {
         super(manager, label);
         this.sender = sender;
     }

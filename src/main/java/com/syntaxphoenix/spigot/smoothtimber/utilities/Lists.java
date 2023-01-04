@@ -4,33 +4,32 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
 import java.util.List;
-import java.util.function.Consumer;
 
 public abstract class Lists {
 
     @SuppressWarnings("unchecked")
-    public static <E> List<E> asList(E... c) {
-        List<E> list = new ArrayList<E>();
+    public static <E> List<E> asList(final E... c) {
+        final List<E> list = new ArrayList<>();
         for (int v = 0; v < c.length; v++) {
             list.add(c[v]);
         }
         return list;
     }
 
-    public static <E> List<E> asList(Collection<E> c) {
-        List<E> list = new ArrayList<E>();
-        Iterator<E> it = c.iterator();
+    public static <E> List<E> asList(final Collection<E> c) {
+        final List<E> list = new ArrayList<>();
+        final Iterator<E> it = c.iterator();
         while (it.hasNext()) {
             list.add(it.next());
         }
         return list;
     }
 
-    public static String getEIC(String s, List<String> l) {
+    public static String getEIC(final String s, final List<String> l) {
         if (l.isEmpty()) {
             return "";
         }
-        for (String st : l) {
+        for (final String st : l) {
             if (st.equalsIgnoreCase(s)) {
                 return st;
             }
@@ -38,11 +37,11 @@ public abstract class Lists {
         return "";
     }
 
-    public static boolean containsEIC(String s, List<String> l) {
+    public static boolean containsEIC(final String s, final List<String> l) {
         if (l.isEmpty()) {
             return false;
         }
-        for (String st : l) {
+        for (final String st : l) {
             if (st.equalsIgnoreCase(s)) {
                 return true;
             }
@@ -50,21 +49,18 @@ public abstract class Lists {
         return false;
     }
 
-    public static String[] toStringArray(Collection<String[]> coll) {
-        List<String> out = new ArrayList<>();
-        coll.forEach(new Consumer<String[]>() {
-            @Override
-            public void accept(String[] t) {
-                for (int v = 0; v < t.length; v++) {
-                    out.add(t[v]);
-                }
+    public static String[] toStringArray(final Collection<String[]> coll) {
+        final List<String> out = new ArrayList<>();
+        coll.forEach(t -> {
+            for (int v = 0; v < t.length; v++) {
+                out.add(t[v]);
             }
         });
         return out.toArray(new String[0]);
     }
 
-    public static <E> List<List<E>> partition(List<E> list, int num) {
-        List<List<E>> newList = new ArrayList<>();
+    public static <E> List<List<E>> partition(final List<E> list, final int num) {
+        final List<List<E>> newList = new ArrayList<>();
         List<E> nList = new ArrayList<>();
         for (int v = 0; v < list.size(); v++) {
             if (nList.size() == num) {

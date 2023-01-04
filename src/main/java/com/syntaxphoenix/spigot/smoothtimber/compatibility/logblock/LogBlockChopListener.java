@@ -14,14 +14,14 @@ public class LogBlockChopListener implements Listener {
 
     private final Consumer logblockConsumer;
 
-    public LogBlockChopListener(Consumer logblockConsumer) {
+    public LogBlockChopListener(final Consumer logblockConsumer) {
         this.logblockConsumer = logblockConsumer;
     }
 
     @EventHandler
-    public void onChopEvent(AsyncPlayerChoppedTreeEvent event) {
+    public void onChopEvent(final AsyncPlayerChoppedTreeEvent event) {
         final Actor actor = new Actor("#sm_" + event.getPlayer().getName());
-        for (Location location : event.getBlockLocations()) {
+        for (final Location location : event.getBlockLocations()) {
             logblockConsumer.queueBlockBreak(actor, location, Locator.getBlock(location).getBlockData());
         }
     }

@@ -2,7 +2,6 @@ package com.syntaxphoenix.spigot.smoothtimber.compatibility.griefprevention;
 
 import java.util.UUID;
 
-import com.syntaxphoenix.spigot.smoothtimber.utilities.PluginUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -11,6 +10,7 @@ import org.bukkit.event.Listener;
 
 import com.syntaxphoenix.spigot.smoothtimber.event.AsyncPlayerChopTreeEvent;
 import com.syntaxphoenix.spigot.smoothtimber.event.reason.DefaultReason;
+import com.syntaxphoenix.spigot.smoothtimber.utilities.PluginUtils;
 
 import me.ryanhamshire.GriefPrevention.Claim;
 import me.ryanhamshire.GriefPrevention.DataStore;
@@ -25,15 +25,15 @@ public final class GriefPreventionChopListener implements Listener {
     private final DataStore store = GriefPrevention.instance.dataStore;
 
     @EventHandler(ignoreCancelled = true)
-    public void onChopEvent(AsyncPlayerChopTreeEvent event) {
-        Player player = event.getPlayer();
-        UUID uniqueId = player.getUniqueId();
+    public void onChopEvent(final AsyncPlayerChopTreeEvent event) {
+        final Player player = event.getPlayer();
+        final UUID uniqueId = player.getUniqueId();
         if (store.getPlayerData(uniqueId).ignoreClaims) {
             return;
         }
         Bukkit.getScheduler().runTask(PluginUtils.MAIN, () -> {
-            for (Location location : event.getBlockLocations()) {
-                Claim claim = store.getClaimAt(location, false, null);
+            for (final Location location : event.getBlockLocations()) {
+                final Claim claim = store.getClaimAt(location, false, null);
                 if (claim == null) {
                     continue;
                 }

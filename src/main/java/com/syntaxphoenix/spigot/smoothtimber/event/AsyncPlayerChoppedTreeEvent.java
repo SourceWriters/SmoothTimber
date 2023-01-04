@@ -27,8 +27,8 @@ public class AsyncPlayerChoppedTreeEvent extends Event {
     private final List<Location> blocksToChop;
     private final int blockLimit;
 
-    public AsyncPlayerChoppedTreeEvent(Player player, Location treeLocation, VersionChanger version, ItemStack tool, List<Location> blocks,
-        int limit) {
+    public AsyncPlayerChoppedTreeEvent(final Player player, final Location treeLocation, final VersionChanger version, final ItemStack tool,
+        final List<Location> blocks, final int limit) {
         super(true);
         this.player = player;
         this.treeLocation = treeLocation;

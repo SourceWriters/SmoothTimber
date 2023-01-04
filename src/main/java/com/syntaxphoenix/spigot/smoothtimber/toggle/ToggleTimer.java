@@ -13,7 +13,7 @@ public class ToggleTimer implements Runnable {
      * 
      */
 
-    public ToggleTimer(ToggleStorage storage, Plugin plugin) {
+    public ToggleTimer(final ToggleStorage storage, final Plugin plugin) {
         this.storage = storage;
         this.task = Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, this, 20, 20);
     }

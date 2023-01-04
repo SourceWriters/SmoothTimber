@@ -9,19 +9,19 @@ import com.syntaxphoenix.spigot.smoothtimber.utilities.plugin.PluginPackage;
 
 public class Residence extends CompatibilityAddon {
 
-    private ResidenceChopListener listener;
+    private final ResidenceChopListener listener;
 
     public Residence() {
         this.listener = new ResidenceChopListener();
     }
 
     @Override
-    public void onEnable(PluginPackage pluginPackage, SmoothTimber smoothTimber) {
+    public void onEnable(final PluginPackage pluginPackage, final SmoothTimber smoothTimber) {
         Bukkit.getPluginManager().registerEvents(listener, smoothTimber);
     }
 
     @Override
-    public void onDisable(SmoothTimber smoothTimber) {
+    public void onDisable(final SmoothTimber smoothTimber) {
         HandlerList.unregisterAll(listener);
     }
 

@@ -28,7 +28,7 @@ public class SyntaxPhoenixStats {
     private static final String URL = "http://stats.syntaxphoenix.com/submit/?type=bukkit";
 
     private final File file = new File("plugins/SyntaxPhoenixStats", "config.yml");
-    private FileConfiguration config = YamlConfiguration.loadConfiguration(file);
+    private final FileConfiguration config = YamlConfiguration.loadConfiguration(file);
 
     private final JavaPlugin plugin;
     private final String service_id;
@@ -36,7 +36,7 @@ public class SyntaxPhoenixStats {
     private static String serverUUID;
     private boolean logging = false;
 
-    public SyntaxPhoenixStats(String service_id, JavaPlugin plugin) {
+    public SyntaxPhoenixStats(final String service_id, final JavaPlugin plugin) {
         if (plugin == null) {
             throw new IllegalArgumentException("Plugin can not be null!");
         }
@@ -52,7 +52,7 @@ public class SyntaxPhoenixStats {
             .copyDefaults(true);
         try {
             config.save(file);
-        } catch (IOException e) {
+        } catch (final IOException e) {
             e.printStackTrace();
         }
 
@@ -62,12 +62,12 @@ public class SyntaxPhoenixStats {
         if (config.getBoolean("enabled")) {
             boolean found = false;
 
-            for (Class<?> service : Bukkit.getServicesManager().getKnownServices()) {
+            for (final Class<?> service : Bukkit.getServicesManager().getKnownServices()) {
                 try {
                     service.getField("SYNTAXPHOENIX_STATS_VERSION");
                     found = true;
                     break;
-                } catch (NoSuchFieldException ignored) {
+                } catch (final NoSuchFieldException ignored) {
                 }
             }
             Bukkit.getServicesManager().register(SyntaxPhoenixStats.class, this, plugin, ServicePriority.Normal);
@@ -78,7 +78,7 @@ public class SyntaxPhoenixStats {
     }
 
     private void DataSubmitter() {
-        Timer timer = new Timer(true);
+        final Timer timer = new Timer(true);
         timer.scheduleAtFixedRate(new TimerTask() {
             @Override
             public void run() {
@@ -87,21 +87,16 @@ public class SyntaxPhoenixStats {
                     return;
                 }
 
-                Bukkit.getScheduler().runTask(plugin, new Runnable() {
-                    @Override
-                    public void run() {
-                        submitData();
-                    }
-                });
+                Bukkit.getScheduler().runTask(plugin, (Runnable) () -> submitData());
             }
         }, 1000 * 60 * 5, 1000 * 60 * 15);
     }
 
     public JsonObject collectPluginData() {
-        JsonObject data = new JsonObject();
+        final JsonObject data = new JsonObject();
 
-        String name = plugin.getDescription().getName();
-        String version = plugin.getDescription().getVersion();
+        final String name = plugin.getDescription().getName();
+        final String version = plugin.getDescription().getVersion();
 
         data.addProperty("Name", name);
         data.addProperty("Service-ID", this.service_id);
@@ -111,9 +106,9 @@ public class SyntaxPhoenixStats {
     }
 
     public boolean isConnectedToBungee() {
-        boolean bungee = Bukkit.getServer().spigot().getConfig().getBoolean("settings.bungeecord");
-        boolean onlineMode = Bukkit.getServer().getOnlineMode();
-        if (bungee && (!(onlineMode))) {
+        final boolean bungee = Bukkit.getServer().spigot().getConfig().getBoolean("settings.bungeecord");
+        final boolean onlineMode = Bukkit.getServer().getOnlineMode();
+        if (bungee && !onlineMode) {
             return true;
         }
         return false;
@@ -121,7 +116,7 @@ public class SyntaxPhoenixStats {
 
     public String getServerSoftware() {
         String server_software;
-        String version = plugin.getServer().getVersion();
+        final String version = plugin.getServer().getVersion();
         if (version.contains("Bukkit")) {
             server_software = "Craftbukkit";
         } else if (version.contains("Spigot")) {
@@ -135,21 +130,21 @@ public class SyntaxPhoenixStats {
     }
 
     public JsonObject collectServerData() {
-        JsonObject data = new JsonObject();
+        final JsonObject data = new JsonObject();
 
-        int playerAmount = Bukkit.getOnlinePlayers().size();
-        boolean onlineMode = Bukkit.getOnlineMode();
-        boolean bungeecord = isConnectedToBungee();
+        final int playerAmount = Bukkit.getOnlinePlayers().size();
+        final boolean onlineMode = Bukkit.getOnlineMode();
+        final boolean bungeecord = isConnectedToBungee();
         String bukkitVersion = Bukkit.getVersion();
-        String server_software = getServerSoftware();
+        final String server_software = getServerSoftware();
         bukkitVersion = bukkitVersion.substring(bukkitVersion.indexOf("MC: ") + 4, bukkitVersion.length() - 1);
 
-        String javaVersion = System.getProperty("java.version");
-        String osName = System.getProperty("os.name");
-        String osArch = System.getProperty("os.arch");
-        String osVersion = System.getProperty("os.version");
-        int coreCount = Runtime.getRuntime().availableProcessors();
-        long memory = Runtime.getRuntime().totalMemory();
+        final String javaVersion = System.getProperty("java.version");
+        final String osName = System.getProperty("os.name");
+        final String osArch = System.getProperty("os.arch");
+        final String osVersion = System.getProperty("os.version");
+        final int coreCount = Runtime.getRuntime().availableProcessors();
+        final long memory = Runtime.getRuntime().totalMemory();
 
         data.addProperty("ServerUUID", SyntaxPhoenixStats.serverUUID);
 
@@ -170,13 +165,13 @@ public class SyntaxPhoenixStats {
     }
 
     private void submitData() {
-        JsonObject data = collectServerData();
+        final JsonObject data = collectServerData();
 
-        JsonArray pluginData = new JsonArray();
-        for (Class<?> service : Bukkit.getServicesManager().getKnownServices()) {
+        final JsonArray pluginData = new JsonArray();
+        for (final Class<?> service : Bukkit.getServicesManager().getKnownServices()) {
             try {
                 service.getField("SYNTAXPHOENIX_STATS_VERSION"); // Our identifier :)
-            } catch (NoSuchFieldException ignored) {
+            } catch (final NoSuchFieldException ignored) {
                 continue; // Continue "searching"
             }
             // Found one!
@@ -187,22 +182,19 @@ public class SyntaxPhoenixStats {
             }
             data.add("plugins", pluginData);
 
-            new Thread(new Runnable() {
-                @Override
-                public void run() {
-                    try {
-                        sendDataToServer(data);
-                    } catch (Exception e) {
-                        if (logging) {
-                            plugin.getLogger().log(Level.WARNING, "Could not submit plugin stats of " + plugin.getName(), e);
-                        }
+            new Thread(() -> {
+                try {
+                    sendDataToServer(data);
+                } catch (final Exception e) {
+                    if (logging) {
+                        plugin.getLogger().log(Level.WARNING, "Could not submit plugin stats of " + plugin.getName(), e);
                     }
                 }
             }).start();
         }
     }
 
-    private void sendDataToServer(JsonObject data) throws Exception {
+    private void sendDataToServer(final JsonObject data) throws Exception {
         if (data == null) {
             throw new IllegalArgumentException("Data cannot be null!");
         }
@@ -210,13 +202,13 @@ public class SyntaxPhoenixStats {
             throw new IllegalAccessException("This method must not be called from the main thread!");
         }
 
-        HttpURLConnection connection = (HttpURLConnection) new URL(URL).openConnection();
+        final HttpURLConnection connection = (HttpURLConnection) new URL(URL).openConnection();
 
         connection.setRequestMethod("POST");
         connection.setRequestProperty("User-Agent", "SyntaxPhoenixStats-ServerVersion/" + SYNTAXPHOENIX_STATS_VERSION);
 
         connection.setDoOutput(true);
-        PrintStream ps = new PrintStream(connection.getOutputStream());
+        final PrintStream ps = new PrintStream(connection.getOutputStream());
         ps.print("data=" + data.toString());
         connection.getInputStream();
 

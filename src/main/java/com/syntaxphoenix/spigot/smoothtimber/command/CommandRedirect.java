@@ -20,7 +20,7 @@ import com.syntaxphoenix.syntaxapi.command.ExecutionState;
 public class CommandRedirect implements CommandExecutor, TabCompleter {
 
     @Override
-    public boolean onCommand(CommandSender sender, Command ignore, String alias, String[] args) {
+    public boolean onCommand(final CommandSender sender, final Command ignore, final String alias, final String[] args) {
 
         if (args.length == 0) {
             sender.sendMessage(Message.GLOBAL_PREFIX.colored() + ' ' + Message.COMMAND_NON222EXISTENT.colored());
@@ -35,44 +35,44 @@ public class CommandRedirect implements CommandExecutor, TabCompleter {
             return true;
         }
 
-        CommandProcess process = prepare(sender, args);
+        final CommandProcess process = prepare(sender, args);
 
         if (!process.isValid() || process.getCommand() == null) {
             sender.sendMessage(Message.GLOBAL_PREFIX.colored() + ' ' + Message.COMMAND_NON222EXISTENT.colored());
             return true;
         }
 
-        ExecutionState state = process.execute(COMMANDS);
+        final ExecutionState state = process.execute(COMMANDS);
 
         return state == ExecutionState.SUCCESS;
     }
 
     @Override
-    public List<String> onTabComplete(CommandSender sender, Command ignore, String alias, String[] args) {
+    public List<String> onTabComplete(final CommandSender sender, final Command ignore, final String alias, final String[] args) {
 
-        ArrayList<String> output = new ArrayList<>();
+        final ArrayList<String> output = new ArrayList<>();
 
         if (args.length == 0) {
             return output;
         }
 
-        CommandProcess process = prepare(sender, args);
+        final CommandProcess process = prepare(sender, args);
 
         if (!process.isValid() || process.getCommand() == null) {
             return output;
         }
 
-        BaseCommand command = process.getCommand();
+        final BaseCommand command = process.getCommand();
         if (!(command instanceof SmoothCommand)) {
             return output;
         }
 
-        MinecraftInfo info = (MinecraftInfo) process.constructInfo();
-        Arguments arguments = process.getArguments();
+        final MinecraftInfo info = (MinecraftInfo) process.constructInfo();
+        final Arguments arguments = process.getArguments();
 
-        Arguments completion = ((SmoothCommand) command).complete(info, arguments).getCompletion();
+        final Arguments completion = ((SmoothCommand) command).complete(info, arguments).getCompletion();
 
-        int size = completion.count();
+        final int size = completion.count();
         for (int index = 1; index <= size; index++) {
             output.add(DEFAULT.toString(completion.get(index)));
         }
@@ -80,8 +80,8 @@ public class CommandRedirect implements CommandExecutor, TabCompleter {
         return output;
     }
 
-    private CommandProcess prepare(CommandSender sender, String[] arguments) {
-        CommandProcess process = COMMANDS.process(arguments);
+    private CommandProcess prepare(final CommandSender sender, final String[] arguments) {
+        final CommandProcess process = COMMANDS.process(arguments);
         process.setInfoConstructor((manager, label) -> new MinecraftInfo(manager, label, sender));
         return process;
     }

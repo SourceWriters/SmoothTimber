@@ -69,11 +69,11 @@ public final class AddonConfig extends STConfig {
 
     }
 
-    private void load(boolean refresh) {
+    private void load(final boolean refresh) {
         write.lock();
         try {
             disabled.clear();
-            for (String compat : CompatibilityHandler.getCompatibilityNames()) {
+            for (final String compat : CompatibilityHandler.getCompatibilityNames()) {
                 if (check(compat)) {
                     disabled.add(compat);
                 }
@@ -95,11 +95,11 @@ public final class AddonConfig extends STConfig {
      * Method
      */
 
-    private boolean check(String compat) {
+    private boolean check(final String compat) {
         return !check("addons." + compat, true);
     }
 
-    public boolean isDisabled(String name) {
+    public boolean isDisabled(final String name) {
         read.lock();
         try {
             return this.disabled.contains(name);

@@ -12,7 +12,8 @@ public abstract class CompatibilityAddonConfig<A extends CompatibilityAddon> ext
     private final A addon;
     private final String name;
 
-    public CompatibilityAddonConfig(A addon, PluginPackage pluginPackage, Class<? extends Migration> clazz, int latestVersion) {
+    public CompatibilityAddonConfig(final A addon, final PluginPackage pluginPackage, final Class<? extends Migration> clazz,
+        final int latestVersion) {
         super(new File("plugins/SmoothTimber/addons", pluginPackage.getName() + ".yml"), clazz, latestVersion);
         this.addon = addon;
         this.name = pluginPackage.getName();

@@ -25,7 +25,7 @@ public class CoreProtect extends CompatibilityAddon {
     private ExecutorService service;
 
     @Override
-    public void onEnable(PluginPackage pluginPackage, SmoothTimber smoothTimber) throws Exception {
+    public void onEnable(final PluginPackage pluginPackage, final SmoothTimber smoothTimber) throws Exception {
         if (resolver != null) {
             return;
         }
@@ -50,7 +50,7 @@ public class CoreProtect extends CompatibilityAddon {
     }
 
     @Override
-    public void onDisable(SmoothTimber smoothTimber) throws Exception {
+    public void onDisable(final SmoothTimber smoothTimber) throws Exception {
         if (resolver != null) {
             resolver = null;
             Locator.setLocationResolver(null);

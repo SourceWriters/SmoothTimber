@@ -46,7 +46,7 @@ public final class MessageConfig extends STConfig {
 
     @Override
     protected void onLoad() {
-        for (Message message : Message.values()) {
+        for (final Message message : Message.values()) {
             MESSAGES.put(message, check("messages." + message.id(), message.message()));
         }
     }

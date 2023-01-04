@@ -6,11 +6,11 @@ public class StoredObject<E> {
 
     public StoredObject() {}
 
-    public StoredObject(E object) {
+    public StoredObject(final E object) {
         this.object = object;
     }
 
-    public void setObject(E object) {
+    public void setObject(final E object) {
         this.object = object;
     }
 

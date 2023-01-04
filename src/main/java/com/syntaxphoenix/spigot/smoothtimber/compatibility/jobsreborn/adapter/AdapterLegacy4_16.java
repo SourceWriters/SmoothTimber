@@ -1,6 +1,6 @@
 package com.syntaxphoenix.spigot.smoothtimber.compatibility.jobsreborn.adapter;
 
-import static java.lang.invoke.MethodType.*;
+import static java.lang.invoke.MethodType.methodType;
 
 import java.lang.invoke.MethodHandles;
 import java.lang.invoke.MethodHandles.Lookup;
@@ -16,37 +16,36 @@ import com.syntaxphoenix.spigot.smoothtimber.utilities.Container;
 
 public class AdapterLegacy4_16 extends JobAdapter {
 
-
     private final Container<BufferedEconomy> economy = Container.of();
     private final LookHandle nameHandle;
-    
+
     public AdapterLegacy4_16() {
-        Lookup lookup = MethodHandles.publicLookup();
+        final Lookup lookup = MethodHandles.publicLookup();
         try {
             nameHandle = new LookHandle(lookup.findVirtual(Job.class, "getJobKeyName", methodType(String.class)));
-        } catch (Exception exp) {
+        } catch (final Exception exp) {
             throw new IncompatiblePluginException("Can't find all methods needed!");
         }
     }
-    
+
     @Override
     public BufferedEconomy getEconomy() {
-        if(economy.isPresent()) {
+        if (economy.isPresent()) {
             return economy.get();
         }
         return economy.replace(Jobs.getEconomy()).get();
     }
 
     @Override
-    public String getName(Job job) {
+    public String getName(final Job job) {
         return (String) nameHandle.invokeWithArguments(job);
     }
 
     @Override
-    public void addExperience(JobProgression progression, double value) {
+    public void addExperience(final JobProgression progression, final double value) {
         progression.addExperience(value);
     }
-    
+
     @Override
     public void close() {
         economy.replace(null);

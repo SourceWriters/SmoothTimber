@@ -1,8 +1,8 @@
 package com.syntaxphoenix.spigot.smoothtimber.config;
 
-import com.syntaxphoenix.spigot.smoothtimber.config.config.MessageConfig;
 import org.bukkit.ChatColor;
 
+import com.syntaxphoenix.spigot.smoothtimber.config.config.MessageConfig;
 
 public enum Message {
 
@@ -45,7 +45,7 @@ public enum Message {
     TOGGLE_OFF_FOREVER("&7You disabled your &c%tool%&7!"),
     TOGGLE_OFF_TIMED("&7You disabled your &c%tool% &7for &4%time%&7!"),
     TOGGLE_DISABLED("&7Toggling is disabled!"),
-    
+
     // Cooldown
     COOLDOWN_WAIT("&7Your tool is still on &dcooldown&7 for &5%time%&7!"),
 
@@ -79,11 +79,11 @@ public enum Message {
      * 
      */
 
-    private Message() {
+    Message() {
         message = "";
     }
 
-    private Message(String message) {
+    Message(final String message) {
         this.message = message;
     }
 
@@ -100,17 +100,17 @@ public enum Message {
      */
 
     public final String message() {
-        String configured = MessageConfig.MESSAGES.get(this);
+        final String configured = MessageConfig.MESSAGES.get(this);
         return configured != null ? configured : message;
     }
 
-    public final String message(String[] replace) {
+    public final String message(final String[] replace) {
         return message().replace(replace[0], replace[1]);
     }
 
-    public final String message(String[][] replace) {
+    public final String message(final String[][] replace) {
         String message = message();
-        for (String[] value : replace) {
+        for (final String[] value : replace) {
             message = message.replace(value[0], value[1]);
         }
         return message;
@@ -124,11 +124,11 @@ public enum Message {
         return ChatColor.translateAlternateColorCodes('&', message());
     }
 
-    public final String colored(String[] replace) {
+    public final String colored(final String[] replace) {
         return ChatColor.translateAlternateColorCodes('&', message(replace));
     }
 
-    public final String colored(String[][] replace) {
+    public final String colored(final String[][] replace) {
         return ChatColor.translateAlternateColorCodes('&', message(replace));
     }
 
@@ -136,7 +136,7 @@ public enum Message {
      * 
      */
 
-    public static final Message fromId(String id) {
+    public static final Message fromId(final String id) {
         return valueOf(id.replace("-", "222").replace('.', '_').toUpperCase());
     }
 

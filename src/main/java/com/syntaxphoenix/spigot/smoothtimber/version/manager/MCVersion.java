@@ -11,8 +11,7 @@ public enum MCVersion {
     v1_11x("1.11", "1.11.1", "1.11.2", "1.12", "1.12.1", "1.12.2"),
     v1_13x("1.13", "1.13.1", "1.13.2", "1.14", "1.14.1", "1.14.2", "1.14.3", "1.14.4", "1.15", "1.15.1", "1.15.2"),
     v1_16x("1.16", "1.16.1", "1.16.2", "1.16.3", "1.16.4", "1.16.5", "1.17", "1.17.1", "1.18", "1.18.1", "1.18.2"),
-    v1_19x("1.19", "1.19.1", "1.19.2", "1.19.3", "1.19.4", "1.20"),
-    ;
+    v1_19x("1.19", "1.19.1", "1.19.2", "1.19.3", "1.19.4", "1.20"),;
 
     List<String> supported;
 
@@ -20,11 +19,11 @@ public enum MCVersion {
         supported = new ArrayList<>();
     }
 
-    MCVersion(String... supportedVersions) {
+    MCVersion(final String... supportedVersions) {
         supported = Arrays.asList(supportedVersions);
     }
 
-    public boolean isSupported(String verionString) {
+    public boolean isSupported(final String verionString) {
         return supported.contains(verionString);
     }
 
@@ -32,8 +31,8 @@ public enum MCVersion {
         return supported;
     }
 
-    public static MCVersion fromString(String versionString) {
-        for (MCVersion version : values()) {
+    public static MCVersion fromString(final String versionString) {
+        for (final MCVersion version : values()) {
             if (version.isSupported(versionString)) {
                 return version;
             }
@@ -42,8 +41,8 @@ public enum MCVersion {
     }
 
     public static List<String> getSupportedVersions() {
-        List<String> versions = new ArrayList<>();
-        for (MCVersion version : values()) {
+        final List<String> versions = new ArrayList<>();
+        for (final MCVersion version : values()) {
             versions.addAll(version.getSupported());
         }
         return versions;

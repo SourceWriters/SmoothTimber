@@ -31,8 +31,8 @@ public class AsyncPlayerChopTreeEvent extends Event implements Cancellable {
 
     private IChopReason reason;
 
-    public AsyncPlayerChopTreeEvent(Player player, Location treeLocation, VersionChanger version, ItemStack tool,
-        ArrayList<Location> blocks, int limit) {
+    public AsyncPlayerChopTreeEvent(final Player player, final Location treeLocation, final VersionChanger version, final ItemStack tool,
+        final ArrayList<Location> blocks, final int limit) {
         super(true);
         this.player = player;
         this.treeLocation = treeLocation;
@@ -44,11 +44,13 @@ public class AsyncPlayerChopTreeEvent extends Event implements Cancellable {
 
     private boolean cancelled = false;
 
+    @Override
     public boolean isCancelled() {
         return cancelled;
     }
 
-    public void setCancelled(boolean cancel) {
+    @Override
+    public void setCancelled(final boolean cancel) {
         this.cancelled = cancel;
     }
 
@@ -56,7 +58,7 @@ public class AsyncPlayerChopTreeEvent extends Event implements Cancellable {
         return Optional.ofNullable(reason);
     }
 
-    public void setReason(IChopReason reason) {
+    public void setReason(final IChopReason reason) {
         this.reason = reason;
     }
 

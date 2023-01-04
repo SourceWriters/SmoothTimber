@@ -18,25 +18,26 @@ public class JobsReborn extends CompatibilityAddon {
     private final Container<JobsRebornFallListener> listenerContainer = Container.of();
 
     @Override
-    public void onEnable(PluginPackage pluginPackage, SmoothTimber smoothTimber) {
-        JobAdapter adapter = getAdapter(pluginPackage);
-        if(adapter == null) {
-            throw new IncompatiblePluginException("Compatibility for " + pluginPackage.getName() + " is unable to load JobAdapter for version " + pluginPackage.getVersionRaw());
+    public void onEnable(final PluginPackage pluginPackage, final SmoothTimber smoothTimber) {
+        final JobAdapter adapter = getAdapter(pluginPackage);
+        if (adapter == null) {
+            throw new IncompatiblePluginException("Compatibility for " + pluginPackage.getName()
+                + " is unable to load JobAdapter for version " + pluginPackage.getVersionRaw());
         }
         configContainer.replace(new JobsRebornConfig(this, pluginPackage));
         Bukkit.getPluginManager().registerEvents(listenerContainer.replace(new JobsRebornFallListener(adapter)).get(), smoothTimber);
     }
 
-    private JobAdapter getAdapter(PluginPackage pluginPackage) {
-        Version version = pluginPackage.getVersion();
-        if(version.getMajor() < 4 || (version.getMajor() == 4 && version.getMinor() <= 16)) {
+    private JobAdapter getAdapter(final PluginPackage pluginPackage) {
+        final Version version = pluginPackage.getVersion();
+        if (version.getMajor() < 4 || version.getMajor() == 4 && version.getMinor() <= 16) {
             return new AdapterLegacy4_16();
         }
         return new AdapterLegacy4_17();
     }
 
     @Override
-    public void onDisable(SmoothTimber smoothTimber) {
+    public void onDisable(final SmoothTimber smoothTimber) {
         if (listenerContainer.isPresent()) {
             HandlerList.unregisterAll(listenerContainer.get());
             listenerContainer.get().close();

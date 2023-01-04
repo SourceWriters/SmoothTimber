@@ -11,13 +11,13 @@ public class CoreProtectChopListener implements Listener {
 
     private final CoreCompat compat;
 
-    protected CoreProtectChopListener(CoreCompat compat) {
+    protected CoreProtectChopListener(final CoreCompat compat) {
         this.compat = compat;
     }
 
     @EventHandler
-    public void onChopEvent(AsyncPlayerChoppedTreeEvent event) {
-        for (Location location : event.getBlockLocations()) {
+    public void onChopEvent(final AsyncPlayerChoppedTreeEvent event) {
+        for (final Location location : event.getBlockLocations()) {
             compat.logRemoval(event.getPlayer().getName(), location, Locator.getBlock(location));
         }
     }

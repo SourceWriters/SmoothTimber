@@ -11,12 +11,12 @@ public class McMmo extends CompatibilityAddon {
     McMmoChopListener chopListener;
 
     @Override
-    public void onEnable(PluginPackage pluginPackage, SmoothTimber smoothTimber) throws Exception {
+    public void onEnable(final PluginPackage pluginPackage, final SmoothTimber smoothTimber) throws Exception {
         smoothTimber.getServer().getPluginManager().registerEvents(chopListener = new McMmoChopListener(), smoothTimber);
     }
 
     @Override
-    public void onDisable(SmoothTimber smoothTimber) throws Exception {
+    public void onDisable(final SmoothTimber smoothTimber) throws Exception {
         if (chopListener != null) {
             HandlerList.unregisterAll(chopListener);
         }

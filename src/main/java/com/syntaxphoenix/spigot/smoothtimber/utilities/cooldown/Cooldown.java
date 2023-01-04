@@ -7,11 +7,11 @@ public class Cooldown {
     private long cooldown;
     private long threshhold = 0;
 
-    Cooldown(long cooldown) {
+    Cooldown(final long cooldown) {
         this.cooldown = cooldown;
     }
 
-    public void setCooldown(long cooldown) {
+    public void setCooldown(final long cooldown) {
         this.cooldown = cooldown;
     }
 

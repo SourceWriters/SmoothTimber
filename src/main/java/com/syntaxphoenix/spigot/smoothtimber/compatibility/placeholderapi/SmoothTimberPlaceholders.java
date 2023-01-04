@@ -16,7 +16,7 @@ public class SmoothTimberPlaceholders extends PlaceholderExpansion {
     private String version;
     private boolean enabled = false;
 
-    protected void enable(PluginDescriptionFile description) {
+    protected void enable(final PluginDescriptionFile description) {
         enabled = true;
         authors = Strings.toString(description.getAuthors(), ", ");
         version = description.getVersion();
@@ -49,18 +49,18 @@ public class SmoothTimberPlaceholders extends PlaceholderExpansion {
     }
 
     @Override
-    public String onPlaceholderRequest(Player player, String identifier) {
+    public String onPlaceholderRequest(final Player player, final String identifier) {
         if (!enabled) {
             return null;
         }
-        Object value = (player == null ? getWithoutPlayer(identifier) : getWithPlayer(player, identifier));
+        final Object value = player == null ? getWithoutPlayer(identifier) : getWithPlayer(player, identifier);
         if (value == null) {
             return null;
         }
         return value instanceof String ? (String) value : value.toString();
     }
 
-    public Object getWithoutPlayer(String identifier) {
+    public Object getWithoutPlayer(final String identifier) {
         switch (identifier) {
         case "cutter_radius":
             return CutterConfig.CHECK_RADIUS;
@@ -76,7 +76,7 @@ public class SmoothTimberPlaceholders extends PlaceholderExpansion {
         return null;
     }
 
-    public Object getWithPlayer(Player player, String identifier) {
+    public Object getWithPlayer(final Player player, final String identifier) {
         switch (identifier) {
         case "player_active":
             return PlayerState.isActive(player);

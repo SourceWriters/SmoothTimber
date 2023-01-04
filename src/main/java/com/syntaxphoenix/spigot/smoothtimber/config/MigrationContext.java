@@ -11,7 +11,7 @@ public class MigrationContext {
 
     private final Map<String, Object> values;
 
-    public MigrationContext(YamlConfiguration configuration) {
+    public MigrationContext(final YamlConfiguration configuration) {
         this.values = mapRootSection(configuration);
     }
 
@@ -19,9 +19,9 @@ public class MigrationContext {
         return values;
     }
 
-    public <E> MigrationContext map(String path, Class<E> sample, Function<E, Object> mapper) {
+    public <E> MigrationContext map(final String path, final Class<E> sample, final Function<E, Object> mapper) {
         if (values.containsKey(path)) {
-            E value = safeCast(sample, values.remove(path));
+            final E value = safeCast(sample, values.remove(path));
             if (value == null) {
                 return this;
             }
@@ -30,26 +30,26 @@ public class MigrationContext {
         return this;
     }
 
-    public MigrationContext remove(String path) {
+    public MigrationContext remove(final String path) {
         values.remove(path);
         return this;
     }
 
-    public MigrationContext move(String path, String newPath) {
+    public MigrationContext move(final String path, final String newPath) {
         if (values.containsKey(path)) {
             values.put(newPath, values.remove(path));
         }
         return this;
     }
 
-    public MigrationContext stack(String stack, String path) {
+    public MigrationContext stack(final String stack, final String path) {
         if (values.containsKey(path)) {
             values.put(stack + '.' + path, values.remove(path));
         }
         return this;
     }
 
-    private <E> E safeCast(Class<E> sample, Object value) {
+    private <E> E safeCast(final Class<E> sample, final Object value) {
         return sample.isInstance(value) ? sample.cast(value) : null;
     }
 
@@ -59,10 +59,10 @@ public class MigrationContext {
 
     public static final String KEY = "%s.%s";
 
-    public static Map<String, Object> mapRootSection(ConfigurationSection section) {
-        LinkedHashMap<String, Object> output = new LinkedHashMap<>();
-        for (String key : section.getKeys(false)) {
-            Object value = section.get(key);
+    public static Map<String, Object> mapRootSection(final ConfigurationSection section) {
+        final LinkedHashMap<String, Object> output = new LinkedHashMap<>();
+        for (final String key : section.getKeys(false)) {
+            final Object value = section.get(key);
             if (value instanceof ConfigurationSection) {
                 mapSubSection(output, (ConfigurationSection) value);
                 continue;
@@ -72,10 +72,10 @@ public class MigrationContext {
         return output;
     }
 
-    public static void mapSubSection(Map<String, Object> output, ConfigurationSection section) {
-        String path = section.getCurrentPath();
-        for (String key : section.getKeys(false)) {
-            Object value = section.get(key);
+    public static void mapSubSection(final Map<String, Object> output, final ConfigurationSection section) {
+        final String path = section.getCurrentPath();
+        for (final String key : section.getKeys(false)) {
+            final Object value = section.get(key);
             if (value instanceof ConfigurationSection) {
                 mapSubSection(output, (ConfigurationSection) value);
                 continue;

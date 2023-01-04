@@ -19,15 +19,15 @@ public final class WorldGuardChopListener_v7_x implements Listener {
     }
 
     @EventHandler(ignoreCancelled = true)
-    public void onChopEvent(AsyncPlayerChopTreeEvent event) {
-        LocalPlayer localPlayer = WorldGuardPlugin.inst().wrapPlayer(event.getPlayer());
+    public void onChopEvent(final AsyncPlayerChopTreeEvent event) {
+        final LocalPlayer localPlayer = WorldGuardPlugin.inst().wrapPlayer(event.getPlayer());
 
-        boolean canBypass = WorldGuard.getInstance().getPlatform().getSessionManager().hasBypass(localPlayer, localPlayer.getWorld());
+        final boolean canBypass = WorldGuard.getInstance().getPlatform().getSessionManager().hasBypass(localPlayer, localPlayer.getWorld());
 
         if (!canBypass) {
-            RegionQuery query = WorldGuard.getInstance().getPlatform().getRegionContainer().createQuery();
-            for (Location location : event.getBlockLocations()) {
-                com.sk89q.worldedit.util.Location worldLocation = new com.sk89q.worldedit.util.Location(localPlayer.getWorld(),
+            final RegionQuery query = WorldGuard.getInstance().getPlatform().getRegionContainer().createQuery();
+            for (final Location location : event.getBlockLocations()) {
+                final com.sk89q.worldedit.util.Location worldLocation = new com.sk89q.worldedit.util.Location(localPlayer.getWorld(),
                     location.getX(), location.getY(), location.getZ());
                 if (!query.testState(worldLocation, localPlayer, Flags.BUILD)) {
                     event.setCancelled(true);

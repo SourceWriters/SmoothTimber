@@ -13,7 +13,6 @@ public class IncompatiblePluginException extends RuntimeException {
      * a call to {@link #initCause}.
      */
     public IncompatiblePluginException() {
-        super();
     }
 
     /**
@@ -22,9 +21,9 @@ public class IncompatiblePluginException extends RuntimeException {
      * a call to {@link #initCause}.
      *
      * @param message the detail message. The detail message is saved for later
-     *                retrieval by the {@link #getMessage()} method.
+     *                    retrieval by the {@link #getMessage()} method.
      */
-    public IncompatiblePluginException(String message) {
+    public IncompatiblePluginException(final String message) {
         super(message);
     }
 
@@ -32,12 +31,11 @@ public class IncompatiblePluginException extends RuntimeException {
      * Constructs a new IncompatiblePluginException with the specified
      * {@code PluginPackage} and compatible versions.
      *
-     * @param pluginPackage the
-     *                      {@link com.syntaxphoenix.utilities.plugin.PluginPackage}
-     *                      which is used to build the detailed message
+     * @param pluginPackage the {@link com.syntaxphoenix.utilities.plugin.PluginPackage}
+     *                          which is used to build the detailed message
      * @param versions      the compatible versions of this plugin
      */
-    public IncompatiblePluginException(PluginPackage pluginPackage, String... versions) {
+    public IncompatiblePluginException(final PluginPackage pluginPackage, final String... versions) {
         super(pluginPackage.getName() + " is not compatible with the " + Tracker.getClassFromStack(1).map(Class::getName).orElse(null)
             + " addon. Please use one of the following versions instead: " + String.join(", ", versions));
     }
@@ -51,14 +49,15 @@ public class IncompatiblePluginException extends RuntimeException {
      * message.
      *
      * @param message the detail message (which is saved for later retrieval by the
-     *                {@link #getMessage()} method).
+     *                    {@link #getMessage()} method).
      * @param cause   the cause (which is saved for later retrieval by the
-     *                {@link #getCause()} method). (A <tt>null</tt> value is
-     *                permitted, and indicates that the cause is nonexistent or
-     *                unknown.)
-     * @since 1.4
+     *                    {@link #getCause()} method). (A <tt>null</tt> value is
+     *                    permitted, and indicates that the cause is nonexistent or
+     *                    unknown.)
+     * 
+     * @since         1.4
      */
-    public IncompatiblePluginException(String message, Throwable cause) {
+    public IncompatiblePluginException(final String message, final Throwable cause) {
         super(message, cause);
     }
 
@@ -71,12 +70,13 @@ public class IncompatiblePluginException extends RuntimeException {
      * {@link java.security.PrivilegedActionException}).
      *
      * @param cause the cause (which is saved for later retrieval by the
-     *              {@link #getCause()} method). (A <tt>null</tt> value is
-     *              permitted, and indicates that the cause is nonexistent or
-     *              unknown.)
-     * @since 1.4
+     *                  {@link #getCause()} method). (A <tt>null</tt> value is
+     *                  permitted, and indicates that the cause is nonexistent or
+     *                  unknown.)
+     * 
+     * @since       1.4
      */
-    public IncompatiblePluginException(Throwable cause) {
+    public IncompatiblePluginException(final Throwable cause) {
         super(cause);
     }
 
@@ -87,13 +87,15 @@ public class IncompatiblePluginException extends RuntimeException {
      *
      * @param message            the detail message.
      * @param cause              the cause. (A {@code null} value is permitted, and
-     *                           indicates that the cause is nonexistent or
-     *                           unknown.)
+     *                               indicates that the cause is nonexistent or
+     *                               unknown.)
      * @param enableSuppression  whether or not suppression is enabled or disabled
      * @param writableStackTrace whether or not the stack trace should be writable
-     * @since 1.7
+     * 
+     * @since                    1.7
      */
-    protected IncompatiblePluginException(String message, Throwable cause, boolean enableSuppression, boolean writableStackTrace) {
+    protected IncompatiblePluginException(final String message, final Throwable cause, final boolean enableSuppression,
+        final boolean writableStackTrace) {
         super(message, cause, enableSuppression, writableStackTrace);
     }
 }

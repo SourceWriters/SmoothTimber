@@ -18,14 +18,14 @@ public final class JobsRebornConfig extends CompatibilityAddonConfig<JobsReborn>
      * 
      */
 
-    protected JobsRebornConfig(JobsReborn addon, PluginPackage pluginPackage) {
+    protected JobsRebornConfig(final JobsReborn addon, final PluginPackage pluginPackage) {
         super(addon, pluginPackage, JobsRebornMigration.class, 1);
     }
 
     @Override
     protected void onSetup() {
-        VersionChanger change = PluginUtils.CHANGER;
-        for (WoodType type : WoodType.values()) {
+        final VersionChanger change = PluginUtils.CHANGER;
+        for (final WoodType type : WoodType.values()) {
             if (change.isSupported(type)) {
                 DEFAULT_WOOD_DATA.put(type, new double[] {
                     1.0D,
@@ -42,13 +42,13 @@ public final class JobsRebornConfig extends CompatibilityAddonConfig<JobsReborn>
     protected void onLoad() {
         JOB_DATA.clear();
 
-        String[] keys = getKeys("jobs");
+        final String[] keys = getKeys("jobs");
         if (keys.length == 0) {
             return;
         }
 
-        for (String key : keys) {
-            EnumMap<WoodType, double[]> woodData = JOB_DATA.computeIfAbsent(key, ignore -> DEFAULT_WOOD_DATA.clone());
+        for (final String key : keys) {
+            final EnumMap<WoodType, double[]> woodData = JOB_DATA.computeIfAbsent(key, ignore -> DEFAULT_WOOD_DATA.clone());
             checkExperience("jobs." + key, woodData);
             JOB_DATA.put(key, woodData);
         }
@@ -65,11 +65,11 @@ public final class JobsRebornConfig extends CompatibilityAddonConfig<JobsReborn>
      * 
      */
 
-    private void checkExperience(String path, EnumMap<WoodType, double[]> experience) {
-        for (WoodType type : WoodType.values()) {
-            String key = path + '.' + type.name().toLowerCase();
-            double[] defaultData = DEFAULT_WOOD_DATA.get(type);
-            double[] value = new double[3];
+    private void checkExperience(final String path, final EnumMap<WoodType, double[]> experience) {
+        for (final WoodType type : WoodType.values()) {
+            final String key = path + '.' + type.name().toLowerCase();
+            final double[] defaultData = DEFAULT_WOOD_DATA.get(type);
+            final double[] value = new double[3];
             System.arraycopy(defaultData, 0, value, 0, 3);
             value[0] = check(key + ".income", value[0]);
             value[1] = check(key + ".points", value[1]);

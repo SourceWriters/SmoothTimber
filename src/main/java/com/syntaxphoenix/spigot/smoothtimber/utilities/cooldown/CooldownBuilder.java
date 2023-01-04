@@ -14,17 +14,17 @@ public class CooldownBuilder {
         this(new CooldownTimer());
     }
 
-    public CooldownBuilder(CooldownTimer timer) {
+    public CooldownBuilder(final CooldownTimer timer) {
         this.timer = timer;
     }
 
-    public void setCooldown(long cooldown) {
+    public void setCooldown(final long cooldown) {
         if (cooldown <= 0) {
             throw new IllegalArgumentException("cooldown has to be higher than 0");
         }
         this.cooldown = cooldown;
         if (!cooldowns.isEmpty()) {
-            for (Cooldown cooldownObj : cooldowns.values()) {
+            for (final Cooldown cooldownObj : cooldowns.values()) {
                 cooldownObj.setCooldown(cooldown);
             }
         }
@@ -38,9 +38,9 @@ public class CooldownBuilder {
         return timer;
     }
 
-    public Cooldown get(UUID uniqueId) {
+    public Cooldown get(final UUID uniqueId) {
         return cooldowns.computeIfAbsent(uniqueId, ignore -> {
-            Cooldown cooldownObj = new Cooldown(cooldown);
+            final Cooldown cooldownObj = new Cooldown(cooldown);
             timer.add(cooldownObj);
             return cooldownObj;
         });

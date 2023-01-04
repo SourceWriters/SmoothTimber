@@ -11,7 +11,8 @@ public abstract class LocationResolver {
     public abstract List<Location> resolve(Location start, int radius, List<Location> current, IntCounter counter, int limit,
         boolean ignore);
 
-    public List<Location> resolve(Location start, int radius, List<Location> current, IntCounter counter, int limit) {
+    public List<Location> resolve(final Location start, final int radius, final List<Location> current, final IntCounter counter,
+        final int limit) {
         return resolve(start, radius, current, counter, limit, false);
     }
 

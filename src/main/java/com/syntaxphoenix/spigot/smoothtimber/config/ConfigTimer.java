@@ -21,7 +21,7 @@ public final class ConfigTimer implements Runnable {
 
     }
 
-    public boolean load(STConfig config) {
+    public boolean load(final STConfig config) {
         boolean output;
         read.lock();
         if (output = !reload.contains(config)) {
@@ -36,7 +36,7 @@ public final class ConfigTimer implements Runnable {
         return output;
     }
 
-    public boolean unload(STConfig config) {
+    public boolean unload(final STConfig config) {
         boolean output;
         read.lock();
         if (output = reload.contains(config)) {
@@ -55,9 +55,9 @@ public final class ConfigTimer implements Runnable {
     public void run() {
         read.lock();
         try {
-            for (STConfig config : reload) {
+            for (final STConfig config : reload) {
                 if (config.loaded < config.file.lastModified()) {
-                    String multiple = config.getMultipleType();
+                    final String multiple = config.getMultipleType();
                     PluginUtils.sendConsoleMessage(false,
                         Message.GLOBAL_PREFIX.colored() + ' ' + Message.RELOAD_NEEDED.colored(new String[][] {
                             {

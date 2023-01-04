@@ -11,9 +11,9 @@ import com.syntaxphoenix.syntaxapi.command.DefaultCompletion;
 public class HelpCommand extends SmoothCommand {
 
     @Override
-    public void execute(MinecraftInfo info, Arguments arguments) {
+    public void execute(final MinecraftInfo info, final Arguments arguments) {
 
-        CommandSender sender = info.getSender();
+        final CommandSender sender = info.getSender();
 
         sender.sendMessage(Message.GLOBAL_PREFIX.colored() + ' ' + Message.COMMAND_USAGE_HELP.colored());
         sender.sendMessage(Message.GLOBAL_PREFIX.colored() + ' ' + Message.COMMAND_USAGE_TOGGLE.colored());
@@ -21,7 +21,7 @@ public class HelpCommand extends SmoothCommand {
     }
 
     @Override
-    public DefaultCompletion complete(MinecraftInfo info, Arguments arguments) {
+    public DefaultCompletion complete(final MinecraftInfo info, final Arguments arguments) {
         return new DefaultCompletion();
     }
 

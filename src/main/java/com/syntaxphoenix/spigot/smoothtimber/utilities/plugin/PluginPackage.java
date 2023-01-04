@@ -18,7 +18,7 @@ public class PluginPackage {
     private String name;
     private Plugin plugin;
 
-    PluginPackage(Plugin plugin) {
+    PluginPackage(final Plugin plugin) {
         update(plugin);
     }
 
@@ -34,7 +34,7 @@ public class PluginPackage {
         cache = null;
     }
 
-    final void update(Plugin plugin) {
+    final void update(final Plugin plugin) {
         this.plugin = plugin;
         this.name = plugin.getName();
         this.versionRaw = plugin.getDescription().getVersion();
@@ -52,7 +52,7 @@ public class PluginPackage {
     public Plugin getPlugin() {
         return plugin;
     }
-    
+
     public String getVersionRaw() {
         return versionRaw;
     }
@@ -69,11 +69,11 @@ public class PluginPackage {
      * 
      */
 
-    public boolean isFromPlugin(Plugin plugin) {
+    public boolean isFromPlugin(final Plugin plugin) {
         return hasName(plugin.getName());
     }
 
-    public boolean hasName(String name) {
+    public boolean hasName(final String name) {
         return this.name.equals(name);
     }
 

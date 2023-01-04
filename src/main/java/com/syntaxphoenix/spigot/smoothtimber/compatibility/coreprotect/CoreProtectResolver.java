@@ -28,29 +28,30 @@ public class CoreProtectResolver extends LocationResolver {
     private final CoreProtectAPI api;
     private final ExecutorService service;
 
-    protected CoreProtectResolver(ExecutorService service, Plugin plugin) {
+    protected CoreProtectResolver(final ExecutorService service, final Plugin plugin) {
         this.service = service;
         api = ((net.coreprotect.CoreProtect) plugin).getAPI();
     }
 
     @Override
-    public List<Location> resolve(Location start, int radius, List<Location> current, IntCounter counter, int limit, boolean ignore) {
+    public List<Location> resolve(final Location start, final int radius, final List<Location> current, final IntCounter counter,
+        final int limit, final boolean ignore) {
         if (limit >= 0 && counter.get() >= limit) {
             return Collections.emptyList();
         }
-        VersionChanger change = PluginUtils.CHANGER;
-        World world = start.getWorld();
-        int x = start.getBlockX();
-        int y = start.getBlockY();
-        int z = start.getBlockZ();
+        final VersionChanger change = PluginUtils.CHANGER;
+        final World world = start.getWorld();
+        final int x = start.getBlockX();
+        final int y = start.getBlockY();
+        final int z = start.getBlockZ();
 
-        List<Location> output = Collections.synchronizedList(new ArrayList<>());
-        List<Location> found = Collections.synchronizedList(new ArrayList<>());
-        ArrayList<Future<?>> tasks = new ArrayList<>();
+        final List<Location> output = Collections.synchronizedList(new ArrayList<>());
+        final List<Location> found = Collections.synchronizedList(new ArrayList<>());
+        final ArrayList<Future<?>> tasks = new ArrayList<>();
         for (int cx = x - radius; cx <= x + radius; cx++) {
             for (int cz = z - radius; cz <= z + radius; cz++) {
-                Location location = new Location(world, cx, y, cz);
-                Block block = Locator.getBlock(location);
+                final Location location = new Location(world, cx, y, cz);
+                final Block block = Locator.getBlock(location);
                 if (change.isWoodBlock(block)) {
                     if (current.contains(location)) {
                         continue;
@@ -65,7 +66,7 @@ public class CoreProtectResolver extends LocationResolver {
                 }
             }
         }
-        for (Future<?> task : tasks) {
+        for (final Future<?> task : tasks) {
             try {
                 task.get(CutterConfig.GLOBAL_SYNC_TIME, TimeUnit.MILLISECONDS);
             } catch (InterruptedException | ExecutionException | TimeoutException ignored) {
@@ -74,7 +75,7 @@ public class CoreProtectResolver extends LocationResolver {
         }
         int size = output.size();
         for (int index = 0; index < size; index++) {
-            Location location = output.get(index);
+            final Location location = output.get(index);
             if (limit >= 0 && counter.get() >= limit) {
                 found.remove(location);
                 output.remove(location);
@@ -88,26 +89,23 @@ public class CoreProtectResolver extends LocationResolver {
         return new ArrayList<>(found);
     }
 
-    public boolean isPlayerPlaced(Block block) {
-        List<String[]> list = api.blockLookup(block, 0);
+    public boolean isPlayerPlaced(final Block block) {
+        final List<String[]> list = api.blockLookup(block, 0);
         if (list == null || list.isEmpty()) {
             return false;
         }
-        String[] array = list.get(0);
-        CoreProtectAPI.ParseResult parseResult = api.parseResult(array);
+        final String[] array = list.get(0);
+        final CoreProtectAPI.ParseResult parseResult = api.parseResult(array);
 
-        if (parseResult.getPlayer().isEmpty() || parseResult.getPlayer().startsWith("#")) {
-            return false;
-        }
-        if (parseResult.isRolledBack()) {
+        if (parseResult.getPlayer().isEmpty() || parseResult.getPlayer().startsWith("#") || parseResult.isRolledBack()) {
             return false;
         }
         return parseResult.getActionId() != 0;
     }
 
     @Override
-    public boolean isPlayerPlaced(Location location) {
-        Block block = Locator.getBlock(location);
+    public boolean isPlayerPlaced(final Location location) {
+        final Block block = Locator.getBlock(location);
         if (block == null) {
             return false;
         }

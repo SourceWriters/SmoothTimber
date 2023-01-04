@@ -12,64 +12,64 @@ import com.syntaxphoenix.spigot.smoothtimber.version.manager.VersionChanger;
 import com.syntaxphoenix.spigot.smoothtimber.version.manager.WoodType;
 
 public final class NOPChanger implements VersionChanger {
-    
+
     @Override
     public boolean isValid() {
         return false;
     }
 
     @Override
-    public boolean hasCuttingItemInHand(Player player) {
+    public boolean hasCuttingItemInHand(final Player player) {
         return false;
     }
 
     @Override
-    public boolean hasPermissionForCuttingItem(Player player, ItemStack stack) {
+    public boolean hasPermissionForCuttingItem(final Player player, final ItemStack stack) {
         return false;
     }
 
     @Override
-    public ItemStack removeDurabilityFromItem(ItemStack stack) {
+    public ItemStack removeDurabilityFromItem(final ItemStack stack) {
         return stack;
     }
 
     @Override
-    public void setItemInPlayerHand(Player player, ItemStack stack) {
-        
+    public void setItemInPlayerHand(final Player player, final ItemStack stack) {
+
     }
 
     @Override
-    public boolean isWoodBlockImpl(Block block) {
+    public boolean isWoodBlockImpl(final Block block) {
         return false;
     }
 
     @Override
     public void setupConfig() {
-        
+
     }
 
     @Override
-    public boolean hasPermissionForWood(Player p, Block b) {
+    public boolean hasPermissionForWood(final Player p, final Block b) {
         return false;
     }
 
     @Override
-    public boolean hasPermissionForWoodType(Player p, WoodType type) {
+    public boolean hasPermissionForWoodType(final Player p, final WoodType type) {
         return false;
     }
 
     @Override
-    public ItemStack getItemInHand(Player p) {
+    public ItemStack getItemInHand(final Player p) {
         return null;
     }
 
     @Override
-    public ItemStack getItemFromBlock(Block block) {
+    public ItemStack getItemFromBlock(final Block block) {
         return null;
     }
 
     @Override
-    public ItemStack getItemFromFallingBlock(FallingBlock block) {
+    public ItemStack getItemFromFallingBlock(final FallingBlock block) {
         return null;
     }
 
@@ -79,13 +79,13 @@ public final class NOPChanger implements VersionChanger {
     }
 
     @Override
-    public Entity toFallingBlock(Block block) {
+    public Entity toFallingBlock(final Block block) {
         return null;
     }
 
     @Override
-    public void setAirBlock(Block block) {
-        
+    public void setAirBlock(final Block block) {
+
     }
 
     @Override
@@ -94,27 +94,27 @@ public final class NOPChanger implements VersionChanger {
     }
 
     @Override
-    public int getMaxDropCount(ItemStack tool) {
+    public int getMaxDropCount(final ItemStack tool) {
         return 0;
     }
 
     @Override
-    public byte getData(Block block) {
+    public byte getData(final Block block) {
         return 0;
     }
 
     @Override
-    public WoodType getWoodType(Material type, int id) {
+    public WoodType getWoodType(final Material type, final int id) {
         return null;
     }
 
     @Override
-    public WoodType getWoodTypeFromBlock(Block block) {
+    public WoodType getWoodTypeFromBlock(final Block block) {
         return null;
     }
 
     @Override
-    public boolean isSupported(WoodType type) {
+    public boolean isSupported(final WoodType type) {
         return false;
     }
 

@@ -30,8 +30,9 @@ public final class Container<T> {
      * {@code Container}.
      *
      *
-     * @param <T> The type of the non-existent value
-     * @return an empty {@code Container}
+     * @param  <T> The type of the non-existent value
+     * 
+     * @return     an empty {@code Container}
      */
     @SuppressWarnings("unchecked")
     public static <T> Container<T> empty() {
@@ -50,10 +51,10 @@ public final class Container<T> {
      * Constructs an instance with the described value.
      *
      * @param value the value to describe; it's the caller's responsibility to
-     *              ensure the value is non-{@code null} unless creating the
-     *              singleton instance returned by {@code empty()}.
+     *                  ensure the value is non-{@code null} unless creating the
+     *                  singleton instance returned by {@code empty()}.
      */
-    private Container(T value, boolean modifiable) {
+    private Container(final T value, final boolean modifiable) {
         this.value = value;
         this.modifiable = modifiable;
     }
@@ -61,8 +62,9 @@ public final class Container<T> {
     /**
      * Returns an {@code Container}
      *
-     * @param <T> the type of the value
-     * @return an {@code Container}
+     * @param  <T> the type of the value
+     * 
+     * @return     an {@code Container}
      */
     public static <T> Container<T> of() {
         return new Container<>(null, true);
@@ -71,44 +73,48 @@ public final class Container<T> {
     /**
      * Returns an {@code Container} describing the given value.
      *
-     * @param value the value to describe
-     * @param <T>   the type of the value
-     * @return an {@code Container} with the value
+     * @param  value the value to describe
+     * @param  <T>   the type of the value
+     * 
+     * @return       an {@code Container} with the value
      */
-    public static <T> Container<T> of(T value) {
+    public static <T> Container<T> of(final T value) {
         return new Container<>(value, true);
     }
 
     /**
      * Returns an {@code Container} describing the given value.
      *
-     * @param value the value to describe
-     * @param <T>   the type of the value
-     * @return an unmodifiable {@code Container} with the value or empty
+     * @param  value the value to describe
+     * @param  <T>   the type of the value
+     * 
+     * @return       an unmodifiable {@code Container} with the value or empty
      */
-    public static <T> Container<T> ofUnmodifiable(T value) {
+    public static <T> Container<T> ofUnmodifiable(final T value) {
         return value == null ? empty() : new Container<>(value, false);
     }
 
     /**
      * Returns an {@code Container} describing the given value of the optional.
      *
-     * @param value {code Optional} that contains a value or null
-     * @param <T>   the type of the value
-     * @return an {@code Container} with the value of the optional
+     * @param  value {code Optional} that contains a value or null
+     * @param  <T>   the type of the value
+     * 
+     * @return       an {@code Container} with the value of the optional
      */
-    public static <T> Container<T> ofOptional(Optional<T> value) {
+    public static <T> Container<T> ofOptional(final Optional<T> value) {
         return value.isPresent() ? new Container<>(null, true) : new Container<>(value.get(), true);
     }
 
     /**
      * Returns an {@code Container} describing the given value of the optional.
      *
-     * @param value {code Optional} that contains a value or null
-     * @param <T>   the type of the value
-     * @return an {@code Container} with the value of the optional
+     * @param  value {code Optional} that contains a value or null
+     * @param  <T>   the type of the value
+     * 
+     * @return       an {@code Container} with the value of the optional
      */
-    public static <T> Container<T> ofOptionalUnmodifiable(Optional<T> value) {
+    public static <T> Container<T> ofOptionalUnmodifiable(final Optional<T> value) {
         return value.isPresent() ? empty() : new Container<>(value.get(), false);
     }
 
@@ -124,10 +130,11 @@ public final class Container<T> {
     /**
      * replaces the value with the given value
      *
-     * @param value the value to describe
-     * @return the old value described by this {@code Container}
+     * @param  value the value to describe
+     * 
+     * @return       the old value described by this {@code Container}
      */
-    public Container<T> replace(T value) {
+    public Container<T> replace(final T value) {
         if (isModifiable()) {
             this.value = value;
         }
@@ -184,11 +191,13 @@ public final class Container<T> {
      * If a value is present, performs the given action with the value, otherwise
      * does nothing.
      *
-     * @param action the action to be performed, if a value is present
+     * @param  action               the action to be performed, if a value is
+     *                                  present
+     * 
      * @throws NullPointerException if value is present and the given action is
-     *                              {@code null}
+     *                                  {@code null}
      */
-    public void ifPresent(Consumer<? super T> action) {
+    public void ifPresent(final Consumer<? super T> action) {
         if (isEmpty()) {
             return;
         }
@@ -199,14 +208,16 @@ public final class Container<T> {
      * If a value is present, performs the given action with the value, otherwise
      * performs the given empty-based action.
      *
-     * @param action      the action to be performed, if a value is present
-     * @param emptyAction the empty-based action to be performed, if no value is
-     *                    present
+     * @param  action               the action to be performed, if a value is
+     *                                  present
+     * @param  emptyAction          the empty-based action to be performed, if no
+     *                                  value is present
+     * 
      * @throws NullPointerException if a value is present and the given action is
-     *                              {@code null}, or no value is present and the
-     *                              given empty-based action is {@code null}.
+     *                                  {@code null}, or no value is present and the
+     *                                  given empty-based action is {@code null}.
      */
-    public void ifPresentOrElse(Consumer<? super T> action, Runnable emptyAction) {
+    public void ifPresentOrElse(final Consumer<? super T> action, final Runnable emptyAction) {
         if (isEmpty()) {
             emptyAction.run();
             return;
@@ -219,15 +230,19 @@ public final class Container<T> {
      * {@code Container} describing the value, otherwise returns an empty
      * {@code Container}.
      *
-     * @param predicate the predicate to apply to a value, if present
-     * @return an {@code Container} describing the value of this {@code Container},
-     *         if a value is present and the value matches the given predicate,
-     *         otherwise an empty {@code Container}
+     * @param  predicate            the predicate to apply to a value, if present
+     * 
+     * @return                      an {@code Container} describing the value of
+     *                                  this {@code Container}, if a value is
+     *                                  present and the value matches the given
+     *                                  predicate, otherwise an empty
+     *                                  {@code Container}
+     * 
      * @throws NullPointerException if the predicate is {@code null}
      */
-    public Container<T> filter(Predicate<? super T> predicate) {
+    public Container<T> filter(final Predicate<? super T> predicate) {
         Objects.requireNonNull(predicate);
-        return isPresent() ? (predicate.test(value) ? this : empty()) : this;
+        return isPresent() ? predicate.test(value) ? this : empty() : this;
     }
 
     /**
@@ -239,14 +254,20 @@ public final class Container<T> {
      * If the mapping function returns a {@code null} result then this method
      * returns an empty {@code Container}.
      *
-     * @param mapper the mapping function to apply to a value, if present
-     * @param <U>    The type of the value returned from the mapping function
-     * @return an {@code Container} describing the result of applying a mapping
-     *         function to the value of this {@code Container}, if a value is
-     *         present, otherwise an empty {@code Container}
+     * @param  mapper               the mapping function to apply to a value, if
+     *                                  present
+     * @param  <U>                  The type of the value returned from the mapping
+     *                                  function
+     * 
+     * @return                      an {@code Container} describing the result of
+     *                                  applying a mapping function to the value of
+     *                                  this {@code Container}, if a value is
+     *                                  present, otherwise an empty
+     *                                  {@code Container}
+     * 
      * @throws NullPointerException if the mapping function is {@code null}
      */
-    public <U> Container<U> map(Function<? super T, ? extends U> mapper) {
+    public <U> Container<U> map(final Function<? super T, ? extends U> mapper) {
         Objects.requireNonNull(mapper);
         return isPresent() ? Container.of(mapper.apply(value)) : empty();
     }
@@ -261,17 +282,22 @@ public final class Container<T> {
      * one whose result is already an {@code Container}, and if invoked,
      * {@code flatMap} does not wrap it within an additional {@code Container}.
      *
-     * @param <U>    The type of value of the {@code Container} returned by the
-     *               mapping function
-     * @param mapper the mapping function to apply to a value, if present
-     * @return the result of applying an {@code Container}-bearing mapping function
-     *         to the value of this {@code Container}, if a value is present,
-     *         otherwise an empty {@code Container}
+     * @param  <U>                  The type of value of the {@code Container}
+     *                                  returned by the mapping function
+     * @param  mapper               the mapping function to apply to a value, if
+     *                                  present
+     * 
+     * @return                      the result of applying an
+     *                                  {@code Container}-bearing mapping function
+     *                                  to the value of this {@code Container}, if a
+     *                                  value is present, otherwise an empty
+     *                                  {@code Container}
+     * 
      * @throws NullPointerException if the mapping function is {@code null} or
-     *                              returns a {@code null} result
+     *                                  returns a {@code null} result
      */
     @SuppressWarnings("unchecked")
-    public <U> Container<U> flatMap(Function<? super T, ? extends Container<? extends U>> mapper) {
+    public <U> Container<U> flatMap(final Function<? super T, ? extends Container<? extends U>> mapper) {
         Objects.requireNonNull(mapper);
         return isPresent() ? Objects.requireNonNull((Container<U>) mapper.apply(value)) : empty();
     }
@@ -280,16 +306,19 @@ public final class Container<T> {
      * If a value is present, returns an {@code Container} describing the value,
      * otherwise returns an {@code Container} produced by the supplying function.
      *
-     * @param supplier the supplying function that produces an {@code Container} to
-     *                 be returned
-     * @return returns an {@code Container} describing the value of this
-     *         {@code Container}, if a value is present, otherwise an
-     *         {@code Container} produced by the supplying function.
+     * @param  supplier             the supplying function that produces an
+     *                                  {@code Container} to be returned
+     * 
+     * @return                      returns an {@code Container} describing the
+     *                                  value of this {@code Container}, if a value
+     *                                  is present, otherwise an {@code Container}
+     *                                  produced by the supplying function.
+     * 
      * @throws NullPointerException if the supplying function is {@code null} or
-     *                              produces a {@code null} result
+     *                                  produces a {@code null} result
      */
     @SuppressWarnings("unchecked")
-    public Container<T> or(Supplier<? extends Container<? extends T>> supplier) {
+    public Container<T> or(final Supplier<? extends Container<? extends T>> supplier) {
         Objects.requireNonNull(supplier);
         return isPresent() ? this : Objects.requireNonNull((Container<T>) supplier.get());
     }
@@ -307,11 +336,12 @@ public final class Container<T> {
     /**
      * If a value is present, returns the value, otherwise returns {@code other}.
      *
-     * @param other the value to be returned, if no value is present. May be
-     *              {@code null}.
-     * @return the value, if present, otherwise {@code other}
+     * @param  other the value to be returned, if no value is present. May be
+     *                   {@code null}.
+     * 
+     * @return       the value, if present, otherwise {@code other}
      */
-    public T orElse(T other) {
+    public T orElse(final T other) {
         return value != null ? value : other;
     }
 
@@ -319,13 +349,16 @@ public final class Container<T> {
      * If a value is present, returns the value, otherwise returns the result
      * produced by the supplying function.
      *
-     * @param supplier the supplying function that produces a value to be returned
-     * @return the value, if present, otherwise the result produced by the supplying
-     *         function
+     * @param  supplier             the supplying function that produces a value to
+     *                                  be returned
+     * 
+     * @return                      the value, if present, otherwise the result
+     *                                  produced by the supplying function
+     * 
      * @throws NullPointerException if no value is present and the supplying
-     *                              function is {@code null}
+     *                                  function is {@code null}
      */
-    public T orElseGet(Supplier<? extends T> supplier) {
+    public T orElseGet(final Supplier<? extends T> supplier) {
         return isPresent() ? value : supplier.get();
     }
 
@@ -333,7 +366,9 @@ public final class Container<T> {
      * If a value is present, returns the value, otherwise throws
      * {@code NoSuchElementException}.
      *
-     * @return the non-{@code null} value described by this {@code Container}
+     * @return                        the non-{@code null} value described by this
+     *                                    {@code Container}
+     * 
      * @throws NoSuchElementException if no value is present
      */
     public T orElseThrow() {
@@ -347,15 +382,17 @@ public final class Container<T> {
      * If a value is present, returns the value, otherwise throws an exception
      * produced by the exception supplying function.
      *
-     * @param <X>               Type of the exception to be thrown
-     * @param exceptionSupplier the supplying function that produces an exception to
-     *                          be thrown
-     * @return the value, if present
+     * @param  <X>                  Type of the exception to be thrown
+     * @param  exceptionSupplier    the supplying function that produces an
+     *                                  exception to be thrown
+     * 
+     * @return                      the value, if present
+     * 
      * @throws X                    if no value is present
      * @throws NullPointerException if no value is present and the exception
-     *                              supplying function is {@code null}
+     *                                  supplying function is {@code null}
      */
-    public <X extends Throwable> T orElseThrow(Supplier<? extends X> exceptionSupplier) throws X {
+    public <X extends Throwable> T orElseThrow(final Supplier<? extends X> exceptionSupplier) throws X {
         if (isPresent()) {
             return value;
         }
@@ -371,12 +408,13 @@ public final class Container<T> {
      * <li>the present values are "equal to" each other via {@code equals()}.
      * </ul>
      *
-     * @param obj an object to be tested for equality
-     * @return {@code true} if the other object is "equal to" this object otherwise
-     *         {@code false}
+     * @param  obj an object to be tested for equality
+     * 
+     * @return     {@code true} if the other object is "equal to" this object
+     *                 otherwise {@code false}
      */
     @Override
-    public boolean equals(Object obj) {
+    public boolean equals(final Object obj) {
         if (this == obj) {
             return true;
         }
@@ -385,7 +423,7 @@ public final class Container<T> {
             return false;
         }
 
-        Container<?> other = (Container<?>) obj;
+        final Container<?> other = (Container<?>) obj;
         return Objects.equals(value, other.value);
     }
 
@@ -394,7 +432,7 @@ public final class Container<T> {
      * no value is present.
      *
      * @return hash code value of the present value or {@code 0} if no value is
-     *         present
+     *             present
      */
     @Override
     public int hashCode() {

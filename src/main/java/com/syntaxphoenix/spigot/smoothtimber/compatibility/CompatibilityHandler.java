@@ -5,7 +5,6 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import com.syntaxphoenix.spigot.smoothtimber.compatibility.towny.Towny;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.syntaxphoenix.spigot.smoothtimber.SmoothTimber;
@@ -18,6 +17,7 @@ import com.syntaxphoenix.spigot.smoothtimber.compatibility.logblock.LogBlock;
 import com.syntaxphoenix.spigot.smoothtimber.compatibility.mcmmo.McMmo;
 import com.syntaxphoenix.spigot.smoothtimber.compatibility.placeholderapi.PlaceholderApi;
 import com.syntaxphoenix.spigot.smoothtimber.compatibility.residence.Residence;
+import com.syntaxphoenix.spigot.smoothtimber.compatibility.towny.Towny;
 import com.syntaxphoenix.spigot.smoothtimber.compatibility.worldguard.WorldGuard;
 import com.syntaxphoenix.spigot.smoothtimber.config.config.AddonConfig;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.PluginUtils;
@@ -44,11 +44,11 @@ public abstract class CompatibilityHandler {
         register("Towny", Towny.class);
     }
 
-    public static <E extends CompatibilityAddon> boolean register(String pluginName, Class<E> addonClass) {
+    public static <E extends CompatibilityAddon> boolean register(final String pluginName, final Class<E> addonClass) {
         if (COMPAT.containsKey(pluginName) || isAddonRegistered(addonClass)) {
             return false;
         }
-        COMPAT.put(pluginName, new CompatAddon<E>(addonClass));
+        COMPAT.put(pluginName, new CompatAddon<>(addonClass));
         return true;
     }
 
@@ -56,34 +56,34 @@ public abstract class CompatibilityHandler {
         return COMPAT.keySet().toArray(new String[0]);
     }
 
-    public static <E extends CompatibilityAddon> boolean isAddonRegistered(Class<E> addonClass) {
+    public static <E extends CompatibilityAddon> boolean isAddonRegistered(final Class<E> addonClass) {
         return COMPAT.values().stream().unordered().anyMatch(addon -> addon.getOwner().equals(addonClass));
     }
 
     @SuppressWarnings("unchecked")
-    public static <E extends CompatibilityAddon> Optional<E> getAddon(Class<E> addonClass) {
+    public static <E extends CompatibilityAddon> Optional<E> getAddon(final Class<E> addonClass) {
         return COMPAT.values().stream().unordered().filter(addon -> addon.getOwner().equals(addonClass)).findFirst()
             .flatMap(CompatAddon::getInstance).map(addon -> (E) addon);
     }
 
-    public static Optional<CompatibilityAddon> getAddon(String pluginName) {
+    public static Optional<CompatibilityAddon> getAddon(final String pluginName) {
         return Optional.ofNullable(COMPAT.get(pluginName)).flatMap(CompatAddon::getInstance);
     }
 
-    public static void handleSettingsUpdate(PluginSettings settings) {
+    public static void handleSettingsUpdate(final PluginSettings settings) {
         Optional<PluginPackage> optional;
-        for (String name : COMPAT.keySet()) {
+        for (final String name : COMPAT.keySet()) {
             if (!(optional = settings.searchPackage(name)).isPresent()) {
-                CompatAddon<?> addon = COMPAT.get(name);
+                final CompatAddon<?> addon = COMPAT.get(name);
                 if (addon.getInstance().isPresent()) {
                     addon.shutdown();
                 }
                 continue;
             }
-            CompatAddon<?> addon = COMPAT.get(name);
-            PluginPackage pluginPackage = optional.get();
+            final CompatAddon<?> addon = COMPAT.get(name);
+            final PluginPackage pluginPackage = optional.get();
             if (pluginPackage.getPlugin().isEnabled()) {
-                boolean disabled = AddonConfig.INSTANCE.isDisabled(pluginPackage.getName());
+                final boolean disabled = AddonConfig.INSTANCE.isDisabled(pluginPackage.getName());
                 if (!addon.getInstance().isPresent() && !disabled) {
                     addon.start(pluginPackage);
                 } else if (disabled) {
@@ -104,7 +104,7 @@ public abstract class CompatibilityHandler {
 
         private CompatibilityAddon instance;
 
-        private CompatAddon(Class<E> owner) {
+        private CompatAddon(final Class<E> owner) {
             this.owner = owner;
             this.reflect = new Reflect(owner);
         }
@@ -121,7 +121,7 @@ public abstract class CompatibilityHandler {
             return Optional.ofNullable(instance);
         }
 
-        void start(PluginPackage pluginPackage) {
+        void start(final PluginPackage pluginPackage) {
             if (instance != null) {
                 return;
             }
@@ -131,10 +131,10 @@ public abstract class CompatibilityHandler {
                 if (instance.hasConfig()) {
                     instance.getConfig().reload();
                 }
-            } catch (IncompatiblePluginException pluginException) {
+            } catch (final IncompatiblePluginException pluginException) {
                 instance = null;
                 PluginUtils.sendConsoleMessage(true, Exceptions.stackTraceToString(pluginException));
-            } catch (Exception exception) {
+            } catch (final Exception exception) {
                 instance = null;
                 PluginUtils.sendConsoleMessage(true, "&bFailed to enable compatibility addon '&3" + owner.getSimpleName().split("\\.")[0]
                     + "&7' for plugin '&3" + pluginPackage.getName() + "&7'!");
@@ -150,7 +150,7 @@ public abstract class CompatibilityHandler {
                     instance.getConfig().unload();
                 }
                 instance.onDisable(JavaPlugin.getPlugin(SmoothTimber.class));
-            } catch (Exception exception) {
+            } catch (final Exception exception) {
                 PluginUtils.sendConsoleMessage(true,
                     "&bFailed to disable compatibility addon " + owner.getSimpleName().split("\\.")[0] + "&7'!");
             }

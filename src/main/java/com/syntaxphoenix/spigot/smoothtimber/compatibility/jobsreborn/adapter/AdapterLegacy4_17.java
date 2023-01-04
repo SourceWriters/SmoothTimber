@@ -10,25 +10,25 @@ import com.syntaxphoenix.spigot.smoothtimber.utilities.Container;
 public class AdapterLegacy4_17 extends JobAdapter {
 
     private final Container<BufferedEconomy> economy = Container.of();
-    
+
     @Override
     public BufferedEconomy getEconomy() {
-        if(economy.isPresent()) {
+        if (economy.isPresent()) {
             return economy.get();
         }
         return economy.replace(Jobs.getEconomy()).get();
     }
 
     @Override
-    public String getName(Job job) {
+    public String getName(final Job job) {
         return job.getName();
     }
 
     @Override
-    public void addExperience(JobProgression progression, double value) {
+    public void addExperience(final JobProgression progression, final double value) {
         progression.addExperience(value);
     }
-    
+
     @Override
     public void close() {
         economy.replace(null);

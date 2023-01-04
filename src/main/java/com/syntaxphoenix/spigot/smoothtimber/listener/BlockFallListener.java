@@ -18,12 +18,12 @@ import com.syntaxphoenix.spigot.smoothtimber.version.manager.VersionChanger;
 public class BlockFallListener implements Listener {
 
     @EventHandler
-    public void onChange(EntityChangeBlockEvent event) {
-        VersionChanger change = PluginUtils.CHANGER;
+    public void onChange(final EntityChangeBlockEvent event) {
+        final VersionChanger change = PluginUtils.CHANGER;
         if (event.getEntityType() != change.getFallingBlockType()) {
             return;
         }
-        FallingBlock block = (FallingBlock) event.getEntity();
+        final FallingBlock block = (FallingBlock) event.getEntity();
         if (!block.hasMetadata("STAnimate")) {
             return;
         }
@@ -32,25 +32,25 @@ public class BlockFallListener implements Listener {
         block.remove();
     }
 
-    private void extractItem(VersionChanger change, FallingBlock block) {
-        List<MetadataValue> values = block.getMetadata("STCollect");
-        int amount = block.getMetadata("STAnimate").get(0).asInt();
+    private void extractItem(final VersionChanger change, final FallingBlock block) {
+        final List<MetadataValue> values = block.getMetadata("STCollect");
+        final int amount = block.getMetadata("STAnimate").get(0).asInt();
         UUID target;
         if (values.isEmpty() || (target = parse(values.get(0).asString())) == null) {
             change.dropItemByFallingBlock(block, amount);
             return;
         }
-        Player player = Bukkit.getPlayer(target);
+        final Player player = Bukkit.getPlayer(target);
         if (player == null) {
             change.dropItemByFallingBlock(block, amount);
             return;
         }
-        ItemStack item = change.getItemFromFallingBlock(block);
+        final ItemStack item = change.getItemFromFallingBlock(block);
         item.setAmount(amount);
         player.getInventory().addItem(item);
     }
 
-    private UUID parse(String value) {
+    private UUID parse(final String value) {
         try {
             return UUID.fromString(value);
         } catch (IllegalArgumentException | ArrayIndexOutOfBoundsException exp) {

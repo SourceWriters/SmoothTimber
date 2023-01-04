@@ -7,8 +7,8 @@ import org.bukkit.plugin.Plugin;
 
 public abstract class Tracker {
 
-    public static Optional<Class<?>> getClassFromStack(int offset) {
-        StackTraceElement element = Thread.currentThread().getStackTrace()[2 + offset];
+    public static Optional<Class<?>> getClassFromStack(final int offset) {
+        final StackTraceElement element = Thread.currentThread().getStackTrace()[2 + offset];
         return element == null ? Optional.empty() : Reflector.getOptionalClass(element.getClassName());
     }
 
@@ -17,9 +17,9 @@ public abstract class Tracker {
     }
 
     public static Optional<Plugin> getCallerPlugin() {
-        StackTraceElement[] elements = Arrays.subArray(StackTraceElement[]::new, Thread.currentThread().getStackTrace(), 2);
-        for (StackTraceElement element : elements) {
-            Optional<Plugin> plugin = getPlugin(Reflector.getOptionalClass(element.getClassName()));
+        final StackTraceElement[] elements = Arrays.subArray(StackTraceElement[]::new, Thread.currentThread().getStackTrace(), 2);
+        for (final StackTraceElement element : elements) {
+            final Optional<Plugin> plugin = getPlugin(Reflector.getOptionalClass(element.getClassName()));
             if (plugin.isPresent()) {
                 return plugin;
             }
@@ -27,11 +27,11 @@ public abstract class Tracker {
         return Optional.empty();
     }
 
-    public static Optional<Plugin> getPlugin(Optional<Class<?>> option) {
+    public static Optional<Plugin> getPlugin(final Optional<Class<?>> option) {
         if (!option.isPresent()) {
             return Optional.empty();
         }
-        Class<?> clazz = option.get();
+        final Class<?> clazz = option.get();
         return java.util.Arrays.stream(Bukkit.getPluginManager().getPlugins())
             .filter(plugin -> plugin.getClass().getClassLoader() == clazz.getClassLoader()).findFirst();
     }

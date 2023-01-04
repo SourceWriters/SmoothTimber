@@ -5,7 +5,7 @@ import com.syntaxphoenix.spigot.smoothtimber.config.MigrationContext;
 
 public abstract class MessageMigration extends Migration {
 
-    public static void update1(MigrationContext context) {
+    public static void update1(final MigrationContext context) {
         context.move(ofEnum("TOGGLE_OFF"), ofEnum("TOGGLE_OFF_FOREVER"));
         context.move(ofEnum("VERSION_SUPPORTED"), ofEnum("STARTUP_VERSION_SUPPORTED"));
         context.move(ofEnum("VERSION_UNSUPPORTED"), ofEnum("STARTUP_VERSION_UNSUPPORTED"));
@@ -13,7 +13,7 @@ public abstract class MessageMigration extends Migration {
         context.move(ofEnum("VERSION_VERSIONS"), ofEnum("STARTUP_VERSION_VERSIONS"));
     }
 
-    public static void update2(MigrationContext context) {
+    public static void update2(final MigrationContext context) {
         context.stack("messages", ofEnum("GLOBAL_PREFIX"));
         context.stack("messages", ofEnum("GLOBAL_LIST222SPLIT"));
         context.stack("messages", ofEnum("RELOAD_NEEDED"));
@@ -45,7 +45,7 @@ public abstract class MessageMigration extends Migration {
         context.stack("messages", ofEnum("ABORT_REASON_WORLDGUARD"));
     }
 
-    public static void update4(MigrationContext context) {
+    public static void update4(final MigrationContext context) {
         context.move(enumPath("messages", "TYPE_SETTING"), ofEnum("TYPE_SETTING_MAIN"));
         context.move(enumPath("messages", "TYPE_SETTINGS"), ofEnum("TYPE_SETTINGS_MAIN"));
     }

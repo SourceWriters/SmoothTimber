@@ -10,12 +10,12 @@ public class CoreCompat_v1_13_x implements CoreCompat {
 
     private final CoreProtectAPI api;
 
-    protected CoreCompat_v1_13_x(Plugin plugin) {
+    protected CoreCompat_v1_13_x(final Plugin plugin) {
         api = ((net.coreprotect.CoreProtect) plugin).getAPI();
     }
 
     @Override
-    public void logRemoval(String user, Location location, Block block) {
+    public void logRemoval(final String user, final Location location, final Block block) {
         api.logRemoval(user, location, block.getType(), block.getBlockData());
     }
 

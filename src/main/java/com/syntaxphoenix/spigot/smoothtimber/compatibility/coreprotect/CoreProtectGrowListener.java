@@ -13,19 +13,19 @@ public class CoreProtectGrowListener implements Listener {
 
     private final CoreCompat compat;
 
-    protected CoreProtectGrowListener(CoreCompat compat) {
+    protected CoreProtectGrowListener(final CoreCompat compat) {
         this.compat = compat;
     }
 
     @EventHandler(priority = EventPriority.MONITOR)
-    public void onGrow(StructureGrowEvent event) {
+    public void onGrow(final StructureGrowEvent event) {
         if (event.isCancelled()) {
             return;
         }
-        Player player = event.getPlayer();
-        String user = player != null ? "#st_" + player.getName() : "#tree";
+        final Player player = event.getPlayer();
+        final String user = player != null ? "#st_" + player.getName() : "#tree";
         SmoothTimber.get().getServer().getScheduler().runTaskLaterAsynchronously(SmoothTimber.get(), () -> {
-            for (BlockState state : event.getBlocks()) {
+            for (final BlockState state : event.getBlocks()) {
                 compat.logRemoval(user, state.getLocation(), state.getBlock());
             }
         }, 5);

@@ -26,12 +26,12 @@ public class v1_11xChanger implements VersionChanger {
     private static final Material FENCE = Material.valueOf("FENCE");
 
     @Override
-    public boolean hasCuttingItemInHand(Player player) {
+    public boolean hasCuttingItemInHand(final Player player) {
         return CutterConfig.CUTTER_MATERIALS.contains(getItemInHand(player).getType().name());
     }
 
     @Override
-    public boolean hasPermissionForCuttingItem(Player player, ItemStack item) {
+    public boolean hasPermissionForCuttingItem(final Player player, final ItemStack item) {
         if (!CutterConfig.ENABLE_CUTTER_PERMISSIONS || item == null) {
             return true;
         }
@@ -39,26 +39,26 @@ public class v1_11xChanger implements VersionChanger {
     }
 
     @Override
-    public byte getData(Block block) {
+    public byte getData(final Block block) {
         return block.getData();
     }
 
     @Override
-    public ItemStack removeDurabilityFromItem(ItemStack stack) {
+    public ItemStack removeDurabilityFromItem(final ItemStack stack) {
         if (CutterConfig.ENABLE_UNBREAKING) {
-            int level = stack.getEnchantmentLevel(Enchantment.DURABILITY);
-            float chance = 100 / (level <= 0 ? 1 : (level + 1));
+            final int level = stack.getEnchantmentLevel(Enchantment.DURABILITY);
+            final float chance = 100 / (level <= 0 ? 1 : level + 1);
             if (RANDOM.nextFloat(0, 100) > chance) {
                 return stack;
             }
         }
         if (stack.hasItemMeta()) {
-            ItemMeta meta = stack.getItemMeta();
+            final ItemMeta meta = stack.getItemMeta();
             if (meta.isUnbreakable()) {
                 return stack;
             }
         }
-        Integer durability = stack.getDurability() + 1;
+        final Integer durability = stack.getDurability() + 1;
         if (stack.getType().getMaxDurability() < durability) {
             stack.setAmount(0);
             return null;
@@ -68,19 +68,19 @@ public class v1_11xChanger implements VersionChanger {
     }
 
     @Override
-    public int getMaxDropCount(ItemStack stack) {
-        int level = stack.getEnchantmentLevel(Enchantment.LOOT_BONUS_BLOCKS);
+    public int getMaxDropCount(final ItemStack stack) {
+        final int level = stack.getEnchantmentLevel(Enchantment.LOOT_BONUS_BLOCKS);
         return level <= 0 ? 1 : level + 1;
     }
 
     @Override
-    public void setItemInPlayerHand(Player player, ItemStack stack) {
+    public void setItemInPlayerHand(final Player player, final ItemStack stack) {
         player.getEquipment().setItemInMainHand(stack);
     }
 
     @Override
-    public boolean isWoodBlockImpl(Block block) {
-        Material material = block.getType();
+    public boolean isWoodBlockImpl(final Block block) {
+        final Material material = block.getType();
 
         if (CutterConfig.ENABLE_EXCLUSION && CutterConfig.EXCLUDED_MATERIALS.contains(material)) {
             return false;
@@ -99,12 +99,12 @@ public class v1_11xChanger implements VersionChanger {
     }
 
     @Override
-    public boolean hasPermissionForWood(Player p, Block b) {
+    public boolean hasPermissionForWood(final Player p, final Block b) {
         return hasPermissionForWoodType(p, getWoodType(b.getType(), b.getData()));
     }
 
     @Override
-    public boolean hasPermissionForWoodType(Player p, WoodType type) {
+    public boolean hasPermissionForWoodType(final Player p, final WoodType type) {
         if (!CutterConfig.ENABLE_WOOD_PERMISSIONS || type == null) {
             return true;
         }
@@ -112,17 +112,17 @@ public class v1_11xChanger implements VersionChanger {
     }
 
     @Override
-    public ItemStack getItemInHand(Player p) {
+    public ItemStack getItemInHand(final Player p) {
         return p.getEquipment().getItemInMainHand();
     }
 
     @Override
-    public ItemStack getItemFromBlock(Block block) {
+    public ItemStack getItemFromBlock(final Block block) {
         return getItemStack(block.getType(), block.getData(), 1);
     }
 
     @Override
-    public ItemStack getItemFromFallingBlock(FallingBlock block) {
+    public ItemStack getItemFromFallingBlock(final FallingBlock block) {
         return getItemStack((Material) Storage.MATERIAL.run("type", Storage.FALLING_BLOCK.run(block, "id")),
             (byte) Storage.FALLING_BLOCK.run(block, "data"), 1);
     }
@@ -133,14 +133,14 @@ public class v1_11xChanger implements VersionChanger {
     }
 
     @Override
-    public void setAirBlock(Block block) {
+    public void setAirBlock(final Block block) {
         block.setType(Material.AIR);
     }
 
     @Override
-    public Entity toFallingBlock(Block block) {
-        Material type = block.getType();
-        byte data = block.getData();
+    public Entity toFallingBlock(final Block block) {
+        final Material type = block.getType();
+        final byte data = block.getData();
         block.setType(Material.AIR);
         return block.getWorld().spawnFallingBlock(block.getLocation().add(0.5, 0.2, 0.5), type, data);
     }
@@ -150,11 +150,11 @@ public class v1_11xChanger implements VersionChanger {
         return EntityType.FALLING_BLOCK;
     }
 
-    public ItemStack getItemStack(Material type, byte id, int amount) {
+    public ItemStack getItemStack(final Material type, final byte id, final int amount) {
         if (type == FENCE) {
             return new ItemStack(type, amount);
         }
-        WoodType wood = getWoodType(type, id);
+        final WoodType wood = getWoodType(type, id);
         switch (wood) {
         case OAK:
             return new MaterialData(type, (byte) 0).toItemStack(amount);
@@ -174,7 +174,7 @@ public class v1_11xChanger implements VersionChanger {
     }
 
     @Override
-    public boolean isSupported(WoodType type) {
+    public boolean isSupported(final WoodType type) {
         switch (type) {
         case OAK:
         case SPRUCE:
@@ -190,8 +190,8 @@ public class v1_11xChanger implements VersionChanger {
     }
 
     @Override
-    public WoodType getWoodTypeFromBlock(Block block) {
-        Material blockMaterial = block.getType();
+    public WoodType getWoodTypeFromBlock(final Block block) {
+        final Material blockMaterial = block.getType();
         if (CutterConfig.ENABLE_INCLUSION && CutterConfig.INCLUDED_MATERIALS.contains(blockMaterial)) {
             return WoodType.OTHER;
         }
@@ -199,7 +199,7 @@ public class v1_11xChanger implements VersionChanger {
     }
 
     @Override
-    public WoodType getWoodType(Material type, int id) {
+    public WoodType getWoodType(final Material type, final int id) {
         if (type == LOG) {
             switch (id) {
             case 0:

@@ -17,9 +17,9 @@ public class LogBlock extends CompatibilityAddon {
     private ExecutorService executorService;
 
     @Override
-    public void onEnable(PluginPackage pluginPackage, SmoothTimber smoothTimber) throws Exception {
+    public void onEnable(final PluginPackage pluginPackage, final SmoothTimber smoothTimber) throws Exception {
         executorService = Executors.newCachedThreadPool();
-        de.diddiz.LogBlock.LogBlock plugin = JavaPlugin.getPlugin(de.diddiz.LogBlock.LogBlock.class);
+        final de.diddiz.LogBlock.LogBlock plugin = JavaPlugin.getPlugin(de.diddiz.LogBlock.LogBlock.class);
 
         smoothTimber.getServer().getPluginManager().registerEvents(chopListener = new LogBlockChopListener(plugin.getConsumer()),
             smoothTimber);
@@ -27,7 +27,7 @@ public class LogBlock extends CompatibilityAddon {
     }
 
     @Override
-    public void onDisable(SmoothTimber smoothTimber) throws Exception {
+    public void onDisable(final SmoothTimber smoothTimber) throws Exception {
         if (chopListener != null) {
             HandlerList.unregisterAll(chopListener);
         }

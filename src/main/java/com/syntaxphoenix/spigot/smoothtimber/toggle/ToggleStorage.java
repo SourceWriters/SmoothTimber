@@ -20,7 +20,7 @@ public class ToggleStorage {
      * 
      */
 
-    public ToggleStorage(Plugin plugin) {
+    public ToggleStorage(final Plugin plugin) {
         this.timer = new ToggleTimer(this, plugin);
     }
 
@@ -36,31 +36,30 @@ public class ToggleStorage {
      * 
      */
 
-    public boolean hasToggled(UUID uniqueId) {
+    public boolean hasToggled(final UUID uniqueId) {
         return getUser(uniqueId).isPresent();
     }
 
-    public Optional<ToggledUser> getUser(UUID uniqueId) {
+    public Optional<ToggledUser> getUser(final UUID uniqueId) {
         return toggled.stream().filter(user -> user.getUniqueId().equals(uniqueId)).findAny();
     }
 
-    public boolean toggle(UUID uniqueId) {
+    public boolean toggle(final UUID uniqueId) {
         return toggle(uniqueId, -1);
     }
 
-    public boolean toggle(UUID uniqueId, int time) {
-        Optional<ToggledUser> option = getUser(uniqueId);
+    public boolean toggle(final UUID uniqueId, final int time) {
+        final Optional<ToggledUser> option = getUser(uniqueId);
         if (option.isPresent()) {
-            ToggledUser user = option.get();
+            final ToggledUser user = option.get();
             user.onToggle(false);
             toggled.remove(user);
             return false;
-        } else {
-            ToggledUser user = new ToggledUser(uniqueId, time);
-            user.onToggle(true);
-            toggled.add(user);
-            return true;
         }
+        final ToggledUser user = new ToggledUser(uniqueId, time);
+        user.onToggle(true);
+        toggled.add(user);
+        return true;
     }
 
     /*
@@ -72,9 +71,9 @@ public class ToggleStorage {
             toggled.clear();
             return;
         }
-        Iterator<ToggledUser> iterator = toggled.stream().filter(user -> user.update()).iterator();
+        final Iterator<ToggledUser> iterator = toggled.stream().filter(ToggledUser::update).iterator();
         while (iterator.hasNext()) {
-            ToggledUser user = iterator.next();
+            final ToggledUser user = iterator.next();
             user.onToggle(false);
             toggled.remove(user);
         }

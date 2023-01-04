@@ -19,17 +19,15 @@ public final class ResidenceChopListener implements Listener {
     }
 
     @EventHandler(ignoreCancelled = true)
-    public void onChopEvent(AsyncPlayerChopTreeEvent event) {
+    public void onChopEvent(final AsyncPlayerChopTreeEvent event) {
         PluginUtils.getObjectFromMainThread(() -> {
-            ResidenceManager manager = Residence.getInstance().getResidenceManager();
-            for (Location location : event.getBlockLocations()) {
-                ClaimedResidence residence = manager.getByLoc(location);
-                if (residence != null) {
-                    if (!residence.getPermissions().playerHas(event.getPlayer(), Flags.build, true)) {
-                        event.setCancelled(true);
-                        event.setReason(DefaultReason.RESIDENCE);
-                        return null;
-                    }
+            final ResidenceManager manager = Residence.getInstance().getResidenceManager();
+            for (final Location location : event.getBlockLocations()) {
+                final ClaimedResidence residence = manager.getByLoc(location);
+                if ((residence != null) && !residence.getPermissions().playerHas(event.getPlayer(), Flags.build, true)) {
+                    event.setCancelled(true);
+                    event.setReason(DefaultReason.RESIDENCE);
+                    return null;
                 }
             }
             return null;

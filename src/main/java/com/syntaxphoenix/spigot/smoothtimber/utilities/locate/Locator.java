@@ -21,23 +21,23 @@ public abstract class Locator {
     private static Function<Location, Block> BLOCK_DETECTOR;
     private static LocationResolver LOCATION_RESOLVER = DefaultResolver.INSTANCE;
 
-    public static void setSyncBlockDetection(boolean sync) {
-        BLOCK_DETECTOR = sync ? (location) -> {
+    public static void setSyncBlockDetection(final boolean sync) {
+        BLOCK_DETECTOR = sync ? location -> {
             try {
                 return PluginUtils.getObjectFromMainThread(() -> location.getBlock());
-            } catch (Exception ignore) {
+            } catch (final Exception ignore) {
                 if (GLOBAL_DEBUG) {
                     PluginUtils.sendConsoleError("Something went wrong while detecting a block synchronously", ignore);
                 }
                 return null;
             }
-        } : (location) -> {
+        } : location -> {
             try {
                 return Objects.requireNonNull(location.getBlock());
-            } catch (Exception execute) {
+            } catch (final Exception execute) {
                 try {
                     return PluginUtils.getObjectFromMainThread(() -> location.getBlock());
-                } catch (Exception ignore) {
+                } catch (final Exception ignore) {
                     if (GLOBAL_DEBUG) {
                         PluginUtils.sendConsoleError("Something went wrong while detecting a block synchronously", ignore);
                     }
@@ -47,7 +47,7 @@ public abstract class Locator {
         };
     }
 
-    public static void setLocationResolver(LocationResolver resolver) {
+    public static void setLocationResolver(final LocationResolver resolver) {
         LOCATION_RESOLVER = resolver == null ? DefaultResolver.INSTANCE : resolver;
     }
 
@@ -55,21 +55,21 @@ public abstract class Locator {
         return LOCATION_RESOLVER;
     }
 
-    public static Block getBlock(Location location) {
+    public static Block getBlock(final Location location) {
         return BLOCK_DETECTOR.apply(location);
     }
 
-    public static void locateWood(Location breakPoint, List<Location> output, int limit) {
+    public static void locateWood(final Location breakPoint, final List<Location> output, final int limit) {
         int roots = CutterConfig.ROOT_DEPTH;
-        int radius = CutterConfig.CHECK_RADIUS;
-        int test = CutterConfig.CHECK_RADIUS / 2;
-        IntCounter counter = new IntCounter();
-        Queue<Location> layers = new ListQueue<>();
+        final int radius = CutterConfig.CHECK_RADIUS;
+        final int test = CutterConfig.CHECK_RADIUS / 2;
+        final IntCounter counter = new IntCounter();
+        final Queue<Location> layers = new ListQueue<>();
         layers.offer(new Location(breakPoint.getWorld(), breakPoint.getBlockX(), breakPoint.getBlockY() - roots, breakPoint.getBlockZ()));
-        LocationResolver resolver = LOCATION_RESOLVER;
-        Queue<Location> current = new ListQueue<>();
-        ArrayList<Location> testList = new ArrayList<>();
-        IntCounter testCounter = new IntCounter();
+        final LocationResolver resolver = LOCATION_RESOLVER;
+        final Queue<Location> current = new ListQueue<>();
+        final ArrayList<Location> testList = new ArrayList<>();
+        final IntCounter testCounter = new IntCounter();
         while (counter.get() != limit) {
             if (layers.peek() == null) {
                 if (roots != -1) {
@@ -81,18 +81,18 @@ public abstract class Locator {
             }
             current.offer(layers.poll());
             while (current.peek() != null) {
-                List<Location> resolve = resolver.resolve(current.poll(), radius, output, counter, limit);
-                if(resolve == null) {
+                final List<Location> resolve = resolver.resolve(current.poll(), radius, output, counter, limit);
+                if (resolve == null) {
                     continue;
                 }
-                for (Location location : resolve) {
+                for (final Location location : resolve) {
                     current.offer(location);
                     testCounter.reset();
                     testList.clear();
-                    List<Location> above = resolver.resolve(
+                    final List<Location> above = resolver.resolve(
                         new Location(location.getWorld(), location.getBlockX(), location.getBlockY() + 1, location.getBlockZ()), test,
                         testList, testCounter, -1, true);
-                    for (Location tmp : above) {
+                    for (final Location tmp : above) {
                         layers.offer(tmp);
                     }
                 }
@@ -103,7 +103,7 @@ public abstract class Locator {
         }
     }
 
-    public static boolean isPlayerPlaced(Location location) {
+    public static boolean isPlayerPlaced(final Location location) {
         return LOCATION_RESOLVER.isPlayerPlaced(location);
     }
 }

@@ -18,31 +18,28 @@ public final class CooldownHelper {
 
     private CooldownHelper() {}
 
-    public static void setEnabled(boolean enabled) {
-        COOLDOWN_TIME = !enabled ? (sender) -> {
-            return -1L;
-        } : (sender) -> {
-            return (sender.hasPermission("smoothtimber.*") || sender.hasPermission("smoothtimber.cooldown.*")) ? -1L
+    public static void setEnabled(final boolean enabled) {
+        COOLDOWN_TIME = !enabled ? sender -> -1L
+            : sender -> (sender.hasPermission("smoothtimber.*") || sender.hasPermission("smoothtimber.cooldown.*") ? -1L
                 : sender.getEffectivePermissions().stream()
                     .filter(attachment -> attachment.getPermission().startsWith("smoothtimber.cooldown."))
                     .filter(PermissionAttachmentInfo::getValue)
                     .map(attachment -> Parser.parseLong(attachment.getPermission().substring(22)))
-                    .min((var1, var2) -> var1.compareTo(var2) * -1).orElse(CutterConfig.DEFAULT_COOLDOWN_TIME);
-        };
+                    .min((var1, var2) -> var1.compareTo(var2) * -1).orElse(CutterConfig.DEFAULT_COOLDOWN_TIME));
         COOLDOWN.getTimer().setRunning(enabled);
     }
 
-    public static long getCooldown(Player sender) {
+    public static long getCooldown(final Player sender) {
         return COOLDOWN_TIME.apply(sender);
     }
 
-    public static boolean isTriggered(UUID uniqueId) {
+    public static boolean isTriggered(final UUID uniqueId) {
         return !COOLDOWN.get(uniqueId).isTriggerable();
     }
 
-    public static void trigger(Player sender) {
-        Cooldown cooldown = COOLDOWN.get(sender.getUniqueId());
-        long value = getCooldown(sender);
+    public static void trigger(final Player sender) {
+        final Cooldown cooldown = COOLDOWN.get(sender.getUniqueId());
+        final long value = getCooldown(sender);
         if (value <= 0) {
             return;
         }
@@ -50,14 +47,14 @@ public final class CooldownHelper {
         cooldown.trigger();
     }
 
-    public static String getFormattedTime(UUID uniqueId) {
+    public static String getFormattedTime(final UUID uniqueId) {
         long val = COOLDOWN.get(uniqueId).getTreshhold();
         val = Math.round((double) val / 100);
-        long dez = val % 10;
-        return ((val - dez) / 10) + "." + dez + " " + (val > 1500 ? Message.TIME_SECONDS.message() : Message.TIME_SECOND.message());
+        final long dez = val % 10;
+        return (val - dez) / 10 + "." + dez + " " + (val > 1500 ? Message.TIME_SECONDS.message() : Message.TIME_SECOND.message());
     }
 
-    public static void reset(Player player) {
+    public static void reset(final Player player) {
         COOLDOWN.get(player.getUniqueId()).reset();
     }
 

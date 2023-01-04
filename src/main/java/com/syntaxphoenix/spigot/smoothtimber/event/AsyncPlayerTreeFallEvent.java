@@ -25,7 +25,7 @@ public class AsyncPlayerTreeFallEvent extends Event {
     private boolean locked = false;
     private int amount = 0;
 
-    public AsyncPlayerTreeFallEvent(Player player, Location treeLocation, VersionChanger version, ItemStack tool) {
+    public AsyncPlayerTreeFallEvent(final Player player, final Location treeLocation, final VersionChanger version, final ItemStack tool) {
         super(true);
         this.player = player;
         this.treeLocation = treeLocation;
@@ -33,7 +33,7 @@ public class AsyncPlayerTreeFallEvent extends Event {
         this.toolStack = tool.clone();
     }
 
-    public final boolean add(WoodType type) {
+    public final boolean add(final WoodType type) {
         if (locked || type == null || !versionChange.isSupported(type)) {
             return false;
         }
@@ -45,7 +45,7 @@ public class AsyncPlayerTreeFallEvent extends Event {
         if (!locked) {
             locked = true;
             amount = 0;
-            for (Integer current : chopped.values()) {
+            for (final Integer current : chopped.values()) {
                 amount += current;
             }
         }
@@ -60,7 +60,7 @@ public class AsyncPlayerTreeFallEvent extends Event {
         return amount;
     }
 
-    public final int getAmount(WoodType type) {
+    public final int getAmount(final WoodType type) {
         return chopped.getOrDefault(type, 0);
     }
 

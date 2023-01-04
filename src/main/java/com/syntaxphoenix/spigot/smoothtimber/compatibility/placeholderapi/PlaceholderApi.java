@@ -9,12 +9,12 @@ public class PlaceholderApi extends CompatibilityAddon {
     private final SmoothTimberPlaceholders placeholders = new SmoothTimberPlaceholders();
 
     @Override
-    public void onEnable(PluginPackage pluginPackage, SmoothTimber smoothTimber) throws Exception {
+    public void onEnable(final PluginPackage pluginPackage, final SmoothTimber smoothTimber) throws Exception {
         placeholders.enable(smoothTimber.getDescription());
     }
 
     @Override
-    public void onDisable(SmoothTimber smoothTimber) throws Exception {
+    public void onDisable(final SmoothTimber smoothTimber) throws Exception {
         placeholders.disable();
     }
 

@@ -17,12 +17,12 @@ public class ToggledUser {
      * 
      */
 
-    public ToggledUser(UUID uniqueId) {
+    public ToggledUser(final UUID uniqueId) {
         this.uniqueId = uniqueId;
         this.time = -1;
     }
 
-    public ToggledUser(UUID uniqueId, int time) {
+    public ToggledUser(final UUID uniqueId, final int time) {
         this.uniqueId = uniqueId;
         this.time = time;
     }
@@ -57,21 +57,21 @@ public class ToggledUser {
      * 
      */
 
-    protected void onToggle(boolean status) {
-        Player player = Bukkit.getPlayer(uniqueId);
+    protected void onToggle(final boolean status) {
+        final Player player = Bukkit.getPlayer(uniqueId);
         if (player == null) {
             return;
         }
 
-        boolean enable = CutterConfig.TOGGLEABLE.test(() -> false);
-        boolean timed = time != -1;
+        final boolean enable = CutterConfig.TOGGLEABLE.test(() -> false);
+        final boolean timed = time != -1;
 
-        Message message = getMessage(enable, timed, status);
+        final Message message = getMessage(enable, timed, status);
 
         player.sendMessage(Message.GLOBAL_PREFIX.colored() + ' ' + message.colored(getArguments(timed, time)));
     }
 
-    public String[][] getArguments(boolean timed, int amount) {
+    public String[][] getArguments(final boolean timed, final int amount) {
         if (timed) {
             return new String[][] {
                 {
@@ -83,29 +83,27 @@ public class ToggledUser {
                     amount + " " + (amount == 1 ? Message.TIME_SECOND.message() : Message.TIME_SECONDS.message())
                 }
             };
-        } else {
-            return new String[][] {
-                {
-                    "%tool%",
-                    Message.TOOLS_WOODCHOPPER.message()
-                }
-            };
         }
+        return new String[][] {
+            {
+                "%tool%",
+                Message.TOOLS_WOODCHOPPER.message()
+            }
+        };
     }
 
-    public Message getMessage(boolean trigger, boolean timed, boolean state) {
+    public Message getMessage(final boolean trigger, final boolean timed, final boolean state) {
         if (trigger) {
             if (state) {
                 return timed ? Message.TOGGLE_ON_TIMED : Message.TOGGLE_ON_FOREVER;
             } else {
                 return Message.TOGGLE_OFF_FOREVER;
             }
+        }
+        if (state) {
+            return timed ? Message.TOGGLE_OFF_TIMED : Message.TOGGLE_OFF_FOREVER;
         } else {
-            if (state) {
-                return timed ? Message.TOGGLE_OFF_TIMED : Message.TOGGLE_OFF_FOREVER;
-            } else {
-                return Message.TOGGLE_ON_FOREVER;
-            }
+            return Message.TOGGLE_ON_FOREVER;
         }
     }
 

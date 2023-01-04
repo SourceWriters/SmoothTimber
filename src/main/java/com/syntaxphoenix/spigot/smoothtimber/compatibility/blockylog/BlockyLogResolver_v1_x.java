@@ -19,27 +19,28 @@ public final class BlockyLogResolver_v1_x extends LocationResolver {
     protected BlockyLogResolver_v1_x() {}
 
     @Override
-    public List<Location> resolve(Location start, int radius, List<Location> current, IntCounter counter, int limit, boolean ignore) {
-        VersionChanger change = PluginUtils.CHANGER;
-        World world = start.getWorld();
-        int x = start.getBlockX();
-        int y = start.getBlockY();
-        int z = start.getBlockZ();
+    public List<Location> resolve(final Location start, final int radius, final List<Location> current, final IntCounter counter,
+        final int limit, final boolean ignore) {
+        final VersionChanger change = PluginUtils.CHANGER;
+        final World world = start.getWorld();
+        final int x = start.getBlockX();
+        final int y = start.getBlockY();
+        final int z = start.getBlockZ();
 
-        BlockyWorld blockyWorld = BlockyWorld.get(world);
+        final BlockyWorld blockyWorld = BlockyWorld.get(world);
 
-        ArrayList<Location> resolved = new ArrayList<>();
+        final ArrayList<Location> resolved = new ArrayList<>();
         for (int cx = x - radius; cx <= x + radius; cx++) {
             for (int cz = z - radius; cz <= z + radius; cz++) {
                 if (limit >= 0 && counter.get() >= limit) {
                     return resolved;
                 }
-                Location location = new Location(world, cx, y, cz);
+                final Location location = new Location(world, cx, y, cz);
                 if (change.isWoodBlock(Locator.getBlock(location))) {
                     if (current.contains(location)) {
                         continue;
                     }
-                    Chunk chunk = location.getChunk();
+                    final Chunk chunk = location.getChunk();
                     if (blockyWorld.containsChunk(chunk.getX(), chunk.getZ())
                         && blockyWorld.getChunk(chunk.getX(), chunk.getZ()).containsBlock(cx, y, cz)) {
                         continue;
@@ -54,9 +55,9 @@ public final class BlockyLogResolver_v1_x extends LocationResolver {
     }
 
     @Override
-    public boolean isPlayerPlaced(Location location) {
-        BlockyWorld world = BlockyWorld.get(location.getWorld());
-        Chunk chunk = location.getChunk();
+    public boolean isPlayerPlaced(final Location location) {
+        final BlockyWorld world = BlockyWorld.get(location.getWorld());
+        final Chunk chunk = location.getChunk();
         return !world.containsChunk(chunk.getX(), chunk.getZ())
             || world.getChunk(chunk.getX(), chunk.getZ()).containsBlock(location.getBlockX(), location.getBlockY(), location.getBlockZ());
     }

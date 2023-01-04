@@ -12,7 +12,7 @@ public class BlockyLog extends CompatibilityAddon {
     private LocationResolver resolver;
 
     @Override
-    public void onEnable(PluginPackage pluginPackage, SmoothTimber smoothTimber) throws Exception {
+    public void onEnable(final PluginPackage pluginPackage, final SmoothTimber smoothTimber) throws Exception {
         switch (pluginPackage.getVersion().getMajor()) {
         case 1:
             resolver = new BlockyLogResolver_v1_x();
@@ -27,7 +27,7 @@ public class BlockyLog extends CompatibilityAddon {
     }
 
     @Override
-    public void onDisable(SmoothTimber smoothTimber) throws Exception {
+    public void onDisable(final SmoothTimber smoothTimber) throws Exception {
         resolver = null;
         Locator.setLocationResolver(null);
     }

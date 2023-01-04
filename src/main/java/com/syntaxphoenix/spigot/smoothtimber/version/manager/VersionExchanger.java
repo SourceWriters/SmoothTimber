@@ -5,7 +5,13 @@ import org.bukkit.entity.Player;
 
 import com.syntaxphoenix.spigot.smoothtimber.config.Message;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.PluginUtils;
-import com.syntaxphoenix.spigot.smoothtimber.version.changer.*;
+import com.syntaxphoenix.spigot.smoothtimber.version.changer.NOPChanger;
+import com.syntaxphoenix.spigot.smoothtimber.version.changer.v1_11xChanger;
+import com.syntaxphoenix.spigot.smoothtimber.version.changer.v1_13xChanger;
+import com.syntaxphoenix.spigot.smoothtimber.version.changer.v1_16xChanger;
+import com.syntaxphoenix.spigot.smoothtimber.version.changer.v1_19xChanger;
+import com.syntaxphoenix.spigot.smoothtimber.version.changer.v1_8xChanger;
+import com.syntaxphoenix.spigot.smoothtimber.version.changer.v1_9xChanger;
 import com.syntaxphoenix.syntaxapi.utils.java.Strings;
 
 public class VersionExchanger {
@@ -24,8 +30,8 @@ public class VersionExchanger {
         return CORE_VERSION;
     }
 
-    private static VersionChanger initVersionChanger(MCVersion core) {
-        if(core == null) {
+    private static VersionChanger initVersionChanger(final MCVersion core) {
+        if (core == null) {
             return null;
         }
         switch (core) {
@@ -47,12 +53,12 @@ public class VersionExchanger {
         }
     }
 
-    public static VersionChanger getVersionChanger(String minecraft) {
+    public static VersionChanger getVersionChanger(final String minecraft) {
         if (VERSION_CHANGER != null) {
             return VERSION_CHANGER;
         }
-        MCVersion core = MCVersion.fromString(minecraft);
-        VersionChanger changer = initVersionChanger(core);
+        final MCVersion core = MCVersion.fromString(minecraft);
+        final VersionChanger changer = initVersionChanger(core);
         if (changer != null) {
             PluginUtils.sendConsoleMessage(false,
                 Message.GLOBAL_PREFIX.colored() + ' ' + Message.STARTUP_VERSION_SUPPORTED.colored(new String[][] {
@@ -82,11 +88,11 @@ public class VersionExchanger {
         return VERSION_CHANGER = new NOPChanger();
     }
 
-    public static boolean checkPermission(WoodType type, Player play) {
+    public static boolean checkPermission(final WoodType type, final Player play) {
         return play.hasPermission("smoothtimber.*") || play.hasPermission("smoothtimber." + type.name().toLowerCase());
     }
 
-    public static boolean checkPermission(String permission, Player play) {
+    public static boolean checkPermission(final String permission, final Player play) {
         return play.hasPermission("smoothtimber.*") || play.hasPermission("smoothtimber." + permission);
     }
 

@@ -30,6 +30,7 @@ public class SmoothTimber extends JavaPlugin {
         return JavaPlugin.getPlugin(SmoothTimber.class);
     }
 
+    @Override
     public void onEnable() {
         PluginUtils.setUp(this);
         if (!PluginUtils.CHANGER.isValid()) {
@@ -42,6 +43,7 @@ public class SmoothTimber extends JavaPlugin {
         ClassCache.class.getClass();
     }
 
+    @Override
     public void onDisable() {
         if (!PluginUtils.CHANGER.isValid()) {
             return;
@@ -50,10 +52,10 @@ public class SmoothTimber extends JavaPlugin {
         CooldownHelper.COOLDOWN.getTimer().kill();
     }
 
-    public static boolean triggerChopEvent(Player player, Location location, VersionChanger change, ItemStack tool,
-        ArrayList<Location> woodBlocks, int limit) {
+    public static boolean triggerChopEvent(final Player player, final Location location, final VersionChanger change, final ItemStack tool,
+        final ArrayList<Location> woodBlocks, final int limit) {
 
-        AsyncPlayerChopTreeEvent event = new AsyncPlayerChopTreeEvent(player, location, change, tool, woodBlocks, limit);
+        final AsyncPlayerChopTreeEvent event = new AsyncPlayerChopTreeEvent(player, location, change, tool, woodBlocks, limit);
         Bukkit.getPluginManager().callEvent(event);
 
         if (event.isCancelled()) {
@@ -66,16 +68,17 @@ public class SmoothTimber extends JavaPlugin {
         return false;
     }
 
-    public static AsyncPlayerTreeFallEvent buildFallEvent(Player player, Location location, VersionChanger change, ItemStack tool) {
+    public static AsyncPlayerTreeFallEvent buildFallEvent(final Player player, final Location location, final VersionChanger change,
+        final ItemStack tool) {
         return new AsyncPlayerTreeFallEvent(player, location, change, tool);
     }
 
-    public static void triggerFallEvent(AsyncPlayerTreeFallEvent event) {
+    public static void triggerFallEvent(final AsyncPlayerTreeFallEvent event) {
         Bukkit.getPluginManager().callEvent(event.lock());
     }
 
-    public static void triggerChoppedEvent(Player player, Location location, VersionChanger change, ItemStack tool,
-        ArrayList<Location> woodBlocks, int limit) {
+    public static void triggerChoppedEvent(final Player player, final Location location, final VersionChanger change, final ItemStack tool,
+        final ArrayList<Location> woodBlocks, final int limit) {
         Bukkit.getPluginManager().callEvent(new AsyncPlayerChoppedTreeEvent(player, location, change, tool, woodBlocks, limit));
     }
 

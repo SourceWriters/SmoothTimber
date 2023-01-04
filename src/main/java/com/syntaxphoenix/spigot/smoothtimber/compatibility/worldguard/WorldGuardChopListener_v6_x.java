@@ -14,23 +14,23 @@ import com.syntaxphoenix.syntaxapi.reflection.Reflect;
 
 public final class WorldGuardChopListener_v6_x implements Listener {
 
-    private AbstractReflect sessionManager = new Reflect("com.sk89q.worldguard.session.SessionManager").searchMethod("bypass", "hasBypass",
-        ClassCache.getClass("com.sk89q.worldguard.LocalPlayer"), ClassCache.getClass("com.sk89q.worldedit.world.World"));
+    private final AbstractReflect sessionManager = new Reflect("com.sk89q.worldguard.session.SessionManager").searchMethod("bypass",
+        "hasBypass", ClassCache.getClass("com.sk89q.worldguard.LocalPlayer"), ClassCache.getClass("com.sk89q.worldedit.world.World"));
 
     protected WorldGuardChopListener_v6_x() {
 
     }
 
     @EventHandler(ignoreCancelled = true)
-    public void onChopEvent(AsyncPlayerChopTreeEvent event) {
-        WorldGuardPlugin plugin = WorldGuardPlugin.inst();
-        Object player = plugin.wrapOfflinePlayer(event.getPlayer());
+    public void onChopEvent(final AsyncPlayerChopTreeEvent event) {
+        final WorldGuardPlugin plugin = WorldGuardPlugin.inst();
+        final Object player = plugin.wrapOfflinePlayer(event.getPlayer());
 
-        boolean canBypass = (boolean) sessionManager.run(plugin.getSessionManager(), "bypass", player, event.getPlayer().getWorld());
+        final boolean canBypass = (boolean) sessionManager.run(plugin.getSessionManager(), "bypass", player, event.getPlayer().getWorld());
 
         if (!canBypass) {
-            RegionQuery query = plugin.getRegionContainer().createQuery();
-            for (Location location : event.getBlockLocations()) {
+            final RegionQuery query = plugin.getRegionContainer().createQuery();
+            for (final Location location : event.getBlockLocations()) {
                 if (!query.testBuild(location, event.getPlayer())) {
                     event.setCancelled(true);
                     event.setReason(DefaultReason.WORLDGUARD);

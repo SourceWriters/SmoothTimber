@@ -27,29 +27,30 @@ public class LogBlockResolver extends LocationResolver {
     private final ExecutorService executorService;
     private final LogBlockDatabaseAccessor databaseAccessor;
 
-    public LogBlockResolver(LogBlock plugin, ExecutorService executorService) {
+    public LogBlockResolver(final LogBlock plugin, final ExecutorService executorService) {
         this.executorService = executorService;
         this.databaseAccessor = new LogBlockDatabaseAccessor(plugin);
     }
 
     @Override
-    public List<Location> resolve(Location start, int radius, List<Location> current, IntCounter counter, int limit, boolean ignore) {
+    public List<Location> resolve(final Location start, final int radius, final List<Location> current, final IntCounter counter,
+        final int limit, final boolean ignore) {
         if (limit >= 0 && counter.get() >= limit) {
             return Collections.emptyList();
         }
-        VersionChanger change = PluginUtils.CHANGER;
-        World world = start.getWorld();
-        int x = start.getBlockX();
-        int y = start.getBlockY();
-        int z = start.getBlockZ();
+        final VersionChanger change = PluginUtils.CHANGER;
+        final World world = start.getWorld();
+        final int x = start.getBlockX();
+        final int y = start.getBlockY();
+        final int z = start.getBlockZ();
 
-        List<Location> output = Collections.synchronizedList(new ArrayList<>());
-        List<Location> found = Collections.synchronizedList(new ArrayList<>());
-        ArrayList<Future<?>> tasks = new ArrayList<>();
+        final List<Location> output = Collections.synchronizedList(new ArrayList<>());
+        final List<Location> found = Collections.synchronizedList(new ArrayList<>());
+        final ArrayList<Future<?>> tasks = new ArrayList<>();
         for (int cx = x - radius; cx <= x + radius; cx++) {
             for (int cz = z - radius; cz <= z + radius; cz++) {
-                Location location = new Location(world, cx, y, cz);
-                Block block = Locator.getBlock(location);
+                final Location location = new Location(world, cx, y, cz);
+                final Block block = Locator.getBlock(location);
                 if (change.isWoodBlock(block)) {
                     if (current.contains(location)) {
                         continue;
@@ -64,14 +65,14 @@ public class LogBlockResolver extends LocationResolver {
                 }
             }
         }
-        for (Future<?> task : tasks) {
+        for (final Future<?> task : tasks) {
             try {
                 task.get(CutterConfig.GLOBAL_SYNC_TIME, TimeUnit.MILLISECONDS);
             } catch (InterruptedException | ExecutionException | TimeoutException ignored) {
                 // We just ignore it
             }
         }
-        for (Location location : output) {
+        for (final Location location : output) {
             if (limit >= 0 && counter.get() >= limit) {
                 found.remove(location);
                 output.remove(location);
@@ -84,7 +85,7 @@ public class LogBlockResolver extends LocationResolver {
 
     }
 
-    public boolean isPlayerPlaced(Block block) {
+    public boolean isPlayerPlaced(final Block block) {
         if (block == null) {
             return false;
         }
@@ -92,7 +93,7 @@ public class LogBlockResolver extends LocationResolver {
     }
 
     @Override
-    public boolean isPlayerPlaced(Location location) {
+    public boolean isPlayerPlaced(final Location location) {
         return databaseAccessor.isPlayerPlaced(location.getBlock());
     }
 

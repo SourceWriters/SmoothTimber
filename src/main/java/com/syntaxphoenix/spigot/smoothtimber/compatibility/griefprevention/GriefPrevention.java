@@ -12,12 +12,12 @@ public class GriefPrevention extends CompatibilityAddon {
     private final GriefPreventionChopListener listener = new GriefPreventionChopListener();
 
     @Override
-    public void onEnable(PluginPackage pluginPackage, SmoothTimber smoothTimber) {
+    public void onEnable(final PluginPackage pluginPackage, final SmoothTimber smoothTimber) {
         Bukkit.getPluginManager().registerEvents(listener, smoothTimber);
     }
 
     @Override
-    public void onDisable(SmoothTimber smoothTimber) {
+    public void onDisable(final SmoothTimber smoothTimber) {
         HandlerList.unregisterAll(listener);
     }
 

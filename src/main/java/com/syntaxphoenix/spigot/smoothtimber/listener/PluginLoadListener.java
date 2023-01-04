@@ -15,13 +15,13 @@ public class PluginLoadListener implements Listener {
     private final PluginSettings settings = PluginUtils.SETTINGS;
 
     @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
-    public void onEnable(PluginEnableEvent event) {
+    public void onEnable(final PluginEnableEvent event) {
         PluginUtils.SETTINGS.updatePlugin(event.getPlugin(), true);
         CompatibilityHandler.handleSettingsUpdate(settings);
     }
 
     @EventHandler(priority = EventPriority.LOW, ignoreCancelled = true)
-    public void onDisable(PluginDisableEvent event) {
+    public void onDisable(final PluginDisableEvent event) {
         PluginUtils.SETTINGS.updatePlugin(event.getPlugin(), false);
         CompatibilityHandler.handleSettingsUpdate(settings);
     }

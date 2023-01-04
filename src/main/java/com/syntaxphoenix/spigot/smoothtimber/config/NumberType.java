@@ -15,7 +15,7 @@ public final class NumberType<E extends Number> {
     private final Class<E> complex;
     private final Function<Number, E> function;
 
-    private NumberType(Class<?> primitive, Class<E> complex, Function<Number, E> function) {
+    private NumberType(final Class<?> primitive, final Class<E> complex, final Function<Number, E> function) {
         this.primitive = primitive;
         this.complex = complex;
         this.function = function;
@@ -29,12 +29,12 @@ public final class NumberType<E extends Number> {
         return complex;
     }
 
-    public E get(Number number) {
+    public E get(final Number number) {
         return function.apply(number);
     }
 
-    public static <N extends Number> N get(Class<N> clazz, Number input) {
-        NumberType<N> type = find(clazz);
+    public static <N extends Number> N get(final Class<N> clazz, final Number input) {
+        final NumberType<N> type = find(clazz);
         if (type == null) {
             return null;
         }
@@ -42,8 +42,8 @@ public final class NumberType<E extends Number> {
     }
 
     @SuppressWarnings("unchecked")
-    public static <N extends Number> NumberType<N> find(Class<N> clazz) {
-        for (NumberType<?> type : values()) {
+    public static <N extends Number> NumberType<N> find(final Class<N> clazz) {
+        for (final NumberType<?> type : values()) {
             if (type.primitive == clazz || type.complex == clazz) {
                 return (NumberType<N>) type;
             }

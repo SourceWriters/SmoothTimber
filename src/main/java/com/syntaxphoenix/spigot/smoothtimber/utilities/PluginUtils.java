@@ -7,6 +7,7 @@ import java.util.concurrent.TimeUnit;
 import java.util.function.Supplier;
 
 import org.bukkit.Bukkit;
+import org.bukkit.ChatColor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
@@ -32,8 +33,6 @@ import com.syntaxphoenix.spigot.smoothtimber.version.manager.VersionExchanger;
 import com.syntaxphoenix.syntaxapi.utils.java.Arrays;
 import com.syntaxphoenix.syntaxapi.utils.java.Exceptions;
 
-import org.bukkit.ChatColor;
-
 public class PluginUtils {
 
     public static final BukkitScheduler SCHEDULER = Bukkit.getScheduler();
@@ -44,7 +43,7 @@ public class PluginUtils {
     public static VersionChanger CHANGER;
     public static SyntaxPhoenixStats STATS;
 
-    public static void setUp(SmoothTimber main) {
+    public static void setUp(final SmoothTimber main) {
         MAIN = main;
         UTILS = new PluginUtils();
     }
@@ -69,8 +68,8 @@ public class PluginUtils {
      */
 
     private void checkPlugins() {
-        PluginManager pluginManager = Bukkit.getPluginManager();
-        for (Plugin plugin : pluginManager.getPlugins()) {
+        final PluginManager pluginManager = Bukkit.getPluginManager();
+        for (final Plugin plugin : pluginManager.getPlugins()) {
             if (plugin == null) {
                 continue;
             }
@@ -81,16 +80,16 @@ public class PluginUtils {
     }
 
     private void registerListener() {
-        PluginManager pluginManager = Bukkit.getPluginManager();
+        final PluginManager pluginManager = Bukkit.getPluginManager();
         pluginManager.registerEvents(new BlockBreakListener(), MAIN);
         pluginManager.registerEvents(new BlockFallListener(), MAIN);
         pluginManager.registerEvents(new PluginLoadListener(), MAIN);
     }
 
     private void registerCommands() {
-        CommandRedirect command = new CommandRedirect();
+        final CommandRedirect command = new CommandRedirect();
 
-        PluginCommand plugin = MAIN.getCommand("smoothtimber");
+        final PluginCommand plugin = MAIN.getCommand("smoothtimber");
         plugin.setExecutor(command);
         plugin.setTabCompleter(command);
 
@@ -113,20 +112,20 @@ public class PluginUtils {
      * Task Util
      */
 
-    public static <E> E getObjectFromMainThread(Supplier<E> supply) {
+    public static <E> E getObjectFromMainThread(final Supplier<E> supply) {
         return getObjectFromMainThread(supply, CutterConfig.GLOBAL_SYNC_TIME);
     }
 
-    public static <E> E getObjectFromMainThread(Supplier<E> supply, long wait) {
-        CountDownLatch latch = new CountDownLatch(1);
-        StoredObject<E> value = new StoredObject<>();
+    public static <E> E getObjectFromMainThread(final Supplier<E> supply, final long wait) {
+        final CountDownLatch latch = new CountDownLatch(1);
+        final StoredObject<E> value = new StoredObject<>();
         SCHEDULER.runTask(MAIN, () -> {
             value.setObject(supply.get());
             latch.countDown();
         });
         try {
             latch.await(wait, TimeUnit.MILLISECONDS);
-        } catch (InterruptedException e) {
+        } catch (final InterruptedException e) {
             throw new IllegalStateException("Thread interrupted", e);
         }
         return value.getObject();
@@ -136,30 +135,26 @@ public class PluginUtils {
      * Console Util
      */
 
-    public static void sendConsoleMessage(boolean prefix, String message) {
+    public static void sendConsoleMessage(final boolean prefix, final String message) {
         Bukkit.getConsoleSender()
             .sendMessage(ChatColor.translateAlternateColorCodes('&', prefix ? Message.GLOBAL_PREFIX.message() + ' ' + message : message));
     }
 
-    public static void sendConsoleMessage(boolean prefix, String... messages) {
-        for (String message : messages) {
+    public static void sendConsoleMessage(final boolean prefix, final String... messages) {
+        for (final String message : messages) {
             sendConsoleMessage(prefix, message);
         }
     }
 
-    public static void sendConsoleMessageMultiline(boolean prefix, String message) {
+    public static void sendConsoleMessageMultiline(final boolean prefix, final String message) {
         sendConsoleMessage(prefix, message.split("\n"));
     }
 
-    public static void sendConsoleError(String reason, Throwable throwable) {
-        PluginUtils.sendConsoleMessage(false, Arrays.merge(String[]::new, Arrays.merge(String[]::new, Centering.center(new String[] {
-            "&8##################################################################",
-            "&r",
-            "&8<=> &5Smooth&dTimber &8<=>",
-            "&7" + reason,
-            "&r",
-            "&8##################################################################"
-        }), Exceptions.stackTraceToStringArray(throwable)), "&8##################################################################"));
+    public static void sendConsoleError(final String reason, final Throwable throwable) {
+        PluginUtils.sendConsoleMessage(false, Arrays.merge(String[]::new, Arrays.merge(String[]::new,
+            Centering.center("&8##################################################################", "&r", "&8<=> &5Smooth&dTimber &8<=>",
+                "&7" + reason, "&r", "&8##################################################################"),
+            Exceptions.stackTraceToStringArray(throwable)), "&8##################################################################"));
     }
 
 }

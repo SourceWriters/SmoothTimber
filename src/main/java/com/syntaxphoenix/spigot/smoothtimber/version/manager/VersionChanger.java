@@ -13,71 +13,71 @@ import com.syntaxphoenix.syntaxapi.random.RandomNumberGenerator;
 
 public interface VersionChanger {
 
-    final RandomNumberGenerator RANDOM = NumberGeneratorType.MURMUR.create(System.currentTimeMillis());
+    RandomNumberGenerator RANDOM = NumberGeneratorType.MURMUR.create(System.currentTimeMillis());
 
-    public default boolean isValid() {
+    default boolean isValid() {
         return true;
     }
-    
-    public boolean hasCuttingItemInHand(Player player);
 
-    public boolean hasPermissionForCuttingItem(Player player, ItemStack stack);
+    boolean hasCuttingItemInHand(Player player);
 
-    public ItemStack removeDurabilityFromItem(ItemStack stack);
+    boolean hasPermissionForCuttingItem(Player player, ItemStack stack);
 
-    public void setItemInPlayerHand(Player player, ItemStack stack);
+    ItemStack removeDurabilityFromItem(ItemStack stack);
 
-    public boolean isWoodBlockImpl(Block block);
+    void setItemInPlayerHand(Player player, ItemStack stack);
 
-    public default boolean isWoodBlock(Block block) {
+    boolean isWoodBlockImpl(Block block);
+
+    default boolean isWoodBlock(final Block block) {
         return block != null && isWoodBlockImpl(block);
     }
 
-    public void setupConfig();
+    void setupConfig();
 
-    public boolean hasPermissionForWood(Player p, Block b);
+    boolean hasPermissionForWood(Player p, Block b);
 
-    public boolean hasPermissionForWoodType(Player p, WoodType type);
+    boolean hasPermissionForWoodType(Player p, WoodType type);
 
-    public ItemStack getItemInHand(Player p);
+    ItemStack getItemInHand(Player p);
 
-    public ItemStack getItemFromBlock(Block block);
+    ItemStack getItemFromBlock(Block block);
 
-    public ItemStack getItemFromFallingBlock(FallingBlock block);
+    ItemStack getItemFromFallingBlock(FallingBlock block);
 
-    public ItemStack getAirItem();
+    ItemStack getAirItem();
 
-    public Entity toFallingBlock(Block block);
+    Entity toFallingBlock(Block block);
 
-    public void setAirBlock(Block block);
+    void setAirBlock(Block block);
 
-    public EntityType getFallingBlockType();
+    EntityType getFallingBlockType();
 
-    public default void dropItemByFallingBlock(FallingBlock block, int amount) {
-        ItemStack item = getItemFromFallingBlock(block);
+    default void dropItemByFallingBlock(final FallingBlock block, final int amount) {
+        final ItemStack item = getItemFromFallingBlock(block);
         item.setAmount(amount);
         block.getWorld().dropItemNaturally(block.getLocation(), item);
     }
 
-    public default void dropItemByBlock(Block block, int amount) {
-        ItemStack item = getItemFromBlock(block);
+    default void dropItemByBlock(final Block block, final int amount) {
+        final ItemStack item = getItemFromBlock(block);
         item.setAmount(amount);
         setAirBlock(block);
         block.getWorld().dropItemNaturally(block.getLocation(), item);
     }
 
-    public int getMaxDropCount(ItemStack tool);
+    int getMaxDropCount(ItemStack tool);
 
-    public byte getData(Block block);
+    byte getData(Block block);
 
-    public WoodType getWoodType(Material type, int id);
+    WoodType getWoodType(Material type, int id);
 
-    public default WoodType getWoodType(Material type) {
+    default WoodType getWoodType(final Material type) {
         return getWoodType(type, 0);
     }
 
-    public WoodType getWoodTypeFromBlock(Block block);
+    WoodType getWoodTypeFromBlock(Block block);
 
-    public boolean isSupported(WoodType type);
+    boolean isSupported(WoodType type);
 
 }

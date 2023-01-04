@@ -14,7 +14,7 @@ public class WorldGuard extends CompatibilityAddon {
     private Listener listener;
 
     @Override
-    public void onEnable(PluginPackage pluginPackage, SmoothTimber smoothTimber) {
+    public void onEnable(final PluginPackage pluginPackage, final SmoothTimber smoothTimber) {
         switch (VersionExchanger.getCoreVersion()) {
         case v1_8x:
         case v1_9x:
@@ -33,7 +33,7 @@ public class WorldGuard extends CompatibilityAddon {
     }
 
     @Override
-    public void onDisable(SmoothTimber smoothTimber) {
+    public void onDisable(final SmoothTimber smoothTimber) {
         if (listener != null) {
             HandlerList.unregisterAll(listener);
             listener = null;

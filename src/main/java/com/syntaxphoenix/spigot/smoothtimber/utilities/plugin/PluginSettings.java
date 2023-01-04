@@ -9,8 +9,8 @@ public class PluginSettings {
 
     private final ArrayList<PluginPackage> packages = new ArrayList<>();
 
-    public void updatePlugin(Plugin plugin, boolean enabled) {
-        Optional<PluginPackage> option = searchPackage(plugin);
+    public void updatePlugin(final Plugin plugin, final boolean enabled) {
+        final Optional<PluginPackage> option = searchPackage(plugin);
         if (enabled) {
             if (option.isPresent()) {
                 option.get().update(plugin);
@@ -22,32 +22,32 @@ public class PluginSettings {
         if (!option.isPresent()) {
             return;
         }
-        PluginPackage pack = option.get();
+        final PluginPackage pack = option.get();
         packages.remove(pack);
         pack.delete();
     }
 
-    public Optional<PluginPackage> searchPackage(Plugin plugin) {
+    public Optional<PluginPackage> searchPackage(final Plugin plugin) {
         return packages.stream().filter(pack -> pack.isFromPlugin(plugin)).findFirst();
     }
 
-    public Optional<PluginPackage> searchPackage(String name) {
+    public Optional<PluginPackage> searchPackage(final String name) {
         return packages.stream().filter(pack -> pack.hasName(name)).findFirst();
     }
 
-    public PluginPackage getPackage(Plugin plugin) {
+    public PluginPackage getPackage(final Plugin plugin) {
         if (packages.isEmpty()) {
             return null;
         }
-        Optional<PluginPackage> option = searchPackage(plugin);
+        final Optional<PluginPackage> option = searchPackage(plugin);
         return option.isPresent() ? option.get() : null;
     }
 
-    public PluginPackage getPackage(String name) {
+    public PluginPackage getPackage(final String name) {
         if (packages.isEmpty()) {
             return null;
         }
-        Optional<PluginPackage> option = searchPackage(name);
+        final Optional<PluginPackage> option = searchPackage(name);
         return option.isPresent() ? option.get() : null;
     }
 

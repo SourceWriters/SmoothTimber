@@ -16,12 +16,12 @@ public abstract class JobAdapter {
 
     public abstract void addExperience(JobProgression progression, double value);
 
-    public void addPointsAndMoney(JobsPlayer player, double pointValue, double moneyValue) {
-        BufferedEconomy economy = getEconomy();
-        if (economy == null || (pointValue + moneyValue) <= 0) {
+    public void addPointsAndMoney(final JobsPlayer player, final double pointValue, final double moneyValue) {
+        final BufferedEconomy economy = getEconomy();
+        if (economy == null || pointValue + moneyValue <= 0) {
             return;
         }
-        HashMap<CurrencyType, Double> map = new HashMap<>();
+        final HashMap<CurrencyType, Double> map = new HashMap<>();
         if (pointValue > 0) {
             map.put(CurrencyType.POINTS, pointValue);
         }

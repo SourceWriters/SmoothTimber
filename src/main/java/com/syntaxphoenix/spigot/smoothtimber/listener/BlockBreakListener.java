@@ -35,38 +35,34 @@ public class BlockBreakListener implements Listener {
     private final RandomNumberGenerator generator = NumberGeneratorType.MURMUR.create(System.currentTimeMillis() >> 3);
 
     @EventHandler(priority = EventPriority.LOWEST, ignoreCancelled = true)
-    public void onBlockBreak(BlockBreakEvent event) {
+    public void onBlockBreak(final BlockBreakEvent event) {
         if (event.isCancelled()) {
             return;
         }
-        VersionChanger change = PluginUtils.CHANGER;
+        final VersionChanger change = PluginUtils.CHANGER;
         if (!change.isWoodBlock(event.getBlock())) {
             return;
         }
 
-        Player player = event.getPlayer();
+        final Player player = event.getPlayer();
 
         if (!PlayerState.isPermitted(player)) {
             return;
         }
 
         if (CutterConfig.ENABLE_WORLD) {
-            boolean contains = CutterConfig.WORLD_LIST.contains(event.getBlock().getWorld().getName());
-            if (CutterConfig.ENABLE_WORLD_BLACKLIST ? contains : !contains) {
+            final boolean contains = CutterConfig.WORLD_LIST.contains(event.getBlock().getWorld().getName());
+            if (CutterConfig.ENABLE_WORLD_BLACKLIST == contains) {
                 return;
             }
         }
 
-        if (CutterConfig.SNEAK.test(() -> player.isSneaking())) {
-            return;
-        }
-
-        if (CutterConfig.TOGGLEABLE.test(() -> SmoothTimber.STORAGE.hasToggled(player.getUniqueId()))) {
+        if (CutterConfig.SNEAK.test(() -> player.isSneaking()) || CutterConfig.TOGGLEABLE.test(() -> SmoothTimber.STORAGE.hasToggled(player.getUniqueId()))) {
             return;
         }
 
         if (CutterConfig.ENABLE_COOLDOWN && CooldownHelper.isTriggered(player.getUniqueId())) {
-            String time = CooldownHelper.getFormattedTime(player.getUniqueId());
+            final String time = CooldownHelper.getFormattedTime(player.getUniqueId());
             player.sendMessage(Message.GLOBAL_PREFIX.colored() + ' ' + Message.COOLDOWN_WAIT.colored(new String[] {
                 "%time%",
                 time
@@ -76,87 +72,85 @@ public class BlockBreakListener implements Listener {
         }
 
         if (change.hasCuttingItemInHand(player)) {
-            ItemStack tool = change.getItemInHand(player);
+            final ItemStack tool = change.getItemInHand(player);
             if (!change.hasPermissionForCuttingItem(player, tool)) {
                 return;
             }
-            Location location = event.getBlock().getLocation();
+            final Location location = event.getBlock().getLocation();
             if (Locator.isPlayerPlaced(location)) {
                 return;
             }
             event.setCancelled(true);
             CooldownHelper.trigger(player);
-            Bukkit.getScheduler().runTaskAsynchronously(PluginUtils.MAIN, new Runnable() {
-                @Override
-                public void run() {
-                    int maxItems = CutterConfig.ENABLE_LUCK ? change.getMaxDropCount(tool) : 1;
-                    ArrayList<Location> woodBlocks = new ArrayList<>();
-                    int limit = Limiter.getLimit(player);
-                    Locator.locateWood(location, woodBlocks, limit);
-                    if (SmoothTimber.triggerChopEvent(player, location, change, tool, woodBlocks, limit)) {
-                        CooldownHelper.reset(player);
-                        return;
-                    }
-                    SmoothTimber.triggerChoppedEvent(player, location, change, tool, woodBlocks, limit);
-                    Bukkit.getScheduler().runTask(PluginUtils.MAIN, new Runnable() {
-                        @Override
-                        public void run() {
-                            AsyncPlayerTreeFallEvent event = SmoothTimber.buildFallEvent(player, location, change, tool);
-                            boolean animated = CutterConfig.ENABLE_ANIMATION;
-                            boolean collect = CutterConfig.INSTANT_COLLECT;
-                            Plugin plugin = SmoothTimber.get();
-                            for (Location woodBlock : woodBlocks) {
-                                Block block = woodBlock.getBlock();
-                                WoodType wood = change.getWoodTypeFromBlock(block);
-                                if ((wood != null && block != null) && change.hasPermissionForWoodType(player, wood)) {
-                                    if (player.getGameMode() != GameMode.CREATIVE && change.removeDurabilityFromItem(tool) == null) {
-                                        break;
-                                    }
-                                    event.add(wood);
-                                    int amount = maxItems <= 1 ? maxItems : generateAmount(maxItems);
-                                    if (animated) {
-                                        Entity entity = change.toFallingBlock(block);
-                                        entity.setMetadata("STAnimate", new FixedMetadataValue(plugin, amount));
-                                        if (collect) {
-                                            entity.setMetadata("STCollect", new FixedMetadataValue(plugin, player.getUniqueId().toString()));
-                                        }
-                                        continue;
-                                    }
-                                    if (collect) {
-                                        ItemStack stack = change.getItemFromBlock(block);
-                                        stack.setAmount(amount);
-                                        player.getInventory().addItem(stack);
-                                        continue;
-                                    }
-                                    change.dropItemByBlock(block, amount);
-                                }
-                            }
-                            Bukkit.getScheduler().runTaskAsynchronously(PluginUtils.MAIN, () -> SmoothTimber.triggerFallEvent(event));
-                        }
-
-                        private int generateAmount(int max) {
-                            int drop = 1;
-                            float more = 1f / (max + 1);
-                            float previous = more * 2f;
-                            float next = more * 3f;
-                            float chance = generator.nextFloat() * (float) CutterConfig.LUCK_MULTIPLIER;
-                            while (true) {
-                                if (previous < chance && chance > next) {
-                                    drop++;
-                                    previous = next;
-                                    next += more;
-                                } else if (previous < chance && chance < next) {
-                                    drop++;
-                                    break;
-                                } else {
-                                    break;
-                                }
-                            }
-                            return Math.min(drop, 64);
-                        }
-
-                    });
+            Bukkit.getScheduler().runTaskAsynchronously(PluginUtils.MAIN, (Runnable) () -> {
+                final int maxItems = CutterConfig.ENABLE_LUCK ? change.getMaxDropCount(tool) : 1;
+                final ArrayList<Location> woodBlocks = new ArrayList<>();
+                final int limit = Limiter.getLimit(player);
+                Locator.locateWood(location, woodBlocks, limit);
+                if (SmoothTimber.triggerChopEvent(player, location, change, tool, woodBlocks, limit)) {
+                    CooldownHelper.reset(player);
+                    return;
                 }
+                SmoothTimber.triggerChoppedEvent(player, location, change, tool, woodBlocks, limit);
+                Bukkit.getScheduler().runTask(PluginUtils.MAIN, new Runnable() {
+                    @Override
+                    public void run() {
+                        final AsyncPlayerTreeFallEvent event = SmoothTimber.buildFallEvent(player, location, change, tool);
+                        final boolean animated = CutterConfig.ENABLE_ANIMATION;
+                        final boolean collect = CutterConfig.INSTANT_COLLECT;
+                        final Plugin plugin = SmoothTimber.get();
+                        for (final Location woodBlock : woodBlocks) {
+                            final Block block = woodBlock.getBlock();
+                            final WoodType wood = change.getWoodTypeFromBlock(block);
+                            if (wood != null && block != null && change.hasPermissionForWoodType(player, wood)) {
+                                if (player.getGameMode() != GameMode.CREATIVE && change.removeDurabilityFromItem(tool) == null) {
+                                    break;
+                                }
+                                event.add(wood);
+                                final int amount = maxItems <= 1 ? maxItems : generateAmount(maxItems);
+                                if (animated) {
+                                    final Entity entity = change.toFallingBlock(block);
+                                    entity.setMetadata("STAnimate", new FixedMetadataValue(plugin, amount));
+                                    if (collect) {
+                                        entity.setMetadata("STCollect",
+                                            new FixedMetadataValue(plugin, player.getUniqueId().toString()));
+                                    }
+                                    continue;
+                                }
+                                if (collect) {
+                                    final ItemStack stack = change.getItemFromBlock(block);
+                                    stack.setAmount(amount);
+                                    player.getInventory().addItem(stack);
+                                    continue;
+                                }
+                                change.dropItemByBlock(block, amount);
+                            }
+                        }
+                        Bukkit.getScheduler().runTaskAsynchronously(PluginUtils.MAIN, () -> SmoothTimber.triggerFallEvent(event));
+                    }
+
+                    private int generateAmount(final int max) {
+                        int drop = 1;
+                        final float more = 1f / (max + 1);
+                        float previous = more * 2f;
+                        float next = more * 3f;
+                        final float chance = generator.nextFloat() * (float) CutterConfig.LUCK_MULTIPLIER;
+                        while (true) {
+                            if (previous < chance && chance > next) {
+                                drop++;
+                                previous = next;
+                                next += more;
+                            } else {
+                                if (previous < chance && chance < next) {
+                                    drop++;
+                                }
+                                break;
+                            }
+                        }
+                        return Math.min(drop, 64);
+                    }
+
+                });
             });
         }
 

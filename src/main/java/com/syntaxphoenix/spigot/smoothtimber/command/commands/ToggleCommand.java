@@ -18,15 +18,15 @@ import com.syntaxphoenix.syntaxapi.command.arguments.IntegerArgument;
 public class ToggleCommand extends SmoothCommand {
 
     @Override
-    public void execute(MinecraftInfo info, Arguments arguments) {
+    public void execute(final MinecraftInfo info, final Arguments arguments) {
 
-        CommandSender sender = info.getSender();
+        final CommandSender sender = info.getSender();
         if (!(sender instanceof Player)) {
             sender.sendMessage(Message.GLOBAL_PREFIX.colored() + ' ' + Message.COMMAND_ONLY_PLAYER.colored());
             return;
         }
 
-        if (!(sender.hasPermission("smoothtimber.toggle") || sender.hasPermission("smoothtimber.*"))) {
+        if ((!sender.hasPermission("smoothtimber.toggle") && !sender.hasPermission("smoothtimber.*"))) {
             sender.sendMessage(Message.GLOBAL_PREFIX.colored() + ' ' + Message.COMMAND_MISSING222PERMISSION.colored(new String[] {
                 "%permission%",
                 "smoothtimber.toggle"
@@ -41,11 +41,9 @@ public class ToggleCommand extends SmoothCommand {
 
         int time = -1;
 
-        if (arguments.count() != 0) {
-            if (arguments.getType(1) == ArgumentType.INTEGER || arguments.getType(1) == ArgumentType.BYTE
-                || arguments.getType(1) == ArgumentType.SHORT) {
-                time = arguments.get(1).asNumeric().asNumber().intValue();
-            }
+        if ((arguments.count() != 0) && (arguments.getType(1) == ArgumentType.INTEGER || arguments.getType(1) == ArgumentType.BYTE
+            || arguments.getType(1) == ArgumentType.SHORT)) {
+            time = arguments.get(1).asNumeric().asNumber().intValue();
         }
 
         STORAGE.toggle(((Player) sender).getUniqueId(), time);
@@ -53,9 +51,9 @@ public class ToggleCommand extends SmoothCommand {
     }
 
     @Override
-    public DefaultCompletion complete(MinecraftInfo info, Arguments arguments) {
+    public DefaultCompletion complete(final MinecraftInfo info, final Arguments arguments) {
 
-        DefaultCompletion completion = new DefaultCompletion();
+        final DefaultCompletion completion = new DefaultCompletion();
 
         if (arguments.count() == 0) {
             for (int time = 1; time <= 5; time++) {
@@ -64,9 +62,9 @@ public class ToggleCommand extends SmoothCommand {
         } else if (arguments.count() == 1) {
             if (arguments.getType(1) == ArgumentType.INTEGER || arguments.getType(1) == ArgumentType.BYTE
                 || arguments.getType(1) == ArgumentType.SHORT) {
-                NumericArgument argument = arguments.get(1).asNumeric();
+                final NumericArgument argument = arguments.get(1).asNumeric();
                 completion.add(argument);
-                int number = argument.asNumber().intValue();
+                final int number = argument.asNumber().intValue();
                 for (int value = number - 50; value <= number + 50; value += 10) {
                     if (value < 1) {
                         continue;
