@@ -50,8 +50,7 @@ public class SpigotSender<P extends IPlatformSender, E extends CommandSender> im
 
     @Override
     public IPlatformPermission getPermission(String permission) {
-        // TODO Auto-generated method stub
-        return null;
+        return new SpigotPermission(this, permission);
     }
 
 }
