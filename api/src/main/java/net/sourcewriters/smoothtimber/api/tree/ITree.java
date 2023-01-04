@@ -16,6 +16,17 @@ public interface ITree {
     ResourceKey getId();
 
     /**
+     * Get the blocks relative to the position
+     * 
+     * @param  relative the relative position of the block inside of the tree
+     * 
+     * @return          the blocks
+     */
+    default IPlatformBlock[] getBlocks(Vector3i relative) {
+        return getBlocks(relative, 0);
+    }
+
+    /**
      * Get the blocks relative to the position with a maximum amount of blocks.
      * 
      * @param  relative the relative position of the block inside of the tree

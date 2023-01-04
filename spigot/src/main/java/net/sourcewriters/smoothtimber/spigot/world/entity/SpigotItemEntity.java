@@ -15,22 +15,22 @@ public final class SpigotItemEntity extends SpigotEntity<IPlatformItemEntity, It
 
     @Override
     public int getPickupDelay() {
-        return entity.getPickupDelay();
+        return handle.getPickupDelay();
     }
 
     @Override
     public void setPickupDelay(int delay) {
-        entity.setPickupDelay(delay);
+        handle.setPickupDelay(delay);
     }
 
     @Override
     public IPlatformItem getItem() {
-        return SpigotItem.of(entity.getItemStack());
+        return SpigotItem.of(handle.getItemStack());
     }
 
     @Override
     public void setItem(IPlatformItem item) {
-        entity.setItemStack((ItemStack) item.getHandle());
+        handle.setItemStack((ItemStack) item.getHandle());
     }
 
 }

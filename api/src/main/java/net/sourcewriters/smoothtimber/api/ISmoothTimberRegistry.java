@@ -4,7 +4,7 @@ import net.sourcewriters.smoothtimber.api.platform.world.IPlatformBlock;
 import net.sourcewriters.smoothtimber.api.platform.world.IPlatformWorld;
 import net.sourcewriters.smoothtimber.api.resource.key.ResourceKey;
 import net.sourcewriters.smoothtimber.api.tree.ITree;
-import net.sourcewriters.smoothtimber.api.tree.IWoodType;
+import net.sourcewriters.smoothtimber.api.tree.IBlockType;
 import net.sourcewriters.smoothtimber.api.tree.TreeAnimation;
 import net.sourcewriters.smoothtimber.api.tree.TreeDetector;
 import net.sourcewriters.smoothtimber.api.util.math.Vector3i;
@@ -12,34 +12,43 @@ import net.sourcewriters.smoothtimber.api.util.math.Vector3i;
 public interface ISmoothTimberRegistry {
 
     /**
-     * Registers a wood type
+     * Registers a block type
      * 
-     * @param  woodType                 the wood type to be registered
+     * @param  blockType                the block type to be registered
      * 
      * @return                          {@code true} if it was registered
      *                                      successfully or {@code false} if the
-     *                                      wood type is not supported and therefore
-     *                                      wasn't registered
+     *                                      block type is not supported and
+     *                                      therefore wasn't registered
      * 
-     * @throws IllegalArgumentException if the wood type is already registered
+     * @throws IllegalArgumentException if the block type is already registered
      */
-    boolean register(IWoodType woodType) throws IllegalArgumentException;
+    boolean register(IBlockType blockType) throws IllegalArgumentException;
 
     /**
-     * Get a specific wood type
+     * Tries to find a block type by material key
      * 
-     * @param  name the name of the wood type
+     * @param  material the material resource key
      * 
-     * @return      the wood type or null
+     * @return          the block type or {@code null} if unsupported or unavailable
      */
-    IWoodType getWoodType(String name);
+    IBlockType getBlockTypeByMaterial(ResourceKey material);
 
     /**
-     * Gets all wood types
+     * Get a specific block type
      * 
-     * @return the wood types
+     * @param  name the name of the block type
+     * 
+     * @return      the block type or null
      */
-    IWoodType[] getWoodTypes();
+    IBlockType getBlockType(String name);
+
+    /**
+     * Gets all block types
+     * 
+     * @return the block types
+     */
+    IBlockType[] getBlockTypes();
 
     /**
      * Registers a cut down animation

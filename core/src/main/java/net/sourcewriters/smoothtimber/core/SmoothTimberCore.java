@@ -5,13 +5,13 @@ import java.util.function.Consumer;
 import com.syntaxphoenix.avinity.module.ModuleManager;
 import com.syntaxphoenix.syntaxapi.event.EventManager;
 import com.syntaxphoenix.syntaxapi.logging.ILogger;
+import com.syntaxphoenix.syntaxapi.logging.LogTypeId;
 
+import net.sourcewriters.smoothtimber.api.ISmoothTimberPermissionManager;
 import net.sourcewriters.smoothtimber.api.ISmoothTimberCore;
-import net.sourcewriters.smoothtimber.api.ISmoothTimberRegistry;
 import net.sourcewriters.smoothtimber.api.SmoothTimberApi;
 import net.sourcewriters.smoothtimber.api.module.SmoothTimberModule;
 import net.sourcewriters.smoothtimber.api.platform.ISmoothTimberPlatform;
-import net.sourcewriters.smoothtimber.api.tree.ITreePermissionManager;
 import net.sourcewriters.smoothtimber.api.util.IResource;
 import net.sourcewriters.smoothtimber.core.util.JavaLogger;
 import net.sourcewriters.smoothtimber.core.util.ModuleLogger;
@@ -26,6 +26,7 @@ public final class SmoothTimberCore implements ISmoothTimberCore {
     private final JavaLogger logger;
 
     private final SmoothTimberModule coreModule;
+    private final SmoothTimberCoreRegistry registry = new SmoothTimberCoreRegistry();
 
     public SmoothTimberCore(final Consumer<String> logDelegate, final ISmoothTimberPlatform platform) {
         this.logger = new JavaLogger(logDelegate);
@@ -33,6 +34,7 @@ public final class SmoothTimberCore implements ISmoothTimberCore {
         this.resource = new ResourceImpl(logger, platform.getPlugin());
         this.moduleManager = new ModuleManager<>(SmoothTimberModule.class, new EventManager(logger),
             platform.getPlugin().getSystemVersion());
+        moduleManager.getEventManager().registerEvents(new ModuleListener(this));
         this.coreModule = new SmoothTimberCoreModule(moduleManager.getSystem());
     }
 
@@ -40,20 +42,24 @@ public final class SmoothTimberCore implements ISmoothTimberCore {
      * Module redirect
      */
 
-    public void enable() {
+    public boolean enable() {
         try {
             coreModule.enable();
         } catch (Exception exp) {
-            // TODO: Handle exception
+            logger.log(LogTypeId.ERROR, exp);
+            return false;
         }
+        return true;
     }
 
-    public void disable() {
+    public boolean disable() {
         try {
             coreModule.disable();
         } catch (Exception exp) {
-            // TODO: Handle exception
+            logger.log(LogTypeId.ERROR, exp);
+            return false;
         }
+        return true;
     }
 
     /*
@@ -105,13 +111,12 @@ public final class SmoothTimberCore implements ISmoothTimberCore {
     }
 
     @Override
-    public ISmoothTimberRegistry getRegistry() {
-        // TODO: Implement registry
-        return null;
+    public SmoothTimberCoreRegistry getRegistry() {
+        return registry;
     }
 
     @Override
-    public ITreePermissionManager getPermissionManager() {
+    public ISmoothTimberPermissionManager getPermissionManager() {
         // TODO: Implement permission manager
         return null;
     }

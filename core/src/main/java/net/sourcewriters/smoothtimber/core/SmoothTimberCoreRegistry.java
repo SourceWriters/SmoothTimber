@@ -1,5 +1,8 @@
 package net.sourcewriters.smoothtimber.core;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
 import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 
@@ -8,39 +11,69 @@ import net.sourcewriters.smoothtimber.api.platform.world.IPlatformBlock;
 import net.sourcewriters.smoothtimber.api.platform.world.IPlatformWorld;
 import net.sourcewriters.smoothtimber.api.resource.key.ResourceKey;
 import net.sourcewriters.smoothtimber.api.tree.ITree;
-import net.sourcewriters.smoothtimber.api.tree.IWoodType;
+import net.sourcewriters.smoothtimber.api.tree.IBlockType;
 import net.sourcewriters.smoothtimber.api.tree.TreeAnimation;
 import net.sourcewriters.smoothtimber.api.tree.TreeDetector;
 import net.sourcewriters.smoothtimber.api.util.math.Vector3i;
 import net.sourcewriters.smoothtimber.api.util.world.PlatformBlockCache;
 
-public class SmoothTimberCoreRegistry implements ISmoothTimberRegistry {
+final class SmoothTimberCoreRegistry implements ISmoothTimberRegistry {
 
-    private final ConcurrentHashMap<String, IWoodType> woodTypes = new ConcurrentHashMap<>();
+    private final ConcurrentHashMap<String, IBlockType> blockTypes = new ConcurrentHashMap<>();
+    private final List<IBlockType> blockTypeList = Collections.synchronizedList(new ArrayList<>());
+
     private final ConcurrentHashMap<String, TreeAnimation> animations = new ConcurrentHashMap<>();
     private final ConcurrentHashMap<String, TreeDetector> detectors = new ConcurrentHashMap<>();
 
-    @Override
-    public boolean register(IWoodType woodType) throws IllegalArgumentException {
-        Objects.requireNonNull(woodType, "IWoodType can't be null!");
-        if (woodTypes.containsKey(woodType.name())) {
-            throw new IllegalArgumentException("A IWoodType with the name '" + woodType.name() + "' already exists!");
+    final void unregister(String id) {
+        IBlockType[] blockTypeArray = getBlockTypes();
+        for (IBlockType blockType : blockTypeArray) {
+            if (blockType.id().getNamespace().equals(id)) {
+                blockTypes.remove(blockType.id().toResourceString());
+            }
         }
-        if (!woodType.isSupported()) {
+        TreeAnimation[] animationArray = getAnimations();
+        for (TreeAnimation animation : animationArray) {
+            if (animation.getKey().getKey().equals(id)) {
+                animations.remove(animation.getKey().toResourceString());
+            }
+        }
+        TreeDetector[] detectorArray = getDetectors();
+        for (TreeDetector detector : detectorArray) {
+            if (detector.getKey().getKey().equals(id)) {
+                detectors.remove(detector.getKey().toResourceString());
+            }
+        }
+    }
+
+    @Override
+    public boolean register(IBlockType blockType) throws IllegalArgumentException {
+        Objects.requireNonNull(blockType, "IBlockType can't be null!");
+        String id = blockType.id().toResourceString();
+        if (blockTypes.containsKey(id)) {
+            throw new IllegalArgumentException("A IBlockType with the name '" + id + "' already exists!");
+        }
+        if (!blockType.isSupported()) {
             return false;
         }
-        woodTypes.put(woodType.name(), woodType);
+        blockTypes.put(id, blockType);
+        blockTypeList.add(blockType);
         return true;
     }
 
     @Override
-    public IWoodType getWoodType(String name) {
-        return woodTypes.get(name);
+    public IBlockType getBlockTypeByMaterial(ResourceKey material) {
+        return blockTypeList.stream().filter(type -> type.isType(material)).findFirst().orElse(null);
     }
 
     @Override
-    public IWoodType[] getWoodTypes() {
-        return woodTypes.values().toArray(IWoodType[]::new);
+    public IBlockType getBlockType(String name) {
+        return blockTypes.get(name);
+    }
+
+    @Override
+    public IBlockType[] getBlockTypes() {
+        return blockTypeList.toArray(IBlockType[]::new);
     }
 
     @Override

@@ -17,12 +17,12 @@ public final class SpigotFallingBlock extends SpigotEntity<IPlatformFallingBlock
 
     @Override
     public ResourceKey getBlockType() {
-        return SpigotConversionRegistry.fromBukkit(entity.getBlockData().getMaterial().getKey());
+        return SpigotConversionRegistry.fromBukkit(handle.getBlockData().getMaterial().getKey());
     }
 
     @Override
     public IPlatformItem getItem() {
-        return SpigotItem.of(new ItemStack(entity.getBlockData().getMaterial()));
+        return SpigotItem.of(new ItemStack(handle.getBlockData().getMaterial()));
     }
 
 }

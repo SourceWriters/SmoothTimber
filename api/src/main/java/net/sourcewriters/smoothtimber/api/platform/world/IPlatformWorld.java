@@ -20,6 +20,13 @@ public interface IPlatformWorld {
     Object getHandle();
 
     /**
+     * Checks if the world is still valid
+     * 
+     * @return {@code true} if the world is valid otherwise {@code false}
+     */
+    boolean isValid();
+
+    /**
      * Gets all online players which are currently in this world
      * 
      * @return the players

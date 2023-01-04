@@ -1,9 +1,11 @@
-package net.sourcewriters.smoothtimber.api.tree;
+package net.sourcewriters.smoothtimber.api;
 
 import net.sourcewriters.smoothtimber.api.platform.world.entity.IPlatformPlayer;
 import net.sourcewriters.smoothtimber.api.platform.world.inventory.IPlatformItem;
+import net.sourcewriters.smoothtimber.api.tree.IBlockType;
+import net.sourcewriters.smoothtimber.api.tree.ITree;
 
-public interface ITreePermissionManager {
+public interface ISmoothTimberPermissionManager {
 
     /**
      * Checks if the player is allowed to cut the tree
@@ -23,7 +25,7 @@ public interface ITreePermissionManager {
      * 
      * @return        if the player is permitted or not
      */
-    boolean isPermitted(IPlatformPlayer player, IWoodType type);
+    boolean isPermitted(IPlatformPlayer player, IBlockType type);
 
     /**
      * Checks if the player is allowed to use the cutter item

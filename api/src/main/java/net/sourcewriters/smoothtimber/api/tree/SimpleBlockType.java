@@ -7,25 +7,27 @@ import java.util.stream.Collectors;
 import net.sourcewriters.smoothtimber.api.platform.ISmoothTimberPlatform;
 import net.sourcewriters.smoothtimber.api.resource.key.ResourceKey;
 
-public final class SimpleWoodType implements IWoodType {
+public final class SimpleBlockType implements IBlockType {
 
-    private final String name;
+    private final ResourceKey id;
     private final ResourceKey key;
 
+    private final boolean wood;
     private final boolean supported;
     private final List<ResourceKey> types;
 
-    public SimpleWoodType(ISmoothTimberPlatform platform, String name, ResourceKey key, ResourceKey... types) {
-        this.name = name;
+    public SimpleBlockType(ISmoothTimberPlatform platform, boolean wood, ResourceKey id, ResourceKey key, ResourceKey... types) {
+        this.id = id;
         this.key = key;
         this.types = Arrays.asList(types).stream().filter(type -> type != null && platform.isValidMaterial(type)).distinct()
             .collect(Collectors.toUnmodifiableList());
         this.supported = !this.types.isEmpty() && platform.isValidMaterial(key);
+        this.wood = wood;
     }
 
     @Override
-    public String name() {
-        return name;
+    public ResourceKey id() {
+        return id;
     }
 
     @Override
@@ -36,6 +38,11 @@ public final class SimpleWoodType implements IWoodType {
     @Override
     public boolean isSupported() {
         return supported;
+    }
+
+    @Override
+    public boolean isWood() {
+        return wood;
     }
 
     @Override

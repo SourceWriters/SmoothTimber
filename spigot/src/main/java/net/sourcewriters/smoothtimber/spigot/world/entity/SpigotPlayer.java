@@ -19,42 +19,47 @@ public final class SpigotPlayer extends SpigotLivingEntity<IPlatformPlayer, Play
 
     @Override
     public IPlatformInventory getInventory() {
-        return new SpigotImmutableInventory(entity.getInventory());
+        return new SpigotImmutableInventory(handle.getInventory());
     }
 
     @Override
+    public boolean isPlayer() {
+        return true;
+    }
+    
+    @Override
     public int getFoodLevel() {
-        return entity.getFoodLevel();
+        return handle.getFoodLevel();
     }
 
     @Override
     public void setFoodLevel(int value) {
-        entity.setFoodLevel(value);
+        handle.setFoodLevel(value);
     }
 
     @Override
     public float getSaturation() {
-        return entity.getSaturation();
+        return handle.getSaturation();
     }
 
     @Override
     public void setSaturation(float value) {
-        entity.setSaturation(value);
+        handle.setSaturation(value);
     }
 
     @Override
     public STGameMode getGameMode() {
-        return STGameMode.valueOf(entity.getGameMode().name());
+        return STGameMode.valueOf(handle.getGameMode().name());
     }
 
     @Override
     public void setGameMode(STGameMode gameMode) {
-        entity.setGameMode(GameMode.valueOf(Objects.requireNonNull(gameMode, "GameMode can't be null!").name()));
+        handle.setGameMode(GameMode.valueOf(Objects.requireNonNull(gameMode, "GameMode can't be null!").name()));
     }
 
     @Override
     public void openInventory(IPlatformInventory inventory) {
-        entity.openInventory((Inventory) inventory.getHandle());
+        handle.openInventory((Inventory) inventory.getHandle());
     }
 
 }

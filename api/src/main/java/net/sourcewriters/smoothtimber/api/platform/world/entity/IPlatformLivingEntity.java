@@ -3,7 +3,12 @@ package net.sourcewriters.smoothtimber.api.platform.world.entity;
 import net.sourcewriters.smoothtimber.api.platform.world.inventory.IPlatformEquipment;
 
 public interface IPlatformLivingEntity extends IPlatformEntity {
-    
+
+    /**
+     * Gets the data of the entity
+     * 
+     * @return the data
+     */
     IPlatformEntityData<? extends IPlatformLivingEntity> getData();
 
     /**

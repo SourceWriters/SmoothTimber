@@ -9,7 +9,6 @@ import net.sourcewriters.smoothtimber.api.platform.ISmoothTimberPlatform;
 import net.sourcewriters.smoothtimber.api.platform.event.PlatformBlockBreakEvent;
 import net.sourcewriters.smoothtimber.api.platform.event.manager.IPlatformEventListener;
 import net.sourcewriters.smoothtimber.api.platform.event.manager.PlatformEventListener;
-import net.sourcewriters.smoothtimber.api.platform.world.IPlatformBlock;
 import net.sourcewriters.smoothtimber.api.platform.world.entity.IPlatformPlayer;
 import net.sourcewriters.smoothtimber.api.tree.ITree;
 

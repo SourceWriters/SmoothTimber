@@ -4,7 +4,6 @@ import java.util.UUID;
 
 import org.bukkit.Location;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.EntityType;
 import org.bukkit.util.Vector;
 
 import net.sourcewriters.smoothtimber.api.platform.world.IPlatformWorld;
@@ -13,14 +12,15 @@ import net.sourcewriters.smoothtimber.api.platform.world.entity.IPlatformEntityD
 import net.sourcewriters.smoothtimber.api.resource.key.ResourceKey;
 import net.sourcewriters.smoothtimber.api.util.math.Vector3d;
 import net.sourcewriters.smoothtimber.spigot.SpigotConversionRegistry;
+import net.sourcewriters.smoothtimber.spigot.command.SpigotSender;
+import net.sourcewriters.smoothtimber.spigot.world.SpigotWorld;
 
-public class SpigotEntity<P extends IPlatformEntity, E extends Entity> implements IPlatformEntity {
+public class SpigotEntity<P extends IPlatformEntity, E extends Entity> extends SpigotSender<P, E> implements IPlatformEntity {
 
-    protected final E entity;
     protected final IPlatformEntityData<P> data;
 
     public SpigotEntity(final E entity) {
-        this.entity = entity;
+        super(entity);
         this.data = SpigotConversionRegistry.getEntityData(this);
     }
 
@@ -30,95 +30,75 @@ public class SpigotEntity<P extends IPlatformEntity, E extends Entity> implement
     }
 
     @Override
-    public void send(String message) {
-        entity.sendMessage(message);
-    }
-
-    @Override
-    public String getName() {
-        return entity.getName();
-    }
-
-    @Override
-    public boolean isPlayer() {
-        return entity.getType() == EntityType.PLAYER;
-    }
-
-    @Override
-    public E getHandle() {
-        return entity;
-    }
-
-    @Override
-    public boolean isPermitted(String permission) {
-        return entity.hasPermission(permission);
-    }
-
-    @Override
     public ResourceKey getType() {
-        return SpigotConversionRegistry.getKey(entity.getType());
+        return SpigotConversionRegistry.getKey(handle.getType());
     }
 
     @Override
     public IPlatformWorld getWorld() {
-        return null;
+        return SpigotWorld.of(handle.getWorld());
+    }
+    
+    @Override
+    public Entity getHandle() {
+        return handle;
     }
 
     @Override
     public Vector3d getPosition() {
-        Location location = entity.getLocation();
+        Location location = handle.getLocation();
         return new Vector3d(location.getX(), location.getY(), location.getZ());
     }
 
     @Override
     public boolean isDead() {
-        return entity.isDead();
+        return handle.isDead();
     }
 
     @Override
     public boolean isInvulnerable() {
-        return entity.isInvulnerable();
+        return handle.isInvulnerable();
     }
 
     @Override
     public void setInvulnerable(boolean invulnerable) {
-        entity.setInvulnerable(invulnerable);
+        handle.setInvulnerable(invulnerable);
     }
 
     @Override
     public boolean hasGravity() {
-        return entity.hasGravity();
+        return handle.hasGravity();
     }
 
     @Override
     public void setGravity(boolean gravity) {
-        entity.setGravity(gravity);
+        handle.setGravity(gravity);
     }
 
     @Override
     public Vector3d getVelocity() {
-        Vector vector = entity.getVelocity();
+        Vector vector = handle.getVelocity();
         return new Vector3d(vector.getX(), vector.getY(), vector.getZ());
     }
 
     @Override
     public void setVelocity(Vector3d velocity) {
-        entity.setVelocity(new Vector(velocity.getX(), velocity.getY(), velocity.getZ()));
+        handle.setVelocity(new Vector(velocity.getX(), velocity.getY(), velocity.getZ()));
     }
 
     @Override
     public int getId() {
-        return entity.getEntityId();
+        return handle.getEntityId();
     }
 
     @Override
     public UUID getUniqueId() {
-        return entity.getUniqueId();
+        return handle.getUniqueId();
     }
 
     @Override
     public void remove() {
-        entity.remove();
+        handle.remove();
     }
 
 }

@@ -2,6 +2,7 @@ package net.sourcewriters.smoothtimber.api.tree;
 
 import java.util.Objects;
 
+import net.sourcewriters.smoothtimber.api.ISmoothTimberRegistry;
 import net.sourcewriters.smoothtimber.api.module.SmoothTimberModule;
 import net.sourcewriters.smoothtimber.api.resource.key.ResourceKey;
 import net.sourcewriters.smoothtimber.api.util.math.Vector3i;
@@ -10,6 +11,7 @@ import net.sourcewriters.smoothtimber.api.util.world.PlatformBlockCache;
 public abstract class TreeDetector {
 
     private final ResourceKey key;
+    protected final ISmoothTimberRegistry registry;
 
     /**
      * Constructs a tree detector
@@ -19,6 +21,7 @@ public abstract class TreeDetector {
      */
     public TreeDetector(final SmoothTimberModule module, final String name) {
         this.key = Objects.requireNonNull(module.key(name));
+        this.registry = module.getApi().getCore().getRegistry();
     }
 
     /**

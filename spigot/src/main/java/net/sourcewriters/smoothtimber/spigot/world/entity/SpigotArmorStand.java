@@ -12,12 +12,12 @@ public final class SpigotArmorStand extends SpigotLivingEntity<IPlatformArmorSta
 
     @Override
     public boolean isSmall() {
-        return entity.isSmall();
+        return handle.isSmall();
     }
 
     @Override
     public void setSmall(boolean small) {
-        entity.setSmall(small);
+        handle.setSmall(small);
     }
     
 }

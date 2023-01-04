@@ -43,6 +43,6 @@ public abstract class TreeAnimation {
      * 
      * @return          the wood type and amount map
      */
-    public abstract Map<IWoodType, Integer> cutTree(IPlatformPlayer player, IPlatformItem item, ITree tree, Vector3i relative);
+    public abstract Map<IBlockType, Integer> cutTree(IPlatformPlayer player, IPlatformItem item, ITree tree, Vector3i relative);
 
 }

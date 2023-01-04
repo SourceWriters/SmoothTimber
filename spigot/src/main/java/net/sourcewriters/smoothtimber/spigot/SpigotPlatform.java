@@ -90,7 +90,7 @@ public final class SpigotPlatform implements ISmoothTimberPlatform {
 
     @Override
     public IPlatformWorld[] getWorlds() {
-        return Bukkit.getWorlds().stream().map(SpigotWorld::new).toArray(IPlatformWorld[]::new);
+        return Bukkit.getWorlds().stream().map(SpigotWorld::of).toArray(IPlatformWorld[]::new);
     }
 
     @Override
@@ -99,7 +99,7 @@ public final class SpigotPlatform implements ISmoothTimberPlatform {
         if (list.size() <= index || index < 0) {
             return null;
         }
-        return new SpigotWorld(list.get(index));
+        return SpigotWorld.of(list.get(index));
     }
 
     @Override
@@ -108,7 +108,7 @@ public final class SpigotPlatform implements ISmoothTimberPlatform {
         if (world == null) {
             return null;
         }
-        return new SpigotWorld(world);
+        return SpigotWorld.of(world);
     }
 
     @Override
@@ -117,7 +117,7 @@ public final class SpigotPlatform implements ISmoothTimberPlatform {
         if (world == null) {
             return null;
         }
-        return new SpigotWorld(world);
+        return SpigotWorld.of(world);
     }
 
     @Override

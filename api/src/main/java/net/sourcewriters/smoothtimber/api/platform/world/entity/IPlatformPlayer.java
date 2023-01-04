@@ -9,7 +9,12 @@ public interface IPlatformPlayer extends IPlatformLivingEntity {
     default boolean isPlayer() {
         return true;
     }
-    
+
+    /**
+     * Gets the data of the player
+     * 
+     * @return the data
+     */
     IPlatformEntityData<IPlatformPlayer> getData();
 
     /**

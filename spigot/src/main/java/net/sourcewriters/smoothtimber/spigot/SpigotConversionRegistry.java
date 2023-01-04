@@ -8,6 +8,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.Material;
 import org.bukkit.NamespacedKey;
 import org.bukkit.block.data.BlockData;
+import org.bukkit.command.CommandSender;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.ArmorStand;
 import org.bukkit.entity.Entity;
@@ -19,11 +20,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryType;
 import org.bukkit.inventory.ItemFlag;
 
+import net.sourcewriters.smoothtimber.api.platform.command.IPlatformSender;
 import net.sourcewriters.smoothtimber.api.platform.util.STItemFlag;
 import net.sourcewriters.smoothtimber.api.platform.world.entity.IPlatformEntity;
 import net.sourcewriters.smoothtimber.api.platform.world.entity.IPlatformEntityData;
 import net.sourcewriters.smoothtimber.api.platform.world.entity.IPlatformLivingEntity;
 import net.sourcewriters.smoothtimber.api.resource.key.ResourceKey;
+import net.sourcewriters.smoothtimber.spigot.command.SpigotSender;
 import net.sourcewriters.smoothtimber.spigot.version.VersionHelper;
 import net.sourcewriters.smoothtimber.spigot.world.entity.SpigotArmorStand;
 import net.sourcewriters.smoothtimber.spigot.world.entity.SpigotEntity;
@@ -102,6 +105,16 @@ public final class SpigotConversionRegistry {
 
     public static ResourceKey fromBukkit(NamespacedKey key) {
         return new ResourceKey(key.getNamespace(), key.getKey());
+    }
+
+    public static SpigotSender<?, ?> fromBukkit(CommandSender sender) {
+        if(sender == null) {
+            return null;
+        }
+        if(sender instanceof Entity) {
+            return fromBukkit((Entity) sender);
+        }
+        return new SpigotSender<IPlatformSender, CommandSender>(sender);
     }
 
     public static SpigotEntity<?, ?> fromBukkit(Entity entity) {

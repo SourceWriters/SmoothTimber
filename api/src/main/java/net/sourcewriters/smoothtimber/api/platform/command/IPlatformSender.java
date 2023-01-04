@@ -52,5 +52,12 @@ public interface IPlatformSender {
      * @return            if the sender is permitted or not
      */
     boolean isPermitted(String permission);
+    
+    /**
+     * Gets a permission
+     * 
+     * @return the permission
+     */
+    IPlatformPermission getPermission(String permission);
 
 }

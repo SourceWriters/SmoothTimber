@@ -17,27 +17,27 @@ public class SpigotLivingEntity<P extends IPlatformLivingEntity, E extends Livin
 
     @Override
     public IPlatformEquipment getEquipment() {
-        return new SpigotEquipment(entity.getEquipment());
+        return new SpigotEquipment(handle.getEquipment());
     }
 
     @Override
     public boolean isInvisible() {
-        return helper.isInvisible(entity);
+        return helper.isInvisible(handle);
     }
 
     @Override
     public void setInvisible(boolean invisible) {
-        helper.setInvisible(entity, invisible);
+        helper.setInvisible(handle, invisible);
     }
 
     @Override
     public boolean isCollidable() {
-        return entity.isCollidable();
+        return handle.isCollidable();
     }
 
     @Override
     public void setCollidable(boolean collidable) {
-        entity.setCollidable(collidable);
+        handle.setCollidable(collidable);
     }
 
 }
