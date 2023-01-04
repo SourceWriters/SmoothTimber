@@ -8,6 +8,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.MaterialData;
 
 import com.syntaxphoenix.spigot.smoothtimber.config.config.CutterConfig;
@@ -48,6 +49,13 @@ public class v1_9xChanger implements VersionChanger {
             int level = stack.getEnchantmentLevel(Enchantment.DURABILITY);
             float chance = 100 / (level <= 0 ? 1 : (level + 1));
             if (RANDOM.nextFloat(0, 100) > chance) {
+                return stack;
+            }
+        }
+        if(stack.hasItemMeta()) {
+            ItemMeta meta = stack.getItemMeta();
+            Object spigot = Storage.META_SPIGOT.run(meta, "spigot");
+            if((Boolean) Storage.UNBREAKABLE.run(spigot, "unbreakable")) {
                 return stack;
             }
         }

@@ -8,6 +8,7 @@ import org.bukkit.entity.EntityType;
 import org.bukkit.entity.FallingBlock;
 import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.MaterialData;
 
 import com.syntaxphoenix.spigot.smoothtimber.config.config.CutterConfig;
@@ -51,6 +52,12 @@ public class v1_11xChanger implements VersionChanger {
                 return stack;
             }
         }
+        if (stack.hasItemMeta()) {
+            ItemMeta meta = stack.getItemMeta();
+            if (meta.isUnbreakable()) {
+                return stack;
+            }
+        }
         Integer durability = stack.getDurability() + 1;
         if (stack.getType().getMaxDurability() < durability) {
             stack.setAmount(0);
@@ -74,11 +81,11 @@ public class v1_11xChanger implements VersionChanger {
     @Override
     public boolean isWoodBlockImpl(Block block) {
         Material material = block.getType();
-        
+
         if (CutterConfig.ENABLE_EXCLUSION && CutterConfig.EXCLUDED_MATERIALS.contains(material)) {
             return false;
         }
-        
+
         if (CutterConfig.ENABLE_INCLUSION && CutterConfig.INCLUDED_MATERIALS.contains(material)) {
             return true;
         }
@@ -124,7 +131,7 @@ public class v1_11xChanger implements VersionChanger {
     public ItemStack getAirItem() {
         return new ItemStack(Material.AIR);
     }
-    
+
     @Override
     public void setAirBlock(Block block) {
         block.setType(Material.AIR);
@@ -179,8 +186,8 @@ public class v1_11xChanger implements VersionChanger {
             return true;
         default:
             return false;
+        }
     }
-}
 
     @Override
     public WoodType getWoodTypeFromBlock(Block block) {

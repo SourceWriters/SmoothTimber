@@ -48,6 +48,9 @@ public class v1_13xChanger implements VersionChanger {
             }
         }
         ItemMeta meta = stack.getItemMeta();
+        if(meta.isUnbreakable()) {
+            return stack;
+        }
         if (meta instanceof Damageable) {
             Damageable dmg = (Damageable) meta;
             int damage = dmg.getDamage() + 1;
