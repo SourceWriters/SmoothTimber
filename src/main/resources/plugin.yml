@@ -15,7 +15,7 @@ permissions:
     smoothtimber.*:
         description: Gives access to all SmoothTimber permissions
         children:
-            smoothtimer.limit.*: true
+            smoothtimber.limit.*: true
             smoothtimber.use: true
             smoothtimber.toggle: true
     smoothtimber.limit.*:
