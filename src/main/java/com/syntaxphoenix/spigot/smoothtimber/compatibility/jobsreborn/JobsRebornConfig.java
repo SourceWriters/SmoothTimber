@@ -12,7 +12,9 @@ import com.syntaxphoenix.spigot.smoothtimber.version.manager.WoodType;
 public final class JobsRebornConfig extends CompatibilityAddonConfig<JobsReborn> {
 
     public static final EnumMap<WoodType, double[]> DEFAULT_WOOD_DATA = new EnumMap<>(WoodType.class);
-    public static HashMap<String, EnumMap<WoodType, double[]>> JOB_DATA = new HashMap<>();
+    public static final HashMap<String, EnumMap<WoodType, double[]>> JOB_DATA = new HashMap<>();
+    
+    private final VersionChanger change = PluginUtils.CHANGER;
 
     /*
      * 
@@ -67,6 +69,9 @@ public final class JobsRebornConfig extends CompatibilityAddonConfig<JobsReborn>
 
     private void checkExperience(final String path, final EnumMap<WoodType, double[]> experience) {
         for (final WoodType type : WoodType.values()) {
+            if (!change.isSupported(type)) {
+                continue;
+            }
             final String key = path + '.' + type.name().toLowerCase();
             final double[] defaultData = DEFAULT_WOOD_DATA.get(type);
             final double[] value = new double[3];
