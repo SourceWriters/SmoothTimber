@@ -9,6 +9,7 @@ public enum DefaultReason implements IChopReason {
     WORLDGUARD,
     RESIDENCE,
     LANDS,
+    FACTIONS,
     UNKNOWN;
 
     @Override
