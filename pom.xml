@@ -56,25 +56,6 @@
 					<target>11</target>
 				</configuration>
 			</plugin>
-			<plugin>
-				<artifactId>maven-antrun-plugin</artifactId>
-				<version>1.8</version><!--$NO-MVN-MAN-VER$ -->
-				<executions>
-					<execution>
-						<phase>install</phase>
-						<goals>
-							<goal>run</goal>
-						</goals>
-						<configuration>
-							<target>
-								<copy
-									file="${project.build.directory}/${project.build.finalName}.jar"
-									tofile="D:\Java - Jar\TestServers\1.18.1\plugins\${project.artifactId}.jar" />
-							</target>
-						</configuration>
-					</execution>
-				</executions>
-			</plugin>
 		</plugins>
 		<resources>
 			<resource>
