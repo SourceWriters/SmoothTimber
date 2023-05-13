@@ -66,7 +66,8 @@ public enum Message {
     ABORT_REASON_WORLDGUARD("it is protected by a WorldGuard Region"),
     ABORT_REASON_RESIDENCE("it is protected by a Residence Region"),
     ABORT_REASON_LANDS("it is protected by a Lands Region"),
-    ABORT_REASON_TOWNY("it is protected by a Towny town")
+    ABORT_REASON_TOWNY("it is protected by a Towny town"),
+    ABORT_REASON_FACTIONS("it is protected by a faction claim"),
 
     /*
      * 

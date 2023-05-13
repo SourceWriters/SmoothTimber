@@ -5,6 +5,7 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
+import com.syntaxphoenix.spigot.smoothtimber.compatibility.factionsuuid.FactionsUUID;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.syntaxphoenix.spigot.smoothtimber.SmoothTimber;
@@ -42,6 +43,7 @@ public abstract class CompatibilityHandler {
         register("LogBlock", LogBlock.class);
         register("mcMMO", McMmo.class);
         register("Towny", Towny.class);
+        register("Factions", FactionsUUID.class);
     }
 
     public static <E extends CompatibilityAddon> boolean register(final String pluginName, final Class<E> addonClass) {
