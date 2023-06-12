@@ -49,10 +49,9 @@ public class VersionExchanger {
         case v1_19x:
             return new v1_19xChanger();
         case v1_20x:
-        	return new v1_20xChanger();
-        default: {
+            return new v1_20xChanger();
+        default: 
             return null;
-        }
         }
     }
 
