@@ -10,6 +10,7 @@ import com.syntaxphoenix.spigot.smoothtimber.version.changer.v1_11xChanger;
 import com.syntaxphoenix.spigot.smoothtimber.version.changer.v1_13xChanger;
 import com.syntaxphoenix.spigot.smoothtimber.version.changer.v1_16xChanger;
 import com.syntaxphoenix.spigot.smoothtimber.version.changer.v1_19xChanger;
+import com.syntaxphoenix.spigot.smoothtimber.version.changer.v1_20xChanger;
 import com.syntaxphoenix.spigot.smoothtimber.version.changer.v1_8xChanger;
 import com.syntaxphoenix.spigot.smoothtimber.version.changer.v1_9xChanger;
 import com.syntaxphoenix.syntaxapi.utils.java.Strings;
@@ -47,6 +48,8 @@ public class VersionExchanger {
             return new v1_16xChanger();
         case v1_19x:
             return new v1_19xChanger();
+        case v1_20x:
+        	return new v1_20xChanger();
         default: {
             return null;
         }
