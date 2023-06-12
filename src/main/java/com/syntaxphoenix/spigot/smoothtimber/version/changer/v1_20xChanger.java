@@ -234,9 +234,11 @@ public class v1_20xChanger implements VersionChanger {
         case STRIPPED_WARPED_STEM:
         case STRIPPED_WARPED_HYPHAE:
             return WoodType.WARPED;
-        case CHERRY_LOG:    
+        case CHERRY_LOG:
+        case CHERRY_WOOD:
         case CHERRY_FENCE:
         case STRIPPED_CHERRY_LOG:
+        case STRIPPED_CHERRY_WOOD:
         	return WoodType.CHERRY;
         default:
             return WoodType.OTHER;
