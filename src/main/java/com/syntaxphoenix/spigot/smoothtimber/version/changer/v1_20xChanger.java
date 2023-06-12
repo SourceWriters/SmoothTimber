@@ -158,7 +158,7 @@ public class v1_20xChanger implements VersionChanger {
         case CRIMSON:
         case WARPED:
         case MANGROVE:
-        case CHERRY:	
+        case CHERRY:
         case OTHER:
             return true;
         default:
@@ -239,7 +239,7 @@ public class v1_20xChanger implements VersionChanger {
         case CHERRY_FENCE:
         case STRIPPED_CHERRY_LOG:
         case STRIPPED_CHERRY_WOOD:
-        	return WoodType.CHERRY;
+            return WoodType.CHERRY;
         default:
             return WoodType.OTHER;
         }
