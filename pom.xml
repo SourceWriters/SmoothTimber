@@ -19,7 +19,7 @@
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
 				<artifactId>maven-shade-plugin</artifactId>
-				<version>3.3.0</version>
+				<version>3.2.4</version>
 				<executions>
 					<execution>
 						<phase>package</phase>
@@ -272,7 +272,7 @@
 		<dependency>
 			<groupId>org.spigotmc</groupId>
 			<artifactId>spigot-api</artifactId>
-			<version>1.19-R0.1-SNAPSHOT</version>
+			<version>1.20-R0.1-SNAPSHOT</version>
 			<scope>provided</scope>
 		</dependency>
 
