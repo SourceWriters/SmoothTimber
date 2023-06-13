@@ -1,5 +1,6 @@
 package com.syntaxphoenix.spigot.smoothtimber.compatibility.coreprotect;
 
+import org.bukkit.Bukkit;
 import org.bukkit.block.BlockState;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -24,9 +25,9 @@ public class CoreProtectGrowListener implements Listener {
         }
         final Player player = event.getPlayer();
         final String user = player != null ? "#st_" + player.getName() : "#tree";
-        SmoothTimber.get().getServer().getScheduler().runTaskLaterAsynchronously(SmoothTimber.get(), () -> {
+        Bukkit.getScheduler().runTaskLater(SmoothTimber.get(), () -> {
             for (final BlockState state : event.getBlocks()) {
-                compat.logRemoval(user, state.getLocation(), state.getBlock());
+                compat.logRemoval(user, state.getLocation(), state.getWorld().getBlockAt(state.getLocation()));
             }
         }, 5);
     }
