@@ -45,7 +45,7 @@ public class SmoothTimber extends JavaPlugin {
 
     @Override
     public void onDisable() {
-        if (!PluginUtils.CHANGER.isValid()) {
+        if (PluginUtils.CHANGER == null || !PluginUtils.CHANGER.isValid()) {
             return;
         }
         Bukkit.getScheduler().cancelTasks(this);
