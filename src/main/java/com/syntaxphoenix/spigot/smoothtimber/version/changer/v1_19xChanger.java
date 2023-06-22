@@ -47,6 +47,9 @@ public class v1_19xChanger implements VersionChanger {
                 return stack;
             }
         }
+        if (!stack.hasItemMeta()) {
+            return stack;
+        }
         final ItemMeta meta = stack.getItemMeta();
         if (meta.isUnbreakable()) {
             return stack;
