@@ -18,12 +18,11 @@ public class ToggleTimer implements Runnable {
 
     public ToggleTimer(final ToggleStorage storage, final Plugin plugin) {
         this.storage = storage;
-				if(SmoothTimber.IS_FOLIA) 
-				{
-					this.task = Bukkit.getServer().getAsyncScheduler().runAtFixedRate(plugin, value -> this.run(), 20L, 20L, TimeUnit.MILLISECONDS);
-				} else {
-					this.task = Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, this, 20, 20);
-				}
+        if (SmoothTimber.IS_FOLIA) {
+            this.task = Bukkit.getServer().getAsyncScheduler().runAtFixedRate(plugin, value -> this.run(), 20L, 20L, TimeUnit.MILLISECONDS);
+        } else {
+            this.task = Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, this, 20, 20);
+        }
     }
 
     /*

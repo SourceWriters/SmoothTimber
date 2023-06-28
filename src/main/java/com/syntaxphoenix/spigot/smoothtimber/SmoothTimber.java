@@ -22,7 +22,7 @@ import com.syntaxphoenix.syntaxapi.reflection.ClassCache;
 
 public class SmoothTimber extends JavaPlugin {
       private static boolean classExists(String name) {
-	      try {
+          try {
           Class.forName(name);
           return true;
         } catch (ClassNotFoundException e) {
@@ -30,7 +30,7 @@ public class SmoothTimber extends JavaPlugin {
         }
       }
 
-	  public static final boolean IS_FOLIA = classExists("io.papermc.paper.threadedregions.RegionizedServer") || classExists("io.papermc.paper.threadedregions.RegionizedServerInitEvent");
+      public static final boolean IS_FOLIA = classExists("io.papermc.paper.threadedregions.RegionizedServer") || classExists("io.papermc.paper.threadedregions.RegionizedServerInitEvent");
 
     public static final CommandManager COMMANDS = new CommandManager();
 
@@ -58,13 +58,12 @@ public class SmoothTimber extends JavaPlugin {
         if (PluginUtils.CHANGER == null || !PluginUtils.CHANGER.isValid()) {
             return;
         }
-				if(IS_FOLIA) 
-				{
-	        Bukkit.getServer().getGlobalRegionScheduler().cancelTasks(this);
-				} else {
-	        Bukkit.getScheduler().cancelTasks(this);
-				}
-	        CooldownHelper.COOLDOWN.getTimer().kill();
+        if (IS_FOLIA) {
+            Bukkit.getServer().getGlobalRegionScheduler().cancelTasks(this);
+        } else {
+            Bukkit.getScheduler().cancelTasks(this);
+        }
+        CooldownHelper.COOLDOWN.getTimer().kill();
     }
 
     public static boolean triggerChopEvent(final Player player, final Location location, final VersionChanger change, final ItemStack tool,

@@ -82,7 +82,7 @@ public class BlockBreakTask extends BukkitRunnable {
 				change.dropItemByBlock(block, amount);
 			}
 		}
-		if(SmoothTimber.IS_FOLIA) {
+		if (SmoothTimber.IS_FOLIA) {
 			Bukkit.getServer().getAsyncScheduler().runNow(PluginUtils.MAIN, value -> new Runnable () {
 				@Override
 				public void run() {

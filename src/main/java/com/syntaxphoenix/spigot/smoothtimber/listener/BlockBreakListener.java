@@ -76,19 +76,18 @@ public class BlockBreakListener implements Listener {
             }
             event.setCancelled(true);
             CooldownHelper.trigger(player);
-						final int maxItems = CutterConfig.ENABLE_LUCK ? change.getMaxDropCount(tool) : 1;
-						final ArrayList<Location> woodBlocks = new ArrayList<>();
+            final int maxItems = CutterConfig.ENABLE_LUCK ? change.getMaxDropCount(tool) : 1;
+            final ArrayList<Location> woodBlocks = new ArrayList<>();
 
-						BlockBreakTask blockBreakTask = new BlockBreakTask(player, location, change, tool, woodBlocks, maxItems, generator);
-						BlockBreakEventTask blockBreakEventTask = new BlockBreakEventTask(player, location, change, tool, woodBlocks, maxItems);
-						if(SmoothTimber.IS_FOLIA) 
-						{
-							Bukkit.getServer().getAsyncScheduler().runNow(PluginUtils.MAIN, value -> blockBreakEventTask.run());
-							Bukkit.getServer().getRegionScheduler().run(PluginUtils.MAIN, location, value -> blockBreakTask.run());
-						} else {
-							Bukkit.getScheduler().runTaskAsynchronously(PluginUtils.MAIN, blockBreakEventTask);
-							Bukkit.getScheduler().runTask(PluginUtils.MAIN, blockBreakTask);
-						}
+            BlockBreakTask blockBreakTask = new BlockBreakTask(player, location, change, tool, woodBlocks, maxItems, generator);
+            BlockBreakEventTask blockBreakEventTask = new BlockBreakEventTask(player, location, change, tool, woodBlocks, maxItems);
+            if (SmoothTimber.IS_FOLIA) {
+                Bukkit.getServer().getAsyncScheduler().runNow(PluginUtils.MAIN, value -> blockBreakEventTask.run());
+                Bukkit.getServer().getRegionScheduler().run(PluginUtils.MAIN, location, value -> blockBreakTask.run());
+            } else {
+                Bukkit.getScheduler().runTaskAsynchronously(PluginUtils.MAIN, blockBreakEventTask);
+                Bukkit.getScheduler().runTask(PluginUtils.MAIN, blockBreakTask);
+            }
         }
 
     }
