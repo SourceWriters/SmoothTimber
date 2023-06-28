@@ -15,7 +15,7 @@ import com.syntaxphoenix.spigot.smoothtimber.SmoothTimber;
 import com.syntaxphoenix.spigot.smoothtimber.config.Message;
 import com.syntaxphoenix.spigot.smoothtimber.config.config.CutterConfig;
 import com.syntaxphoenix.spigot.smoothtimber.tasks.BlockBreakEventTask;
-import com.syntaxphoenix.spigot.smoothtimber.tasks.BlockBreakTask;
+import com.syntaxphoenix.spigot.smoothtimber.thread.Scheduler;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.PlayerState;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.PluginUtils;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.cooldown.CooldownHelper;
@@ -81,7 +81,7 @@ public class BlockBreakListener implements Listener {
 
             BlockBreakEventTask blockBreakEventTask = new BlockBreakEventTask(player, location, change, tool, woodBlocks, maxItems, generator);
             if (SmoothTimber.IS_FOLIA) {
-                Bukkit.getServer().getAsyncScheduler().runNow(PluginUtils.MAIN, value -> blockBreakEventTask.run());
+                Scheduler.runAsync(PluginUtils.MAIN, blockBreakEventTask);
             } else {
                 Bukkit.getScheduler().runTaskAsynchronously(PluginUtils.MAIN, blockBreakEventTask);
             }

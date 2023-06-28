@@ -27,6 +27,7 @@ import com.syntaxphoenix.spigot.smoothtimber.listener.BlockBreakListener;
 import com.syntaxphoenix.spigot.smoothtimber.listener.BlockFallListener;
 import com.syntaxphoenix.spigot.smoothtimber.listener.PluginLoadListener;
 import com.syntaxphoenix.spigot.smoothtimber.stats.SyntaxPhoenixStats;
+import com.syntaxphoenix.spigot.smoothtimber.thread.Scheduler;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.plugin.PluginSettings;
 import com.syntaxphoenix.spigot.smoothtimber.version.manager.VersionChanger;
 import com.syntaxphoenix.spigot.smoothtimber.version.manager.VersionExchanger;
@@ -104,7 +105,7 @@ public class PluginUtils {
 
     private void registerTasks() {
         if (SmoothTimber.IS_FOLIA) {
-            Bukkit.getServer().getAsyncScheduler().runAtFixedRate(MAIN, value -> ConfigTimer.TIMER.run(), 20L, 60L, TimeUnit.MILLISECONDS);
+            Scheduler.runAsyncFixedRate(MAIN, ConfigTimer.TIMER, 20L, 60L);
         } else {
             SCHEDULER.runTaskTimerAsynchronously(MAIN, ConfigTimer.TIMER, 20, 60);
         }
