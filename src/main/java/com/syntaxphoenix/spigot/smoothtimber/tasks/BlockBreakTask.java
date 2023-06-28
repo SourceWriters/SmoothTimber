@@ -23,8 +23,6 @@ import com.syntaxphoenix.spigot.smoothtimber.version.manager.VersionChanger;
 import com.syntaxphoenix.spigot.smoothtimber.version.manager.WoodType;
 import com.syntaxphoenix.syntaxapi.random.RandomNumberGenerator;
 
-
-
 public class BlockBreakTask extends BukkitRunnable {
 
 	private final Player player;

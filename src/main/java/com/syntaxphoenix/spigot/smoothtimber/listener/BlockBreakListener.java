@@ -79,14 +79,11 @@ public class BlockBreakListener implements Listener {
             final int maxItems = CutterConfig.ENABLE_LUCK ? change.getMaxDropCount(tool) : 1;
             final ArrayList<Location> woodBlocks = new ArrayList<>();
 
-            BlockBreakTask blockBreakTask = new BlockBreakTask(player, location, change, tool, woodBlocks, maxItems, generator);
-            BlockBreakEventTask blockBreakEventTask = new BlockBreakEventTask(player, location, change, tool, woodBlocks, maxItems);
+            BlockBreakEventTask blockBreakEventTask = new BlockBreakEventTask(player, location, change, tool, woodBlocks, maxItems, generator);
             if (SmoothTimber.IS_FOLIA) {
                 Bukkit.getServer().getAsyncScheduler().runNow(PluginUtils.MAIN, value -> blockBreakEventTask.run());
-                Bukkit.getServer().getRegionScheduler().run(PluginUtils.MAIN, location, value -> blockBreakTask.run());
             } else {
                 Bukkit.getScheduler().runTaskAsynchronously(PluginUtils.MAIN, blockBreakEventTask);
-                Bukkit.getScheduler().runTask(PluginUtils.MAIN, blockBreakTask);
             }
         }
 
