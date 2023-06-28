@@ -30,6 +30,16 @@ public class SmoothTimber extends JavaPlugin {
         return JavaPlugin.getPlugin(SmoothTimber.class);
     }
 
+    public static boolean isFolia() { // yoinked from core protect
+        try {
+            Class.forName("io.papermc.paper.threadedregions.scheduler.GlobalRegionScheduler");
+        } catch (Exception e) {
+            return false;
+        }
+
+        return true;
+    }
+
     @Override
     public void onEnable() {
         PluginUtils.setUp(this);
@@ -48,8 +58,12 @@ public class SmoothTimber extends JavaPlugin {
         if (PluginUtils.CHANGER == null || !PluginUtils.CHANGER.isValid()) {
             return;
         }
-        Bukkit.getScheduler().cancelTasks(this);
-        CooldownHelper.COOLDOWN.getTimer().kill();
+				if(isFolia()) {
+					Bukkit.getServer().getGlobalRegionScheduler().cancelTasks(this);
+				} else {
+					Bukkit.getScheduler().cancelTasks(this);
+				}
+				CooldownHelper.COOLDOWN.getTimer().kill();
     }
 
     public static boolean triggerChopEvent(final Player player, final Location location, final VersionChanger change, final ItemStack tool,

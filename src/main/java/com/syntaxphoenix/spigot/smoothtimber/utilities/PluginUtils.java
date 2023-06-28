@@ -103,9 +103,11 @@ public class PluginUtils {
     }
 
     private void registerTasks() {
-
+			if(SmoothTimber.isFolia()) {
+				Bukkit.getServer().getAsyncScheduler().runAtFixedRate(MAIN, value -> ConfigTimer.TIMER.run(), 20L, 60L, TimeUnit.MILLISECONDS);
+			} else {
         SCHEDULER.runTaskTimerAsynchronously(MAIN, ConfigTimer.TIMER, 20, 60);
-
+			}
     }
 
     /*

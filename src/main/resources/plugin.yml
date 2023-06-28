@@ -3,6 +3,7 @@ name: ${project.name}
 author: SyntaxPhoenix IT-Solutions
 version: ${projectVersion}
 api-version: 1.13
+folia-supported: true
 softdepend: [BlockyLog, WorldGuard, Residence, Lands, Jobs, GriefPrevention, PlaceholderAPI, CoreProtect, LogBlock, mcMMO, Towny]
 
 commands:

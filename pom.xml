@@ -77,7 +77,10 @@
 			<id>jitpack.io</id>
 			<url>https://jitpack.io</url>
 		</repository>
-
+		<repository>
+		  <id>papermc</id>  
+			<url>https://repo.papermc.io/repository/maven-public/</url>
+		</repository>
 		<!-- This adds the Spigot Maven repository to the build -->
 		<repository>
 			<id>spigot-repo</id>
@@ -265,6 +268,13 @@
 			<groupId>com.syntaxphoenix.syntaxapi</groupId>
 			<artifactId>random</artifactId>
 			<version>2.0.9</version>
+		</dependency>
+
+		<dependency>
+			<groupId>dev.folia</groupId>
+			<artifactId>folia-api</artifactId>
+			<version>1.20.1-R0.1-SNAPSHOT</version>
+			<scope>provided</scope>
 		</dependency>
 
 		<!-- // Spigot // -->
