@@ -21,17 +21,17 @@ import com.syntaxphoenix.syntaxapi.command.CommandManager;
 import com.syntaxphoenix.syntaxapi.reflection.ClassCache;
 
 public class SmoothTimber extends JavaPlugin {
-  private static boolean classExists(String name)
-  {
-    try {
-      Class.forName(name);
-      return true;
-    } catch (ClassNotFoundException e) {
-      return false;
-    }
-  }
+      private static boolean classExists(String name) {
+	      try {
+          Class.forName(name);
+          return true;
+        } catch (ClassNotFoundException e) {
+          return false;
+        }
+      }
 
-	public static final boolean IS_FOLIA = classExists("io.papermc.paper.threadedregions.RegionizedServer") || classExists("io.papermc.paper.threadedregions.RegionizedServerInitEvent");
+	  public static final boolean IS_FOLIA = classExists("io.papermc.paper.threadedregions.RegionizedServer") || classExists("io.papermc.paper.threadedregions.RegionizedServerInitEvent");
+
     public static final CommandManager COMMANDS = new CommandManager();
 
     public static ToggleStorage STORAGE;
@@ -58,12 +58,13 @@ public class SmoothTimber extends JavaPlugin {
         if (PluginUtils.CHANGER == null || !PluginUtils.CHANGER.isValid()) {
             return;
         }
-				if(IS_FOLIA) {
-					Bukkit.getServer().getGlobalRegionScheduler().cancelTasks(this);
+				if(IS_FOLIA) 
+				{
+	        Bukkit.getServer().getGlobalRegionScheduler().cancelTasks(this);
 				} else {
-					Bukkit.getScheduler().cancelTasks(this);
+	        Bukkit.getScheduler().cancelTasks(this);
 				}
-				CooldownHelper.COOLDOWN.getTimer().kill();
+	        CooldownHelper.COOLDOWN.getTimer().kill();
     }
 
     public static boolean triggerChopEvent(final Player player, final Location location, final VersionChanger change, final ItemStack tool,

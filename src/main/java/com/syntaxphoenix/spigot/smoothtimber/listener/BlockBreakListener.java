@@ -51,16 +51,15 @@ public class BlockBreakListener implements Listener {
             }
         }
 
-        if (CutterConfig.SNEAK.test(() -> player.isSneaking())
-                || CutterConfig.TOGGLEABLE.test(() -> SmoothTimber.STORAGE.hasToggled(player.getUniqueId()))) {
+        if (CutterConfig.SNEAK.test(() -> player.isSneaking()) || CutterConfig.TOGGLEABLE.test(() -> SmoothTimber.STORAGE.hasToggled(player.getUniqueId()))) {
             return;
         }
 
         if (CutterConfig.ENABLE_COOLDOWN && CooldownHelper.isTriggered(player.getUniqueId())) {
             final String time = CooldownHelper.getFormattedTime(player.getUniqueId());
             player.sendMessage(Message.GLOBAL_PREFIX.colored() + ' ' + Message.COOLDOWN_WAIT.colored(new String[] {
-                    "%time%",
-                    time
+                "%time%",
+                time
             }));
             event.setCancelled(true);
             return;
@@ -80,9 +79,10 @@ public class BlockBreakListener implements Listener {
 						final int maxItems = CutterConfig.ENABLE_LUCK ? change.getMaxDropCount(tool) : 1;
 						final ArrayList<Location> woodBlocks = new ArrayList<>();
 
-						BlockBreakTask blockBreakTask = new BlockBreakTask(player,location,change,tool,woodBlocks,maxItems,generator);
-						BlockBreakEventTask blockBreakEventTask = new BlockBreakEventTask(player,location,change,tool,woodBlocks,maxItems);
-						if(SmoothTimber.IS_FOLIA) {
+						BlockBreakTask blockBreakTask = new BlockBreakTask(player, location, change, tool, woodBlocks, maxItems, generator);
+						BlockBreakEventTask blockBreakEventTask = new BlockBreakEventTask(player, location, change, tool, woodBlocks, maxItems);
+						if(SmoothTimber.IS_FOLIA) 
+						{
 							Bukkit.getServer().getAsyncScheduler().runNow(PluginUtils.MAIN, value -> blockBreakEventTask.run());
 							Bukkit.getServer().getRegionScheduler().run(PluginUtils.MAIN, location, value -> blockBreakTask.run());
 						} else {

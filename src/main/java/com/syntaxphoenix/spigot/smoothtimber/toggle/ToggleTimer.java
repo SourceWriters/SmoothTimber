@@ -4,7 +4,6 @@ import java.util.concurrent.TimeUnit;
 
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
-import org.bukkit.scheduler.BukkitTask;
 
 import com.syntaxphoenix.spigot.smoothtimber.SmoothTimber;
 
@@ -19,7 +18,8 @@ public class ToggleTimer implements Runnable {
 
     public ToggleTimer(final ToggleStorage storage, final Plugin plugin) {
         this.storage = storage;
-				if(SmoothTimber.IS_FOLIA) {
+				if(SmoothTimber.IS_FOLIA) 
+				{
 					this.task = Bukkit.getServer().getAsyncScheduler().runAtFixedRate(plugin, value -> this.run(), 20L, 20L, TimeUnit.MILLISECONDS);
 				} else {
 					this.task = Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, this, 20, 20);
