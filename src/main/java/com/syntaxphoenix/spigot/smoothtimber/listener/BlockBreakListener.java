@@ -3,32 +3,24 @@ package com.syntaxphoenix.spigot.smoothtimber.listener;
 import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
 import org.bukkit.Location;
-import org.bukkit.block.Block;
-import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
-import org.bukkit.metadata.FixedMetadataValue;
-import org.bukkit.plugin.Plugin;
 
 import com.syntaxphoenix.spigot.smoothtimber.SmoothTimber;
 import com.syntaxphoenix.spigot.smoothtimber.config.Message;
 import com.syntaxphoenix.spigot.smoothtimber.config.config.CutterConfig;
-import com.syntaxphoenix.spigot.smoothtimber.event.AsyncPlayerTreeFallEvent;
 import com.syntaxphoenix.spigot.smoothtimber.tasks.BlockBreakEventTask;
 import com.syntaxphoenix.spigot.smoothtimber.tasks.BlockBreakTask;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.PlayerState;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.PluginUtils;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.cooldown.CooldownHelper;
-import com.syntaxphoenix.spigot.smoothtimber.utilities.limit.Limiter;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.locate.Locator;
 import com.syntaxphoenix.spigot.smoothtimber.version.manager.VersionChanger;
-import com.syntaxphoenix.spigot.smoothtimber.version.manager.WoodType;
 import com.syntaxphoenix.syntaxapi.random.NumberGeneratorType;
 import com.syntaxphoenix.syntaxapi.random.RandomNumberGenerator;
 
@@ -90,7 +82,7 @@ public class BlockBreakListener implements Listener {
 
 						BlockBreakTask blockBreakTask = new BlockBreakTask(player,location,change,tool,woodBlocks,maxItems,generator);
 						BlockBreakEventTask blockBreakEventTask = new BlockBreakEventTask(player,location,change,tool,woodBlocks,maxItems);
-						if(SmoothTimber.isFolia()) {
+						if(SmoothTimber.IS_FOLIA) {
 							Bukkit.getServer().getAsyncScheduler().runNow(PluginUtils.MAIN, value -> blockBreakEventTask.run());
 							Bukkit.getServer().getRegionScheduler().run(PluginUtils.MAIN, location, value -> blockBreakTask.run());
 						} else {

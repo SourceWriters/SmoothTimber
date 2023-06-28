@@ -21,23 +21,23 @@ import com.syntaxphoenix.syntaxapi.command.CommandManager;
 import com.syntaxphoenix.syntaxapi.reflection.ClassCache;
 
 public class SmoothTimber extends JavaPlugin {
+  private static boolean classExists(String name)
+  {
+    try {
+      Class.forName(name);
+      return true;
+    } catch (ClassNotFoundException e) {
+      return false;
+    }
+  }
 
+	public static final boolean IS_FOLIA = classExists("io.papermc.paper.threadedregions.RegionizedServer") || classExists("io.papermc.paper.threadedregions.RegionizedServerInitEvent");
     public static final CommandManager COMMANDS = new CommandManager();
 
     public static ToggleStorage STORAGE;
 
     public static SmoothTimber get() {
         return JavaPlugin.getPlugin(SmoothTimber.class);
-    }
-
-    public static boolean isFolia() { // yoinked from core protect
-        try {
-            Class.forName("io.papermc.paper.threadedregions.scheduler.GlobalRegionScheduler");
-        } catch (Exception e) {
-            return false;
-        }
-
-        return true;
     }
 
     @Override
@@ -58,7 +58,7 @@ public class SmoothTimber extends JavaPlugin {
         if (PluginUtils.CHANGER == null || !PluginUtils.CHANGER.isValid()) {
             return;
         }
-				if(isFolia()) {
+				if(IS_FOLIA) {
 					Bukkit.getServer().getGlobalRegionScheduler().cancelTasks(this);
 				} else {
 					Bukkit.getScheduler().cancelTasks(this);
