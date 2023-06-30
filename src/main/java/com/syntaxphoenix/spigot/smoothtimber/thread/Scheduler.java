@@ -26,6 +26,11 @@ public class Scheduler {
     gRegionScheduler.cancelTasks(plugin);
   }
 
+	public static  void runNow(Plugin plugin, Runnable task)
+	{
+		gRegionScheduler.run(plugin, value -> task.run());
+	}
+
   public static void runRegion(Plugin plugin, Location loc, Runnable task)
   {
     regionScheduler.run(plugin, loc, value -> task.run());
