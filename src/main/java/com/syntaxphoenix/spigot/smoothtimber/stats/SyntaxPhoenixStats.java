@@ -20,7 +20,6 @@ import org.bukkit.plugin.java.JavaPlugin;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 import com.syntaxphoenix.spigot.smoothtimber.SmoothTimber;
-import com.syntaxphoenix.spigot.smoothtimber.thread.Scheduler;
 
 @SuppressWarnings("deprecation")
 public class SyntaxPhoenixStats {
@@ -88,12 +87,9 @@ public class SyntaxPhoenixStats {
                     timer.cancel();
                     return;
                 }
-								if (SmoothTimber.IS_FOLIA) {
-									Scheduler.runNow(plugin, (Runnable) () -> submitData());
-								} else {
-									Bukkit.getScheduler().runTask(plugin, (Runnable) () -> submitData());
-								}
-						}
+
+                SmoothTimber.getScheduler().runTask((Runnable) () -> submitData());
+            }
         }, 1000 * 60 * 5, 1000 * 60 * 15);
     }
 

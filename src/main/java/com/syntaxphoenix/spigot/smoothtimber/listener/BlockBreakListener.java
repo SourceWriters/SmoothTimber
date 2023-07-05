@@ -3,24 +3,30 @@ package com.syntaxphoenix.spigot.smoothtimber.listener;
 import java.util.ArrayList;
 
 import org.bukkit.Bukkit;
+import org.bukkit.GameMode;
 import org.bukkit.Location;
+import org.bukkit.block.Block;
+import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.inventory.ItemStack;
+import org.bukkit.metadata.FixedMetadataValue;
+import org.bukkit.plugin.Plugin;
 
 import com.syntaxphoenix.spigot.smoothtimber.SmoothTimber;
 import com.syntaxphoenix.spigot.smoothtimber.config.Message;
 import com.syntaxphoenix.spigot.smoothtimber.config.config.CutterConfig;
-import com.syntaxphoenix.spigot.smoothtimber.tasks.BlockBreakEventTask;
-import com.syntaxphoenix.spigot.smoothtimber.thread.Scheduler;
+import com.syntaxphoenix.spigot.smoothtimber.event.AsyncPlayerTreeFallEvent;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.PlayerState;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.PluginUtils;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.cooldown.CooldownHelper;
+import com.syntaxphoenix.spigot.smoothtimber.utilities.limit.Limiter;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.locate.Locator;
 import com.syntaxphoenix.spigot.smoothtimber.version.manager.VersionChanger;
+import com.syntaxphoenix.spigot.smoothtimber.version.manager.WoodType;
 import com.syntaxphoenix.syntaxapi.random.NumberGeneratorType;
 import com.syntaxphoenix.syntaxapi.random.RandomNumberGenerator;
 
@@ -76,15 +82,76 @@ public class BlockBreakListener implements Listener {
             }
             event.setCancelled(true);
             CooldownHelper.trigger(player);
-            final int maxItems = CutterConfig.ENABLE_LUCK ? change.getMaxDropCount(tool) : 1;
-            final ArrayList<Location> woodBlocks = new ArrayList<>();
+            SmoothTimber.getScheduler().runTask(location, (Runnable) () -> {
+                final int maxItems = CutterConfig.ENABLE_LUCK ? change.getMaxDropCount(tool) : 1;
+                final ArrayList<Location> woodBlocks = new ArrayList<>();
+                final int limit = Limiter.getLimit(player);
+                Locator.locateWood(location, woodBlocks, limit);
+                if (SmoothTimber.triggerChopEvent(player, location, change, tool, woodBlocks, limit)) {
+                    CooldownHelper.reset(player);
+                    return;
+                }
+                SmoothTimber.triggerChoppedEvent(player, location, change, tool, woodBlocks, limit);
+                SmoothTimber.getScheduler().runTask(location, new Runnable() {
+                    @Override
+                    public void run() {
+                        final AsyncPlayerTreeFallEvent event = SmoothTimber.buildFallEvent(player, location, change, tool);
+                        final boolean animated = CutterConfig.ENABLE_ANIMATION;
+                        final boolean collect = CutterConfig.INSTANT_COLLECT;
+                        final Plugin plugin = SmoothTimber.get();
+                        for (final Location woodBlock : woodBlocks) {
+                            final Block block = woodBlock.getBlock();
+                            final WoodType wood = change.getWoodTypeFromBlock(block);
+                            if (wood != null && block != null && change.hasPermissionForWoodType(player, wood)) {
+                                if (player.getGameMode() != GameMode.CREATIVE && change.removeDurabilityFromItem(tool) == null) {
+                                    break;
+                                }
+                                event.add(wood);
+                                final int amount = maxItems <= 1 ? maxItems : generateAmount(maxItems);
+                                if (animated) {
+                                    final Entity entity = change.toFallingBlock(block);
+                                    entity.setMetadata("STAnimate", new FixedMetadataValue(plugin, amount));
+                                    if (collect) {
+                                        entity.setMetadata("STCollect",
+                                            new FixedMetadataValue(plugin, player.getUniqueId().toString()));
+                                    }
+                                    continue;
+                                }
+                                if (collect) {
+                                    final ItemStack stack = change.getItemFromBlock(block);
+                                    stack.setAmount(amount);
+                                    player.getInventory().addItem(stack);
+                                    continue;
+                                }
+                                change.dropItemByBlock(block, amount);
+                            }
+                        }
+                        SmoothTimber.getScheduler().runTaskAsynchronously(() -> SmoothTimber.triggerFallEvent(event));
+                    }
 
-            BlockBreakEventTask blockBreakEventTask = new BlockBreakEventTask(player, location, change, tool, woodBlocks, maxItems, generator);
-            if (SmoothTimber.IS_FOLIA) {
-                Scheduler.runAsync(PluginUtils.MAIN, blockBreakEventTask);
-            } else {
-                Bukkit.getScheduler().runTaskAsynchronously(PluginUtils.MAIN, blockBreakEventTask);
-            }
+                    private int generateAmount(final int max) {
+                        int drop = 1;
+                        final float more = 1f / (max + 1);
+                        float previous = more * 2f;
+                        float next = more * 3f;
+                        final float chance = generator.nextFloat() * (float) CutterConfig.LUCK_MULTIPLIER;
+                        while (true) {
+                            if (previous < chance && chance > next) {
+                                drop++;
+                                previous = next;
+                                next += more;
+                            } else {
+                                if (previous < chance && chance < next) {
+                                    drop++;
+                                }
+                                break;
+                            }
+                        }
+                        return Math.min(drop, 64);
+                    }
+
+                });
+            });
         }
 
     }

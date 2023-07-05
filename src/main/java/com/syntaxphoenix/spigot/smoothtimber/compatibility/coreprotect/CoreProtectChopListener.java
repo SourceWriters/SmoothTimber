@@ -4,6 +4,7 @@ import org.bukkit.Location;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 
+import com.syntaxphoenix.spigot.smoothtimber.SmoothTimber;
 import com.syntaxphoenix.spigot.smoothtimber.event.AsyncPlayerChoppedTreeEvent;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.locate.Locator;
 
@@ -18,7 +19,9 @@ public class CoreProtectChopListener implements Listener {
     @EventHandler
     public void onChopEvent(final AsyncPlayerChoppedTreeEvent event) {
         for (final Location location : event.getBlockLocations()) {
+          SmoothTimber.getScheduler().runTask(location, () -> {
             compat.logRemoval(event.getPlayer().getName(), location, Locator.getBlock(location));
+          });
         }
     }
 

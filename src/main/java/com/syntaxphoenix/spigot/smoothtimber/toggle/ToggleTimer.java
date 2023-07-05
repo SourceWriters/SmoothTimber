@@ -1,14 +1,13 @@
 package com.syntaxphoenix.spigot.smoothtimber.toggle;
 
-import org.bukkit.Bukkit;
 import org.bukkit.plugin.Plugin;
 
+import com.github.Anon8281.universalScheduler.scheduling.tasks.MyScheduledTask;
 import com.syntaxphoenix.spigot.smoothtimber.SmoothTimber;
-import com.syntaxphoenix.spigot.smoothtimber.thread.Scheduler;
 
 public class ToggleTimer implements Runnable {
 
-    private final Object task;
+    private final MyScheduledTask task;
     private final ToggleStorage storage;
 
     /*
@@ -17,18 +16,14 @@ public class ToggleTimer implements Runnable {
 
     public ToggleTimer(final ToggleStorage storage, final Plugin plugin) {
         this.storage = storage;
-        if (SmoothTimber.IS_FOLIA) {
-            this.task = Scheduler.runAsyncFixedRate(plugin, this, 20L, 20L);
-        } else {
-            this.task = Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, this, 20, 20);
-        }
+        this.task = SmoothTimber.getScheduler().runTaskTimerAsynchronously(this, 20L, 20L);
     }
 
     /*
      * 
      */
 
-    public final Object getTask() {
+    public final MyScheduledTask getTask() {
         return task;
     }
 

@@ -77,10 +77,7 @@
 			<id>jitpack.io</id>
 			<url>https://jitpack.io</url>
 		</repository>
-		<repository>
-		  <id>papermc</id>  
-			<url>https://repo.papermc.io/repository/maven-public/</url>
-		</repository>
+
 		<!-- This adds the Spigot Maven repository to the build -->
 		<repository>
 			<id>spigot-repo</id>
@@ -270,13 +267,6 @@
 			<version>2.0.9</version>
 		</dependency>
 
-		<dependency>
-			<groupId>dev.folia</groupId>
-			<artifactId>folia-api</artifactId>
-			<version>1.20.1-R0.1-SNAPSHOT</version>
-			<scope>provided</scope>
-		</dependency>
-
 		<!-- // Spigot // -->
 
 		<dependency>
@@ -287,6 +277,17 @@
 		</dependency>
 
 		<!-- // Spigot // -->
+
+		<!-- // Universal Scheduler // -->
+
+    <dependency>
+        <groupId>com.github.Anon8281</groupId>
+        <artifactId>UniversalScheduler</artifactId>
+        <version>0.1.4</version>
+        <scope>compile</scope>
+    </dependency>
+
+		<!-- // Universal Scheduler // -->
 
 	</dependencies>
 </project>

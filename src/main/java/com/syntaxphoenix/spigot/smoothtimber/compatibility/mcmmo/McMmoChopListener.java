@@ -26,7 +26,7 @@ public class McMmoChopListener implements Listener {
             return;
         }
 
-        SmoothTimber.get().getServer().getScheduler().runTask(SmoothTimber.get(), () -> {
+        SmoothTimber.getScheduler().runTask(() -> {
             for (final Location location : event.getBlockLocations()) {
                 if (!hasWoodcuttingXP(location.getBlock()) || mcMMO.getPlaceStore().isTrue(location.getBlock().getState())) {
                     continue;

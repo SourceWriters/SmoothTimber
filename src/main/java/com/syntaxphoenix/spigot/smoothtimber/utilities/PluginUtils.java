@@ -11,7 +11,6 @@ import org.bukkit.ChatColor;
 import org.bukkit.command.PluginCommand;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginManager;
-import org.bukkit.scheduler.BukkitScheduler;
 
 import com.syntaxphoenix.spigot.smoothtimber.SmoothTimber;
 import com.syntaxphoenix.spigot.smoothtimber.command.CommandRedirect;
@@ -27,7 +26,6 @@ import com.syntaxphoenix.spigot.smoothtimber.listener.BlockBreakListener;
 import com.syntaxphoenix.spigot.smoothtimber.listener.BlockFallListener;
 import com.syntaxphoenix.spigot.smoothtimber.listener.PluginLoadListener;
 import com.syntaxphoenix.spigot.smoothtimber.stats.SyntaxPhoenixStats;
-import com.syntaxphoenix.spigot.smoothtimber.thread.Scheduler;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.plugin.PluginSettings;
 import com.syntaxphoenix.spigot.smoothtimber.version.manager.VersionChanger;
 import com.syntaxphoenix.spigot.smoothtimber.version.manager.VersionExchanger;
@@ -35,8 +33,6 @@ import com.syntaxphoenix.syntaxapi.utils.java.Arrays;
 import com.syntaxphoenix.syntaxapi.utils.java.Exceptions;
 
 public class PluginUtils {
-
-    public static final BukkitScheduler SCHEDULER = Bukkit.getScheduler();
     public static final PluginSettings SETTINGS = new PluginSettings();
 
     public static PluginUtils UTILS;
@@ -104,11 +100,9 @@ public class PluginUtils {
     }
 
     private void registerTasks() {
-        if (SmoothTimber.IS_FOLIA) {
-            Scheduler.runAsyncFixedRate(MAIN, ConfigTimer.TIMER, 20L, 60L);
-        } else {
-            SCHEDULER.runTaskTimerAsynchronously(MAIN, ConfigTimer.TIMER, 20, 60);
-        }
+
+        SmoothTimber.getScheduler().runTaskTimerAsynchronously(ConfigTimer.TIMER, 20L, 60L);
+
     }
 
     /*
@@ -122,7 +116,7 @@ public class PluginUtils {
     public static <E> E getObjectFromMainThread(final Supplier<E> supply, final long wait) {
         final CountDownLatch latch = new CountDownLatch(1);
         final StoredObject<E> value = new StoredObject<>();
-        SCHEDULER.runTask(MAIN, () -> {
+        SmoothTimber.getScheduler().runTask(() -> {
             value.setObject(supply.get());
             latch.countDown();
         });

@@ -8,12 +8,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.inventory.ItemStack;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import com.github.Anon8281.universalScheduler.UniversalScheduler;
+import com.github.Anon8281.universalScheduler.scheduling.schedulers.TaskScheduler;
 import com.syntaxphoenix.spigot.smoothtimber.config.Message;
 import com.syntaxphoenix.spigot.smoothtimber.event.AsyncPlayerChopTreeEvent;
 import com.syntaxphoenix.spigot.smoothtimber.event.AsyncPlayerChoppedTreeEvent;
 import com.syntaxphoenix.spigot.smoothtimber.event.AsyncPlayerTreeFallEvent;
 import com.syntaxphoenix.spigot.smoothtimber.event.reason.DefaultReason;
-import com.syntaxphoenix.spigot.smoothtimber.thread.Scheduler;
 import com.syntaxphoenix.spigot.smoothtimber.toggle.ToggleStorage;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.PluginUtils;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.cooldown.CooldownHelper;
@@ -22,20 +23,12 @@ import com.syntaxphoenix.syntaxapi.command.CommandManager;
 import com.syntaxphoenix.syntaxapi.reflection.ClassCache;
 
 public class SmoothTimber extends JavaPlugin {
-      private static boolean classExists(String name) {
-          try {
-          Class.forName(name);
-          return true;
-        } catch (ClassNotFoundException e) {
-          return false;
-        }
-      }
-
-      public static final boolean IS_FOLIA = classExists("io.papermc.paper.threadedregions.RegionizedServer") || classExists("io.papermc.paper.threadedregions.RegionizedServerInitEvent");
 
     public static final CommandManager COMMANDS = new CommandManager();
 
     public static ToggleStorage STORAGE;
+
+    private static TaskScheduler scheduler;
 
     public static SmoothTimber get() {
         return JavaPlugin.getPlugin(SmoothTimber.class);
@@ -43,6 +36,7 @@ public class SmoothTimber extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        scheduler = UniversalScheduler.getScheduler(this);
         PluginUtils.setUp(this);
         if (!PluginUtils.CHANGER.isValid()) {
             return;
@@ -54,16 +48,16 @@ public class SmoothTimber extends JavaPlugin {
         ClassCache.class.getClass();
     }
 
+    public static TaskScheduler getScheduler() {
+      return scheduler;
+    }
+
     @Override
     public void onDisable() {
         if (PluginUtils.CHANGER == null || !PluginUtils.CHANGER.isValid()) {
             return;
         }
-        if (IS_FOLIA) {
-            Scheduler.cancelTasks(this);
-        } else {
-            Bukkit.getScheduler().cancelTasks(this);
-        }
+        scheduler.cancelTasks();
         CooldownHelper.COOLDOWN.getTimer().kill();
     }
 
@@ -71,7 +65,9 @@ public class SmoothTimber extends JavaPlugin {
         final ArrayList<Location> woodBlocks, final int limit) {
 
         final AsyncPlayerChopTreeEvent event = new AsyncPlayerChopTreeEvent(player, location, change, tool, woodBlocks, limit);
-        Bukkit.getPluginManager().callEvent(event);
+        scheduler.runTaskAsynchronously(() -> {
+          Bukkit.getPluginManager().callEvent(event);
+        });
 
         if (event.isCancelled()) {
             player.sendMessage(Message.GLOBAL_PREFIX.colored() + ' ' + Message.ABORT_MESSAGE.colored(new String[] {
@@ -94,7 +90,9 @@ public class SmoothTimber extends JavaPlugin {
 
     public static void triggerChoppedEvent(final Player player, final Location location, final VersionChanger change, final ItemStack tool,
         final ArrayList<Location> woodBlocks, final int limit) {
-        Bukkit.getPluginManager().callEvent(new AsyncPlayerChoppedTreeEvent(player, location, change, tool, woodBlocks, limit));
+        scheduler.runTaskAsynchronously(() -> {
+          Bukkit.getPluginManager().callEvent(new AsyncPlayerChoppedTreeEvent(player, location, change, tool, woodBlocks, limit));
+        });
     }
 
 }
