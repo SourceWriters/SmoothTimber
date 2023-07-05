@@ -7,6 +7,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
 import org.bukkit.event.world.StructureGrowEvent;
+import org.bukkit.scheduler.BukkitRunnable;
 
 import com.syntaxphoenix.spigot.smoothtimber.SmoothTimber;
 
@@ -25,11 +26,18 @@ public class CoreProtectGrowListener implements Listener {
         }
         final Player player = event.getPlayer();
         final String user = player != null ? "#st_" + player.getName() : "#tree";
-        Bukkit.getScheduler().runTaskLater(SmoothTimber.get(), () -> {
+
+        BukkitRunnable run = new BukkitRunnable() {
+          @Override
+          public void run()
+          {
             for (final BlockState state : event.getBlocks()) {
-                compat.logRemoval(user, state.getLocation(), state.getWorld().getBlockAt(state.getLocation()));
+              compat.logRemoval(user, state.getLocation(), state.getWorld().getBlockAt(state.getLocation()));
             }
-        }, 5);
+          }
+        };
+
+        Bukkit.getRegionScheduler().runDelayed(SmoothTimber.get(), event.getLocation(), value -> run.run(), 5L);
     }
 
 }
