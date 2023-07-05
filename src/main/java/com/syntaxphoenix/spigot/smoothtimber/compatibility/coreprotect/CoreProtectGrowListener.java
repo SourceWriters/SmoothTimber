@@ -25,11 +25,11 @@ public class CoreProtectGrowListener implements Listener {
         }
         final Player player = event.getPlayer();
         final String user = player != null ? "#st_" + player.getName() : "#tree";
-        SmoothTimber.getScheduler().runTaskLater(() -> {
+        SmoothTimber.getScheduler().runTaskLater(player.getLocation(), () -> {
             for (final BlockState state : event.getBlocks()) {
                 compat.logRemoval(user, state.getLocation(), state.getWorld().getBlockAt(state.getLocation()));
             }
-        }, 5);
+        }, 5L);
     }
 
 }
