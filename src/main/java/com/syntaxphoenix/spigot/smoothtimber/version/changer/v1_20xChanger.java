@@ -47,9 +47,6 @@ public class v1_20xChanger implements VersionChanger {
                 return stack;
             }
         }
-        if (!stack.hasItemMeta()) {
-            return stack;
-        }
         final ItemMeta meta = stack.getItemMeta();
         if (meta.isUnbreakable()) {
             return stack;
@@ -61,7 +58,7 @@ public class v1_20xChanger implements VersionChanger {
                 stack.setAmount(0);
                 return null;
             }
-            dmg.setDamage(damage = dmg.getDamage() + 1);
+            dmg.setDamage(damage);
         }
         stack.setItemMeta(meta);
         return stack;
