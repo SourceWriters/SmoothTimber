@@ -19,6 +19,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
+import com.syntaxphoenix.spigot.smoothtimber.platform.Platform;
 
 @SuppressWarnings("deprecation")
 public class SyntaxPhoenixStats {
@@ -86,8 +87,7 @@ public class SyntaxPhoenixStats {
                     timer.cancel();
                     return;
                 }
-
-                Bukkit.getScheduler().runTask(plugin, (Runnable) () -> submitData());
+                Platform.getPlatform().syncTask(() -> submitData());
             }
         }, 1000 * 60 * 5, 1000 * 60 * 15);
     }

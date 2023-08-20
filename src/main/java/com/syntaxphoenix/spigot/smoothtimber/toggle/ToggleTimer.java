@@ -1,38 +1,19 @@
 package com.syntaxphoenix.spigot.smoothtimber.toggle;
 
-import org.bukkit.Bukkit;
-import org.bukkit.plugin.Plugin;
-import org.bukkit.scheduler.BukkitTask;
+import com.syntaxphoenix.spigot.smoothtimber.platform.Platform;
 
 public class ToggleTimer implements Runnable {
 
-    private final BukkitTask task;
     private final ToggleStorage storage;
 
-    /*
-     * 
-     */
-
-    public ToggleTimer(final ToggleStorage storage, final Plugin plugin) {
+    public ToggleTimer(final ToggleStorage storage) {
         this.storage = storage;
-        this.task = Bukkit.getScheduler().runTaskTimerAsynchronously(plugin, this, 20, 20);
-    }
-
-    /*
-     * 
-     */
-
-    public final BukkitTask getTask() {
-        return task;
+        Platform.getPlatform().asyncTaskTimer(this, 0, 0);
     }
 
     public final ToggleStorage getStorage() {
         return storage;
     }
-
-    /*
-     * 
-     */
 
     @Override
     public void run() {

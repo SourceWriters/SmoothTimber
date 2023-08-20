@@ -5,7 +5,7 @@
 
 	<groupId>com.syntaxphoenix.spigot</groupId>
 	<artifactId>smoothtimber-legacy</artifactId>
-	<version>1.24.7</version>
+	<version>1.25.0</version>
 	<name>SmoothTimber</name>
 	<packaging>jar</packaging>
 
@@ -78,6 +78,11 @@
 			<url>https://jitpack.io</url>
 		</repository>
 
+		<!-- This adds the Paper Maven repository to the build -->
+		<repository>
+			<id>papermc</id>  
+			<url>https://repo.papermc.io/repository/maven-public/</url>
+		</repository>
 		<!-- This adds the Spigot Maven repository to the build -->
 		<repository>
 			<id>spigot-repo</id>
@@ -245,6 +250,8 @@
 		</dependency>
 
 		<!-- // Compatibilities // -->
+
+		<!-- // Syntax API // -->
 		
 		<dependency>
 			<groupId>com.syntaxphoenix.syntaxapi</groupId>
@@ -276,7 +283,13 @@
 			<scope>provided</scope>
 		</dependency>
 
-		<!-- // Spigot // -->
+		<!-- // Paper support // -->
 
+		<dependency>
+			<groupId>dev.folia</groupId>
+			<artifactId>folia-api</artifactId>
+			<version>1.20.1-R0.1-SNAPSHOT</version>
+			<scope>provided</scope>
+		</dependency>
 	</dependencies>
 </project>

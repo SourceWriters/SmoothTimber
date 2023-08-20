@@ -26,6 +26,7 @@ import com.syntaxphoenix.spigot.smoothtimber.config.config.MessageConfig;
 import com.syntaxphoenix.spigot.smoothtimber.listener.BlockBreakListener;
 import com.syntaxphoenix.spigot.smoothtimber.listener.BlockFallListener;
 import com.syntaxphoenix.spigot.smoothtimber.listener.PluginLoadListener;
+import com.syntaxphoenix.spigot.smoothtimber.platform.Platform;
 import com.syntaxphoenix.spigot.smoothtimber.stats.SyntaxPhoenixStats;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.plugin.PluginSettings;
 import com.syntaxphoenix.spigot.smoothtimber.version.manager.VersionChanger;
@@ -35,7 +36,6 @@ import com.syntaxphoenix.syntaxapi.utils.java.Exceptions;
 
 public class PluginUtils {
 
-    public static final BukkitScheduler SCHEDULER = Bukkit.getScheduler();
     public static final PluginSettings SETTINGS = new PluginSettings();
 
     public static PluginUtils UTILS;
@@ -103,9 +103,7 @@ public class PluginUtils {
     }
 
     private void registerTasks() {
-
-        SCHEDULER.runTaskTimerAsynchronously(MAIN, ConfigTimer.TIMER, 20, 60);
-
+        Platform.getPlatform().asyncTaskTimer(ConfigTimer.TIMER, 20, 60);
     }
 
     /*
@@ -119,7 +117,7 @@ public class PluginUtils {
     public static <E> E getObjectFromMainThread(final Supplier<E> supply, final long wait) {
         final CountDownLatch latch = new CountDownLatch(1);
         final StoredObject<E> value = new StoredObject<>();
-        SCHEDULER.runTask(MAIN, () -> {
+        Platform.getPlatform().syncTask(() -> {
             value.setObject(supply.get());
             latch.countDown();
         });

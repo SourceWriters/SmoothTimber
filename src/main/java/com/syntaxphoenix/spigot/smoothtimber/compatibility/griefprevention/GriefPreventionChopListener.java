@@ -2,7 +2,6 @@ package com.syntaxphoenix.spigot.smoothtimber.compatibility.griefprevention;
 
 import java.util.UUID;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -10,7 +9,7 @@ import org.bukkit.event.Listener;
 
 import com.syntaxphoenix.spigot.smoothtimber.event.AsyncPlayerChopTreeEvent;
 import com.syntaxphoenix.spigot.smoothtimber.event.reason.DefaultReason;
-import com.syntaxphoenix.spigot.smoothtimber.utilities.PluginUtils;
+import com.syntaxphoenix.spigot.smoothtimber.platform.Platform;
 
 import me.ryanhamshire.GriefPrevention.Claim;
 import me.ryanhamshire.GriefPrevention.DataStore;
@@ -31,7 +30,7 @@ public final class GriefPreventionChopListener implements Listener {
         if (store.getPlayerData(uniqueId).ignoreClaims) {
             return;
         }
-        Bukkit.getScheduler().runTask(PluginUtils.MAIN, () -> {
+        Platform.getPlatform().regionalSyncTask(event.getTreeLocation(), () -> {
             for (final Location location : event.getBlockLocations()) {
                 final Claim claim = store.getClaimAt(location, false, null);
                 if (claim == null) {

@@ -7,8 +7,6 @@ import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-import org.bukkit.plugin.Plugin;
-
 import com.syntaxphoenix.spigot.smoothtimber.config.config.CutterConfig;
 
 public class ToggleStorage {
@@ -20,8 +18,8 @@ public class ToggleStorage {
      * 
      */
 
-    public ToggleStorage(final Plugin plugin) {
-        this.timer = new ToggleTimer(this, plugin);
+    public ToggleStorage() {
+        this.timer = new ToggleTimer(this);
     }
 
     /*

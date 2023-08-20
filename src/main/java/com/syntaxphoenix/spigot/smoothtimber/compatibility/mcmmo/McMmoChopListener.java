@@ -11,8 +11,8 @@ import com.gmail.nossr50.config.experience.ExperienceConfig;
 import com.gmail.nossr50.datatypes.player.McMMOPlayer;
 import com.gmail.nossr50.datatypes.skills.PrimarySkillType;
 import com.gmail.nossr50.util.player.UserManager;
-import com.syntaxphoenix.spigot.smoothtimber.SmoothTimber;
 import com.syntaxphoenix.spigot.smoothtimber.event.AsyncPlayerChopTreeEvent;
+import com.syntaxphoenix.spigot.smoothtimber.platform.Platform;
 
 public class McMmoChopListener implements Listener {
 
@@ -25,8 +25,8 @@ public class McMmoChopListener implements Listener {
         if (player == null || !PrimarySkillType.WOODCUTTING.getPermissions(event.getPlayer())) {
             return;
         }
-
-        SmoothTimber.get().getServer().getScheduler().runTask(SmoothTimber.get(), () -> {
+        
+        Platform.getPlatform().regionalSyncTask(event.getTreeLocation(), () -> {
             for (final Location location : event.getBlockLocations()) {
                 if (!hasWoodcuttingXP(location.getBlock()) || mcMMO.getPlaceStore().isTrue(location.getBlock().getState())) {
                     continue;

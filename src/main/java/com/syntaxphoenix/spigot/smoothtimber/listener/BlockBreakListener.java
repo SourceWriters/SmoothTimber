@@ -20,6 +20,7 @@ import com.syntaxphoenix.spigot.smoothtimber.SmoothTimber;
 import com.syntaxphoenix.spigot.smoothtimber.config.Message;
 import com.syntaxphoenix.spigot.smoothtimber.config.config.CutterConfig;
 import com.syntaxphoenix.spigot.smoothtimber.event.AsyncPlayerTreeFallEvent;
+import com.syntaxphoenix.spigot.smoothtimber.platform.Platform;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.PlayerState;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.PluginUtils;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.cooldown.CooldownHelper;
@@ -82,7 +83,7 @@ public class BlockBreakListener implements Listener {
             }
             event.setCancelled(true);
             CooldownHelper.trigger(player);
-            Bukkit.getScheduler().runTaskAsynchronously(PluginUtils.MAIN, (Runnable) () -> {
+            Platform.getPlatform().asyncTask((Runnable) () -> {
                 final int maxItems = CutterConfig.ENABLE_LUCK ? change.getMaxDropCount(tool) : 1;
                 final ArrayList<Location> woodBlocks = new ArrayList<>();
                 final int limit = Limiter.getLimit(player);
@@ -92,7 +93,7 @@ public class BlockBreakListener implements Listener {
                     return;
                 }
                 SmoothTimber.triggerChoppedEvent(player, location, change, tool, woodBlocks, limit);
-                Bukkit.getScheduler().runTask(PluginUtils.MAIN, new Runnable() {
+                Platform.getPlatform().regionalSyncTask(location, new Runnable() {
                     @Override
                     public void run() {
                         final AsyncPlayerTreeFallEvent event = SmoothTimber.buildFallEvent(player, location, change, tool);
@@ -126,7 +127,7 @@ public class BlockBreakListener implements Listener {
                                 change.dropItemByBlock(block, amount);
                             }
                         }
-                        Bukkit.getScheduler().runTaskAsynchronously(PluginUtils.MAIN, () -> SmoothTimber.triggerFallEvent(event));
+                        Platform.getPlatform().asyncTask(() -> SmoothTimber.triggerFallEvent(event));
                     }
 
                     private int generateAmount(final int max) {
