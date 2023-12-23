@@ -1,70 +1,72 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0"
-	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
-	<modelVersion>4.0.0</modelVersion>
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.syntaxphoenix.spigot</groupId>
-	<artifactId>smoothtimber-legacy</artifactId>
-	<version>1.26.0</version>
-	<name>SmoothTimber</name>
-	<packaging>jar</packaging>
+    <groupId>com.syntaxphoenix.spigot</groupId>
+    <artifactId>smoothtimber-legacy</artifactId>
+    <version>1.26.0</version>
+    <name>SmoothTimber</name>
+    <packaging>jar</packaging>
 
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<java.package.id>smoothtimber</java.package.id>
+    <properties>
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <java.package.id>smoothtimber</java.package.id>
         <project.roaster.version>2.28.0.Final</project.roaster.version>
         <server.version>1.20.1-R0.1-SNAPSHOT</server.version>
-	</properties>
+    </properties>
 
-	<build>
-		<plugins>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-shade-plugin</artifactId>
-				<version>3.2.4</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>shade</goal>
-						</goals>
-					</execution>
-				</executions>
-				<configuration>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-shade-plugin</artifactId>
+                <version>3.2.4</version>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>shade</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
                     <artifactSet>
                         <excludes>
                             <exclude>org.jboss.forge.roaster</exclude>
                         </excludes>
                     </artifactSet>
-					<filters>
-						<filter>
-							<artifact>*:*</artifact>
-							<excludes>
-								<exclude>META-INF/*.SF</exclude>
-								<exclude>META-INF/*.DSA</exclude>
-								<exclude>META-INF/*.RSA</exclude>
-							</excludes>
-						</filter>
-					</filters>
-					<createDependencyReducedPom>false</createDependencyReducedPom>
-					<relocations>
-						<relocation>
-							<pattern>com.syntaxphoenix.syntaxapi</pattern>
-							<shadedPattern>com.syntaxphoenix.spigot.smoothtimber.shaded.syntaxapi</shadedPattern>
-						</relocation>
-					</relocations>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<configuration>
-					<source>11</source>
-					<target>11</target>
+                    <filters>
+                        <filter>
+                            <artifact>*:*</artifact>
+                            <excludes>
+                                <exclude>META-INF/*.SF</exclude>
+                                <exclude>META-INF/*.DSA</exclude>
+                                <exclude>META-INF/*.RSA</exclude>
+                            </excludes>
+                        </filter>
+                    </filters>
+                    <createDependencyReducedPom>false</createDependencyReducedPom>
+                    <relocations>
+                        <relocation>
+                            <pattern>com.syntaxphoenix.syntaxapi</pattern>
+                            <shadedPattern>
+                                com.syntaxphoenix.spigot.smoothtimber.shaded.syntaxapi</shadedPattern>
+                        </relocation>
+                    </relocations>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>11</source>
+                    <target>11</target>
                     <annotationProcessors>
-                        <annotationProcessor>com.syntaxphoenix.spigot.smoothtimber.annotation.MCVersionEnumGenerator</annotationProcessor>
+                        <annotationProcessor>
+                            com.syntaxphoenix.spigot.smoothtimber.annotation.MCVersionEnumGenerator</annotationProcessor>
                     </annotationProcessors>
-				</configuration>
+                </configuration>
                 <executions>
                     <execution>
                         <id>compile-processors</id>
@@ -75,226 +77,228 @@
                         <configuration>
                             <proc>none</proc>
                             <includes>
-                                <include>com/syntaxphoenix/spigot/smoothtimber/annotation/MCVersionEnumGenerator.java</include>
+                                <include>
+                                    com/syntaxphoenix/spigot/smoothtimber/annotation/MCVersionEnumGenerator.java</include>
                             </includes>
                         </configuration>
                     </execution>
                 </executions>
-			</plugin>
-		</plugins>
-		<resources>
-			<resource>
-				<directory>src/main/resources</directory>
-				<filtering>true</filtering>
-			</resource>
-		</resources>
-	</build>
-	
-	<pluginRepositories>
-	    <pluginRepository>
-		    <id>apache.snapshots</id>
-		    <url>https://repository.apache.org/snapshots/</url>
-	    </pluginRepository>
-	</pluginRepositories>
+            </plugin>
+        </plugins>
+        <resources>
+            <resource>
+                <directory>src/main/resources</directory>
+                <filtering>true</filtering>
+            </resource>
+        </resources>
+    </build>
 
-	<repositories>
-		<repository>
-			<id>jitpack.io</id>
-			<url>https://jitpack.io</url>
-		</repository>
+    <pluginRepositories>
+        <pluginRepository>
+            <id>apache.snapshots</id>
+            <url>https://repository.apache.org/snapshots/</url>
+        </pluginRepository>
+    </pluginRepositories>
 
-		<!-- This adds the Paper Maven repository to the build -->
-		<repository>
-			<id>papermc</id>  
-			<url>https://repo.papermc.io/repository/maven-public/</url>
-		</repository>
-		<!-- This adds the Spigot Maven repository to the build -->
-		<repository>
-			<id>spigot-repo</id>
-			<url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
-		</repository>
-		<!-- WorldEdit & WorldGuard Repo for API-Access -->
-		<repository>
-			<id>sk89q-repo</id>
-			<url>https://maven.enginehub.org/repo/</url>
-		</repository>
-		<!-- Placeholder Repo for API-Access -->
-		<repository>
-			<id>placeholderapi</id>
-			<url>https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
-		</repository>
-		<!-- LogBlock Repo -->
-		<repository>
-			<id>md_5-repo</id>
-			<url>https://repo.md-5.net/content/repositories/public/</url>
-		</repository>
-		<!-- FactionsUUID Repo -->
-		<repository>
-			<id>moss-repo</id>
-			<url>https://ci.ender.zone/plugin/repository/everything/</url>
-		</repository>
-	</repositories>
+    <repositories>
+        <repository>
+            <id>jitpack.io</id>
+            <url>https://jitpack.io</url>
+        </repository>
 
-	<dependencies>
+        <!-- This adds the Paper Maven repository to the build -->
+        <repository>
+            <id>papermc</id>
+            <url>https://repo.papermc.io/repository/maven-public/</url>
+        </repository>
+        <!-- This adds the Spigot Maven repository to the build -->
+        <repository>
+            <id>spigot-repo</id>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
+        <!-- WorldEdit & WorldGuard Repo for API-Access -->
+        <repository>
+            <id>sk89q-repo</id>
+            <url>https://maven.enginehub.org/repo/</url>
+        </repository>
+        <!-- Placeholder Repo for API-Access -->
+        <repository>
+            <id>placeholderapi</id>
+            <url>
+                https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+        </repository>
+        <!-- LogBlock Repo -->
+        <repository>
+            <id>md_5-repo</id>
+            <url>https://repo.md-5.net/content/repositories/public/</url>
+        </repository>
+        <!-- FactionsUUID Repo -->
+        <repository>
+            <id>moss-repo</id>
+            <url>https://ci.ender.zone/plugin/repository/everything/</url>
+        </repository>
+    </repositories>
 
-		<!-- // Compatibilities // -->
+    <dependencies>
 
-		<!-- PlaceholderApi -->
+        <!-- // Compatibilities // -->
 
-		<dependency>
-			<groupId>me.clip</groupId>
-			<artifactId>placeholderapi</artifactId>
-			<version>2.10.9</version>
-			<scope>provided</scope>
-		</dependency>
+        <!-- PlaceholderApi -->
 
-		<!-- Lands -->
-		<dependency>
-			<groupId>com.github.angeschossen</groupId>
-			<artifactId>LandsAPI</artifactId>
-			<version>4.10.18</version>
-			<scope>provided</scope>
-		</dependency>
+        <dependency>
+            <groupId>me.clip</groupId>
+            <artifactId>placeholderapi</artifactId>
+            <version>2.10.9</version>
+            <scope>provided</scope>
+        </dependency>
 
-		<!-- GriefPrevention -->
-		<dependency>
-			<groupId>com.github.TechFortress</groupId>
-			<artifactId>GriefPrevention</artifactId>
-			<version>16.16.0</version>
-			<scope>provided</scope>
-		</dependency>
+        <!-- Lands -->
+        <dependency>
+            <groupId>com.github.angeschossen</groupId>
+            <artifactId>LandsAPI</artifactId>
+            <version>4.10.18</version>
+            <scope>provided</scope>
+        </dependency>
 
-		<!-- CoreProtect -->
-		<dependency>
-			<groupId>net.coreprotect</groupId>
-			<artifactId>CoreProtect6</artifactId>
-			<version>1</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/libraries/CoreProtect-19.4.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>net.coreprotect</groupId>
-			<artifactId>CoreProtect5</artifactId>
-			<version>1</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/libraries/CoreProtect-2.14.4.jar</systemPath>
-		</dependency>
+        <!-- GriefPrevention -->
+        <dependency>
+            <groupId>com.github.TechFortress</groupId>
+            <artifactId>GriefPrevention</artifactId>
+            <version>16.16.0</version>
+            <scope>provided</scope>
+        </dependency>
 
-		<!-- Residence -->
-		<dependency>
-			<groupId>com.bekvon</groupId>
-			<artifactId>residence</artifactId>
-			<version>1</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/libraries/Residence4.9.1.9.jar</systemPath>
-		</dependency>
+        <!-- CoreProtect -->
+        <dependency>
+            <groupId>net.coreprotect</groupId>
+            <artifactId>CoreProtect6</artifactId>
+            <version>1</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libraries/CoreProtect-19.4.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>net.coreprotect</groupId>
+            <artifactId>CoreProtect5</artifactId>
+            <version>1</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libraries/CoreProtect-2.14.4.jar</systemPath>
+        </dependency>
 
-		<!-- Jobs Reborn -->
-		<dependency>
-			<groupId>com.github.Zrips</groupId>
-			<artifactId>Jobs</artifactId>
-			<version>v4.17.2</version>
-			<scope>provided</scope>
-		</dependency>
-		<!-- BlockyLog -->
-		<dependency>
-			<groupId>com.syntaxphoenix</groupId>
-			<artifactId>blockylog1</artifactId>
-			<version>1</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/libraries/BlockyLog-1.0.jar</systemPath>
-		</dependency>
-		<dependency>
-			<groupId>com.syntaxphoenix</groupId>
-			<artifactId>blockylog2</artifactId>
-			<version>1</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/libraries/BlockyLog-2.3.0.jar</systemPath>
-		</dependency>
+        <!-- Residence -->
+        <dependency>
+            <groupId>com.bekvon</groupId>
+            <artifactId>residence</artifactId>
+            <version>1</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libraries/Residence4.9.1.9.jar</systemPath>
+        </dependency>
 
-		<!-- WorldGuard -->
-		<dependency>
-			<groupId>com.sk89q.worldguard</groupId>
-			<artifactId>worldguard-core</artifactId>
-			<version>7.0.0</version>
-			<scope>provided</scope>
-			<exclusions>
-				<exclusion>
-					<groupId>org.yaml</groupId>
-					<artifactId>snakeyaml</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>com.google.code.gson</groupId>
-					<artifactId>gson</artifactId>
-				</exclusion>
-				<exclusion>
-					<groupId>org.bukkit</groupId>
-					<artifactId>bukkit</artifactId>
-				</exclusion>
-			</exclusions>
-		</dependency>
-		<dependency>
-			<groupId>com.sk89q.worldguard</groupId>
-			<artifactId>worldguard-bukkit2</artifactId>
-			<version>1</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/libraries/worldguard-bukkit-6.2.2.jar</systemPath>
-		</dependency>
+        <!-- Jobs Reborn -->
+        <dependency>
+            <groupId>com.github.Zrips</groupId>
+            <artifactId>Jobs</artifactId>
+            <version>v4.17.2</version>
+            <scope>provided</scope>
+        </dependency>
+        <!-- BlockyLog -->
+        <dependency>
+            <groupId>com.syntaxphoenix</groupId>
+            <artifactId>blockylog1</artifactId>
+            <version>1</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libraries/BlockyLog-1.0.jar</systemPath>
+        </dependency>
+        <dependency>
+            <groupId>com.syntaxphoenix</groupId>
+            <artifactId>blockylog2</artifactId>
+            <version>1</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libraries/BlockyLog-2.3.0.jar</systemPath>
+        </dependency>
 
-		<!-- LogBlock -->
-		<dependency>
-			<groupId>de.diddiz</groupId>
-			<artifactId>logblock</artifactId>
-			<version>1.16.1.2-SNAPSHOT</version>
-			<scope>provided</scope>
-		</dependency>
+        <!-- WorldGuard -->
+        <dependency>
+            <groupId>com.sk89q.worldguard</groupId>
+            <artifactId>worldguard-core</artifactId>
+            <version>7.0.0</version>
+            <scope>provided</scope>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.yaml</groupId>
+                    <artifactId>snakeyaml</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>com.google.code.gson</groupId>
+                    <artifactId>gson</artifactId>
+                </exclusion>
+                <exclusion>
+                    <groupId>org.bukkit</groupId>
+                    <artifactId>bukkit</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>com.sk89q.worldguard</groupId>
+            <artifactId>worldguard-bukkit2</artifactId>
+            <version>1</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libraries/worldguard-bukkit-6.2.2.jar</systemPath>
+        </dependency>
 
-		<!-- mcMMO -->
-		<dependency>
-			<groupId>com.gmail.nossr50.mcMMO</groupId>
-			<artifactId>mcMMO</artifactId>
-			<version>2.1.175-SNAPSHOT</version>
-			<scope>system</scope>
-			<systemPath>${project.basedir}/libraries/mcMMO.jar</systemPath>
-		</dependency>
+        <!-- LogBlock -->
+        <dependency>
+            <groupId>de.diddiz</groupId>
+            <artifactId>logblock</artifactId>
+            <version>1.16.1.2-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
 
-		<!-- Towny -->
-		<dependency>
-			<groupId>com.github.TownyAdvanced</groupId>
-			<artifactId>Towny</artifactId>
-			<version>0.96.7.0</version>
-			<scope>provided</scope>
-		</dependency>
+        <!-- mcMMO -->
+        <dependency>
+            <groupId>com.gmail.nossr50.mcMMO</groupId>
+            <artifactId>mcMMO</artifactId>
+            <version>2.1.175-SNAPSHOT</version>
+            <scope>system</scope>
+            <systemPath>${project.basedir}/libraries/mcMMO.jar</systemPath>
+        </dependency>
 
-		<!-- FactionsUUID -->
-		<dependency>
-			<groupId>com.massivecraft</groupId>
-			<artifactId>Factions</artifactId>
-			<version>1.6.9.5-U0.6.28</version>
-			<scope>provided</scope>
-		</dependency>
+        <!-- Towny -->
+        <dependency>
+            <groupId>com.github.TownyAdvanced</groupId>
+            <artifactId>Towny</artifactId>
+            <version>0.96.7.0</version>
+            <scope>provided</scope>
+        </dependency>
 
-		<!-- // Compatibilities // -->
+        <!-- FactionsUUID -->
+        <dependency>
+            <groupId>com.massivecraft</groupId>
+            <artifactId>Factions</artifactId>
+            <version>1.6.9.5-U0.6.28</version>
+            <scope>provided</scope>
+        </dependency>
 
-		<!-- // Syntax API // -->
-		
-		<dependency>
-			<groupId>com.syntaxphoenix.syntaxapi</groupId>
-			<artifactId>command</artifactId>
-			<version>2.0.11</version>
-		</dependency>
-		<dependency>
-			<groupId>com.syntaxphoenix.syntaxapi</groupId>
-			<artifactId>reflection</artifactId>
-			<version>2.0.9</version>
-		</dependency>
-		<dependency>
-			<groupId>com.syntaxphoenix.syntaxapi</groupId>
-			<artifactId>random</artifactId>
-			<version>2.0.9</version>
-		</dependency>
+        <!-- // Compatibilities // -->
 
-		<!-- // Spigot // -->
+        <!-- // Syntax API // -->
+
+        <dependency>
+            <groupId>com.syntaxphoenix.syntaxapi</groupId>
+            <artifactId>command</artifactId>
+            <version>2.0.11</version>
+        </dependency>
+        <dependency>
+            <groupId>com.syntaxphoenix.syntaxapi</groupId>
+            <artifactId>reflection</artifactId>
+            <version>2.0.9</version>
+        </dependency>
+        <dependency>
+            <groupId>com.syntaxphoenix.syntaxapi</groupId>
+            <artifactId>random</artifactId>
+            <version>2.0.9</version>
+        </dependency>
+
+        <!-- // Spigot // -->
 
         <dependency>
             <groupId>org.spigotmc</groupId>
@@ -303,7 +307,7 @@
             <scope>provided</scope>
         </dependency>
 
-		<!-- // Paper support // -->
+        <!-- // Paper support // -->
 
         <dependency>
             <groupId>dev.folia</groupId>
@@ -311,11 +315,11 @@
             <version>${server.version}</version>
             <scope>provided</scope>
         </dependency>
-        
-		<!-- // Spigot // -->
-        
+
+        <!-- // Spigot // -->
+
         <!-- // Compile time // -->
-        
+
         <!-- Roaster -->
         <dependency>
             <groupId>org.jboss.forge.roaster</groupId>
@@ -327,5 +331,5 @@
             <artifactId>roaster-jdt</artifactId>
             <version>${project.roaster.version}</version>
         </dependency>
-	</dependencies>
+    </dependencies>
 </project>
