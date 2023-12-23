@@ -13,7 +13,7 @@ public class BlockyLog extends CompatibilityAddon {
 
     @Override
     public void onEnable(final PluginPackage pluginPackage, final SmoothTimber smoothTimber) throws Exception {
-        switch (pluginPackage.getVersion().getMajor()) {
+        switch (pluginPackage.getVersion().major()) {
         case 1:
             resolver = new BlockyLogResolver_v1_x();
             break;

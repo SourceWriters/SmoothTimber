@@ -7,10 +7,10 @@ import org.bukkit.entity.Player;
 
 import com.syntaxphoenix.spigot.smoothtimber.config.Message;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.PluginUtils;
+import com.syntaxphoenix.spigot.smoothtimber.version.Version;
 import com.syntaxphoenix.spigot.smoothtimber.version.changer.NOPChanger;
 import com.syntaxphoenix.spigot.smoothtimber.version.manager.gen.MCVersion;
 import com.syntaxphoenix.spigot.smoothtimber.version.manager.gen.MCVersion.MCVersionResult;
-import com.syntaxphoenix.syntaxapi.version.DefaultVersion;
 
 public final class VersionExchanger {
 
@@ -22,7 +22,7 @@ public final class VersionExchanger {
         }
         final MCVersionResult result = MCVersion.getCoreVersionResult();
         switch (result.state()) {
-        case NOT_TESTED:
+        case UNTESTED:
             PluginUtils.sendConsoleMessage(false,
                 Message.GLOBAL_PREFIX.colored() + ' ' + Message.STARTUP_VERSION_UNTESTED_MSG.colored(new String[][] {
                     {
@@ -38,7 +38,7 @@ public final class VersionExchanger {
                 Message.GLOBAL_PREFIX.colored() + ' ' + Message.STARTUP_VERSION_UNTESTED_VERSIONS.colored(new String[][] {
                     {
                         "%versions%",
-                        result.version().getKnownSupported().stream().map(DefaultVersion::toString)
+                        result.version().getKnownSupported().stream().map(Version::toString)
                             .collect(Collectors.joining(Message.GLOBAL_LIST222SPLIT.message()))
                     }
                 }));
@@ -68,7 +68,7 @@ public final class VersionExchanger {
         PluginUtils.sendConsoleMessage(false,
             Message.GLOBAL_PREFIX.colored() + ' ' + Message.STARTUP_VERSION_VERSIONS.colored(new String[] {
                 "%versions%",
-                MCVersion.getAllKnownSupported().stream().map(DefaultVersion::toString)
+                MCVersion.getAllKnownSupported().stream().map(Version::toString)
                     .collect(Collectors.joining(Message.GLOBAL_LIST222SPLIT.message()))
             }));
         Bukkit.getPluginManager().disablePlugin(PluginUtils.MAIN);

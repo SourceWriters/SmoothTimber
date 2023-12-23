@@ -2,14 +2,10 @@ package com.syntaxphoenix.spigot.smoothtimber.utilities.plugin;
 
 import org.bukkit.plugin.Plugin;
 
+import com.syntaxphoenix.spigot.smoothtimber.version.Version;
 import com.syntaxphoenix.syntaxapi.reflection.ReflectCache;
-import com.syntaxphoenix.syntaxapi.version.DefaultVersion;
-import com.syntaxphoenix.syntaxapi.version.Version;
-import com.syntaxphoenix.syntaxapi.version.VersionAnalyzer;
 
 public class PluginPackage {
-
-    public static final VersionAnalyzer ANALYZER = new DefaultVersion().getAnalyzer();
 
     private ReflectCache cache = new ReflectCache();
 
@@ -38,7 +34,7 @@ public class PluginPackage {
         this.plugin = plugin;
         this.name = plugin.getName();
         this.versionRaw = plugin.getDescription().getVersion();
-        this.version = ANALYZER.analyze(versionRaw.contains("[") ? versionRaw.split("\\[")[0] : versionRaw);
+        this.version = Version.fromString(versionRaw.contains("[") ? versionRaw.split("\\[")[0] : versionRaw);
     }
 
     /*

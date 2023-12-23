@@ -10,7 +10,7 @@ import com.syntaxphoenix.spigot.smoothtimber.compatibility.jobsreborn.adapter.Ad
 import com.syntaxphoenix.spigot.smoothtimber.compatibility.jobsreborn.adapter.AdapterLegacy4_17;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.Container;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.plugin.PluginPackage;
-import com.syntaxphoenix.syntaxapi.version.Version;
+import com.syntaxphoenix.spigot.smoothtimber.version.Version;
 
 public class JobsReborn extends CompatibilityAddon {
 
@@ -30,7 +30,7 @@ public class JobsReborn extends CompatibilityAddon {
 
     private JobAdapter getAdapter(final PluginPackage pluginPackage) {
         final Version version = pluginPackage.getVersion();
-        if (version.getMajor() < 4 || version.getMajor() == 4 && version.getMinor() <= 16) {
+        if (version.major() < 4 || version.major() == 4 && version.minor() <= 16) {
             return new AdapterLegacy4_16();
         }
         return new AdapterLegacy4_17();
