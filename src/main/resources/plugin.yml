@@ -4,6 +4,7 @@ author: SyntaxPhoenix IT-Solutions
 version: ${projectVersion}
 api-version: 1.13
 softdepend: [BlockyLog, WorldGuard, Residence, Lands, Jobs, GriefPrevention, PlaceholderAPI, CoreProtect, LogBlock, mcMMO, Towny]
+folia-supported: true
 
 commands:
     smoothtimber:
