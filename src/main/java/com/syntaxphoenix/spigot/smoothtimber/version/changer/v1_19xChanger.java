@@ -12,13 +12,21 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.Damageable;
 import org.bukkit.inventory.meta.ItemMeta;
 
+import com.syntaxphoenix.spigot.smoothtimber.annotation.SupportedVersions;
 import com.syntaxphoenix.spigot.smoothtimber.config.config.CutterConfig;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.Lists;
 import com.syntaxphoenix.spigot.smoothtimber.version.manager.VersionChanger;
 import com.syntaxphoenix.spigot.smoothtimber.version.manager.VersionExchanger;
 import com.syntaxphoenix.spigot.smoothtimber.version.manager.WoodType;
 
-public class v1_19xChanger implements VersionChanger {
+@SupportedVersions({
+    "1.19",
+    "1.19.1",
+    "1.19.2",
+    "1.19.3",
+    "1.19.4",
+})
+public final class v1_19xChanger implements VersionChanger {
 
     @Override
     public boolean hasCuttingItemInHand(final Player player) {

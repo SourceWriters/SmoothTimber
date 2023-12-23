@@ -11,6 +11,7 @@ import org.bukkit.inventory.ItemStack;
 import org.bukkit.inventory.meta.ItemMeta;
 import org.bukkit.material.MaterialData;
 
+import com.syntaxphoenix.spigot.smoothtimber.annotation.SupportedVersions;
 import com.syntaxphoenix.spigot.smoothtimber.config.config.CutterConfig;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.Lists;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.Storage;
@@ -18,8 +19,20 @@ import com.syntaxphoenix.spigot.smoothtimber.version.manager.VersionChanger;
 import com.syntaxphoenix.spigot.smoothtimber.version.manager.VersionExchanger;
 import com.syntaxphoenix.spigot.smoothtimber.version.manager.WoodType;
 
+@SupportedVersions({
+    "1.8",
+    "1.8.1",
+    "1.8.2",
+    "1.8.3",
+    "1.8.4",
+    "1.8.5",
+    "1.8.6",
+    "1.8.7",
+    "1.8.8",
+    "1.8.9",
+})
 @SuppressWarnings("deprecation")
-public class v1_8xChanger implements VersionChanger {
+public final class v1_8xChanger implements VersionChanger {
 
     private static final Material LOG = Material.valueOf("LOG");
     private static final Material LOG_2 = Material.valueOf("LOG_2");

@@ -13,7 +13,7 @@ import com.syntaxphoenix.spigot.smoothtimber.utilities.PluginUtils;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.locate.LocationResolver;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.locate.Locator;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.plugin.PluginPackage;
-import com.syntaxphoenix.spigot.smoothtimber.version.manager.VersionExchanger;
+import com.syntaxphoenix.spigot.smoothtimber.version.manager.gen.MCVersion;
 
 public class CoreProtect extends CompatibilityAddon {
 
@@ -31,7 +31,7 @@ public class CoreProtect extends CompatibilityAddon {
         }
         resolver = new CoreProtectResolver(service = Executors.newCachedThreadPool(), pluginPackage.getPlugin());
         Locator.setLocationResolver(resolver);
-        switch (VersionExchanger.getCoreVersion()) {
+        switch (MCVersion.getCoreVersion()) {
         case v1_8x:
         case v1_9x:
         case v1_11x:

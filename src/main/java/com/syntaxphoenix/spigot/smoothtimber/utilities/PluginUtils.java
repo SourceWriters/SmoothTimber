@@ -50,7 +50,7 @@ public class PluginUtils {
 
     public PluginUtils() {
         MessageConfig.INSTANCE.reload();
-        CHANGER = VersionExchanger.getVersionChanger(VersionExchanger.getMinecraftVersion());
+        CHANGER = VersionExchanger.getVersionChanger();
         if (!CHANGER.isValid()) {
             return;
         }

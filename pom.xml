@@ -5,13 +5,15 @@
 
 	<groupId>com.syntaxphoenix.spigot</groupId>
 	<artifactId>smoothtimber-legacy</artifactId>
-	<version>1.25.0</version>
+	<version>1.26.0</version>
 	<name>SmoothTimber</name>
 	<packaging>jar</packaging>
 
 	<properties>
 		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
 		<java.package.id>smoothtimber</java.package.id>
+        <project.roaster.version>2.28.0.Final</project.roaster.version>
+        <server.version>1.20.1-R0.1-SNAPSHOT</server.version>
 	</properties>
 
 	<build>
@@ -29,6 +31,11 @@
 					</execution>
 				</executions>
 				<configuration>
+                    <artifactSet>
+                        <excludes>
+                            <exclude>org.jboss.forge.roaster</exclude>
+                        </excludes>
+                    </artifactSet>
 					<filters>
 						<filter>
 							<artifact>*:*</artifact>
@@ -54,7 +61,25 @@
 				<configuration>
 					<source>11</source>
 					<target>11</target>
+                    <annotationProcessors>
+                        <annotationProcessor>com.syntaxphoenix.spigot.smoothtimber.annotation.MCVersionEnumGenerator</annotationProcessor>
+                    </annotationProcessors>
 				</configuration>
+                <executions>
+                    <execution>
+                        <id>compile-processors</id>
+                        <phase>generate-sources</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                        <configuration>
+                            <proc>none</proc>
+                            <includes>
+                                <include>com/syntaxphoenix/spigot/smoothtimber/annotation/MCVersionEnumGenerator.java</include>
+                            </includes>
+                        </configuration>
+                    </execution>
+                </executions>
 			</plugin>
 		</plugins>
 		<resources>
@@ -276,20 +301,36 @@
 
 		<!-- // Spigot // -->
 
-		<dependency>
-			<groupId>org.spigotmc</groupId>
-			<artifactId>spigot-api</artifactId>
-			<version>1.20-R0.1-SNAPSHOT</version>
-			<scope>provided</scope>
-		</dependency>
+        <dependency>
+            <groupId>org.spigotmc</groupId>
+            <artifactId>spigot-api</artifactId>
+            <version>${server.version}</version>
+            <scope>provided</scope>
+        </dependency>
 
 		<!-- // Paper support // -->
 
-		<dependency>
-			<groupId>dev.folia</groupId>
-			<artifactId>folia-api</artifactId>
-			<version>1.20.1-R0.1-SNAPSHOT</version>
-			<scope>provided</scope>
-		</dependency>
+        <dependency>
+            <groupId>dev.folia</groupId>
+            <artifactId>folia-api</artifactId>
+            <version>${server.version}</version>
+            <scope>provided</scope>
+        </dependency>
+        
+		<!-- // Spigot // -->
+        
+        <!-- // Compile time // -->
+        
+        <!-- Roaster -->
+        <dependency>
+            <groupId>org.jboss.forge.roaster</groupId>
+            <artifactId>roaster-api</artifactId>
+            <version>${project.roaster.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.forge.roaster</groupId>
+            <artifactId>roaster-jdt</artifactId>
+            <version>${project.roaster.version}</version>
+        </dependency>
 	</dependencies>
 </project>

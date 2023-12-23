@@ -7,7 +7,7 @@ import org.bukkit.event.Listener;
 import com.syntaxphoenix.spigot.smoothtimber.SmoothTimber;
 import com.syntaxphoenix.spigot.smoothtimber.compatibility.CompatibilityAddon;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.plugin.PluginPackage;
-import com.syntaxphoenix.spigot.smoothtimber.version.manager.VersionExchanger;
+import com.syntaxphoenix.spigot.smoothtimber.version.manager.gen.MCVersion;
 
 public class WorldGuard extends CompatibilityAddon {
 
@@ -15,7 +15,7 @@ public class WorldGuard extends CompatibilityAddon {
 
     @Override
     public void onEnable(final PluginPackage pluginPackage, final SmoothTimber smoothTimber) {
-        switch (VersionExchanger.getCoreVersion()) {
+        switch (MCVersion.getCoreVersion()) {
         case v1_8x:
         case v1_9x:
         case v1_11x:

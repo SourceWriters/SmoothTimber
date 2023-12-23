@@ -17,6 +17,8 @@ public enum Message {
 
     // Version
     STARTUP_VERSION_SUPPORTED("&7You're currently using the &dsupported&7 Minecraft Version &d%minecraft% &7(&5Core %core%&7)"),
+    STARTUP_VERSION_UNTESTED_MSG("&7You're currently using the &duntested&7 Minecraft Version &d%minecraft% &7(&5Core %core%&7)"),
+    STARTUP_VERSION_UNTESTED_VERSIONS("&7Please note that this core only officially supports &d%versions%&7, so problems may occur."),
     STARTUP_VERSION_UNSUPPORTED("&7You're currently using the &cunsupported&7 Minecraft Version &4%minecraft%"),
     STARTUP_VERSION_NEED222UPDATE(
         "&7If you want to use &5Smooth&dTimber &7you need to update your server to a supported Minecraft Version"),
