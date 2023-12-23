@@ -2,7 +2,6 @@ package com.syntaxphoenix.spigot.smoothtimber.listener;
 
 import java.util.ArrayList;
 
-import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.Location;
 import org.bukkit.block.Block;
@@ -58,7 +57,8 @@ public class BlockBreakListener implements Listener {
             }
         }
 
-        if (CutterConfig.SNEAK.test(() -> player.isSneaking()) || CutterConfig.TOGGLEABLE.test(() -> SmoothTimber.STORAGE.hasToggled(player.getUniqueId()))) {
+        if (CutterConfig.SNEAK.test(() -> player.isSneaking())
+            || CutterConfig.TOGGLEABLE.test(() -> SmoothTimber.STORAGE.hasToggled(player.getUniqueId()))) {
             return;
         }
 
@@ -113,8 +113,7 @@ public class BlockBreakListener implements Listener {
                                     final Entity entity = change.toFallingBlock(block);
                                     entity.setMetadata("STAnimate", new FixedMetadataValue(plugin, amount));
                                     if (collect) {
-                                        entity.setMetadata("STCollect",
-                                            new FixedMetadataValue(plugin, player.getUniqueId().toString()));
+                                        entity.setMetadata("STCollect", new FixedMetadataValue(plugin, player.getUniqueId().toString()));
                                     }
                                     continue;
                                 }
@@ -137,16 +136,15 @@ public class BlockBreakListener implements Listener {
                         float next = more * 3f;
                         final float chance = generator.nextFloat() * (float) CutterConfig.LUCK_MULTIPLIER;
                         while (true) {
-                            if (previous < chance && chance > next) {
-                                drop++;
-                                previous = next;
-                                next += more;
-                            } else {
+                            if ((previous >= chance) || (chance <= next)) {
                                 if (previous < chance && chance < next) {
                                     drop++;
                                 }
                                 break;
                             }
+                            drop++;
+                            previous = next;
+                            next += more;
                         }
                         return Math.min(drop, 64);
                     }

@@ -26,7 +26,7 @@ public class ToggleCommand extends SmoothCommand {
             return;
         }
 
-        if ((!sender.hasPermission("smoothtimber.toggle") && !sender.hasPermission("smoothtimber.*"))) {
+        if (!sender.hasPermission("smoothtimber.toggle") && !sender.hasPermission("smoothtimber.*")) {
             sender.sendMessage(Message.GLOBAL_PREFIX.colored() + ' ' + Message.COMMAND_MISSING222PERMISSION.colored(new String[] {
                 "%permission%",
                 "smoothtimber.toggle"
@@ -41,7 +41,7 @@ public class ToggleCommand extends SmoothCommand {
 
         int time = -1;
 
-        if ((arguments.count() != 0) && (arguments.getType(1) == ArgumentType.INTEGER || arguments.getType(1) == ArgumentType.BYTE
+        if (arguments.count() != 0 && (arguments.getType(1) == ArgumentType.INTEGER || arguments.getType(1) == ArgumentType.BYTE
             || arguments.getType(1) == ArgumentType.SHORT)) {
             time = arguments.get(1).asNumeric().asNumber().intValue();
         }

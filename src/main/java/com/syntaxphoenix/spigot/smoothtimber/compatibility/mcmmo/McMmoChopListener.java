@@ -25,7 +25,7 @@ public class McMmoChopListener implements Listener {
         if (player == null || !PrimarySkillType.WOODCUTTING.getPermissions(event.getPlayer())) {
             return;
         }
-        
+
         Platform.getPlatform().regionalSyncTask(event.getTreeLocation(), () -> {
             for (final Location location : event.getBlockLocations()) {
                 if (!hasWoodcuttingXP(location.getBlock()) || mcMMO.getPlaceStore().isTrue(location.getBlock().getState())) {

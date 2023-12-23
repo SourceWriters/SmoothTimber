@@ -12,8 +12,7 @@ public class IncompatiblePluginException extends RuntimeException {
      * message. The cause is not initialized, and may subsequently be initialized by
      * a call to {@link #initCause}.
      */
-    public IncompatiblePluginException() {
-    }
+    public IncompatiblePluginException() {}
 
     /**
      * Constructs a new IncompatiblePluginException with the specified detail

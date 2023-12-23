@@ -13,7 +13,7 @@ public final class JobsRebornConfig extends CompatibilityAddonConfig<JobsReborn>
 
     public static final EnumMap<WoodType, double[]> DEFAULT_WOOD_DATA = new EnumMap<>(WoodType.class);
     public static final HashMap<String, EnumMap<WoodType, double[]>> JOB_DATA = new HashMap<>();
-    
+
     private final VersionChanger change = PluginUtils.CHANGER;
 
     /*

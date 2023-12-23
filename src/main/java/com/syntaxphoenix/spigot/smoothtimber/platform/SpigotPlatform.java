@@ -9,7 +9,7 @@ final class SpigotPlatform extends Platform {
     private final SmoothTimber plugin;
     private final BukkitScheduler scheduler;
 
-    public SpigotPlatform(SmoothTimber plugin){
+    public SpigotPlatform(final SmoothTimber plugin) {
         this.plugin = plugin;
         this.scheduler = plugin.getServer().getScheduler();
     }
@@ -20,33 +20,33 @@ final class SpigotPlatform extends Platform {
     }
 
     @Override
-    public void syncTask(Runnable runnable) {
+    public void syncTask(final Runnable runnable) {
         scheduler.runTask(plugin, runnable);
     }
 
     @Override
-    public void syncTaskLater(Runnable runnable, long delay) {
+    public void syncTaskLater(final Runnable runnable, final long delay) {
         scheduler.runTaskLater(plugin, runnable, delay);
     }
 
     @Override
-    public void syncTaskTimer(Runnable runnable, long delay, long repeat) {
+    public void syncTaskTimer(final Runnable runnable, final long delay, final long repeat) {
         scheduler.runTaskTimer(plugin, runnable, delay, repeat);
     }
 
     @Override
-    public void asyncTask(Runnable runnable) {
+    public void asyncTask(final Runnable runnable) {
         scheduler.runTaskAsynchronously(plugin, runnable);
     }
 
     @Override
-    public void asyncTaskLater(Runnable runnable, long delay) {
+    public void asyncTaskLater(final Runnable runnable, final long delay) {
         scheduler.runTaskLaterAsynchronously(plugin, runnable, delay);
     }
 
     @Override
-    public void asyncTaskTimer(Runnable runnable, long delay, long repeat) {
+    public void asyncTaskTimer(final Runnable runnable, final long delay, final long repeat) {
         scheduler.runTaskTimerAsynchronously(plugin, runnable, delay, repeat);
     }
-    
+
 }

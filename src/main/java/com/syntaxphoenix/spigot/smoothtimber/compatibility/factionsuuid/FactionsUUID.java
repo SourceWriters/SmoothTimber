@@ -1,12 +1,13 @@
 package com.syntaxphoenix.spigot.smoothtimber.compatibility.factionsuuid;
 
+import org.bukkit.Bukkit;
+import org.bukkit.event.HandlerList;
+import org.bukkit.event.Listener;
+
 import com.syntaxphoenix.spigot.smoothtimber.SmoothTimber;
 import com.syntaxphoenix.spigot.smoothtimber.compatibility.CompatibilityAddon;
 import com.syntaxphoenix.spigot.smoothtimber.compatibility.IncompatiblePluginException;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.plugin.PluginPackage;
-import org.bukkit.Bukkit;
-import org.bukkit.event.HandlerList;
-import org.bukkit.event.Listener;
 
 public class FactionsUUID extends CompatibilityAddon {
 
@@ -19,7 +20,7 @@ public class FactionsUUID extends CompatibilityAddon {
             Class.forName("com.massivecraft.factions.perms.PermissibleActions");
             Bukkit.getServer().getPluginManager().registerEvents(listener = new FactionsUUIDChopListener(), smoothTimber);
             return;
-        } catch (ClassNotFoundException ignored) {
+        } catch (final ClassNotFoundException ignored) {
         }
         if (listener == null) {
             throw new IncompatiblePluginException("Found a Factions plugin not presently supported by SmoothTimber");

@@ -48,7 +48,7 @@ public class LogBlockDatabaseAccessor {
             statement.setInt(2, block.getY());
             statement.setInt(3, block.getZ());
             try (ResultSet resultSet = statement.executeQuery()) {
-                if (!resultSet.next() || (resultSet.getInt("playerid") < 0)) {
+                if (!resultSet.next() || resultSet.getInt("playerid") < 0) {
                     return false;
                 }
                 final Material type = MaterialConverter.getMaterial(resultSet.getInt("type"));

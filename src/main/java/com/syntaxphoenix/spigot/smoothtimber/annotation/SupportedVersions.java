@@ -9,7 +9,7 @@ import java.lang.annotation.Target;
 @Retention(SOURCE)
 @Target(TYPE)
 public @interface SupportedVersions {
-    
+
     public String[] value() default {};
 
 }

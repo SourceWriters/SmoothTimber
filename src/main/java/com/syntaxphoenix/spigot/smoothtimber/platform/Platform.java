@@ -18,13 +18,14 @@ public abstract class Platform {
     }
 
     public static void shutdown() {
-        Platform platform = Platform.platform.get();
+        final Platform platform = Platform.platform.get();
         Platform.platform.replace(null);
         platform.internalShutdown();
     }
 
-    private static Platform createPlatform(SmoothTimber plugin) {
-        if (ClassCache.getOptionalClass("io.papermc.paper.threadedregions.RegionizedServer").or(() -> ClassCache.getOptionalClass("io.papermc.paper.threadedregions.RegionizedServerInitEvent")).isPresent()) {
+    private static Platform createPlatform(final SmoothTimber plugin) {
+        if (ClassCache.getOptionalClass("io.papermc.paper.threadedregions.RegionizedServer")
+            .or(() -> ClassCache.getOptionalClass("io.papermc.paper.threadedregions.RegionizedServerInitEvent")).isPresent()) {
             return new FoliaPlatform(plugin);
         }
         return new SpigotPlatform(plugin);
@@ -32,15 +33,15 @@ public abstract class Platform {
 
     protected abstract void internalShutdown();
 
-    public void regionalTask(Location location, Runnable runnable) {
+    public void regionalTask(final Location location, final Runnable runnable) {
         runnable.run();
     }
 
-    public void regionalSyncTask(Location location, Runnable runnable) {
+    public void regionalSyncTask(final Location location, final Runnable runnable) {
         syncTask(runnable);
     }
 
-    public void regionalSyncTaskLater(Location location, Runnable runnable, long delay) {
+    public void regionalSyncTaskLater(final Location location, final Runnable runnable, final long delay) {
         syncTaskLater(runnable, delay);
     }
 

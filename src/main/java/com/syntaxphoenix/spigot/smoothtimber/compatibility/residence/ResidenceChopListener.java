@@ -24,7 +24,7 @@ public final class ResidenceChopListener implements Listener {
             final ResidenceManager manager = Residence.getInstance().getResidenceManager();
             for (final Location location : event.getBlockLocations()) {
                 final ClaimedResidence residence = manager.getByLoc(location);
-                if ((residence != null) && !residence.getPermissions().playerHas(event.getPlayer(), Flags.build, true)) {
+                if (residence != null && !residence.getPermissions().playerHas(event.getPlayer(), Flags.build, true)) {
                     event.setCancelled(true);
                     event.setReason(DefaultReason.RESIDENCE);
                     return null;

@@ -5,12 +5,12 @@ import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-import com.syntaxphoenix.spigot.smoothtimber.compatibility.factionsuuid.FactionsUUID;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import com.syntaxphoenix.spigot.smoothtimber.SmoothTimber;
 import com.syntaxphoenix.spigot.smoothtimber.compatibility.blockylog.BlockyLog;
 import com.syntaxphoenix.spigot.smoothtimber.compatibility.coreprotect.CoreProtect;
+import com.syntaxphoenix.spigot.smoothtimber.compatibility.factionsuuid.FactionsUUID;
 import com.syntaxphoenix.spigot.smoothtimber.compatibility.griefprevention.GriefPrevention;
 import com.syntaxphoenix.spigot.smoothtimber.compatibility.jobsreborn.JobsReborn;
 import com.syntaxphoenix.spigot.smoothtimber.compatibility.lands.Lands;
@@ -103,7 +103,7 @@ public abstract class CompatibilityHandler {
 
         private final Class<E> owner;
         private final Reflect reflect;
-        
+
         private final String name;
 
         private CompatibilityAddon instance;
@@ -132,20 +132,23 @@ public abstract class CompatibilityHandler {
             }
             instance = (CompatibilityAddon) reflect.init();
             try {
-                PluginUtils.sendConsoleMessage(true, "&7Trying to enable compatibility addon '&3" + name + "&7' for plugin '&3" + pluginPackage.getName() + "&7'...");
+                PluginUtils.sendConsoleMessage(true,
+                    "&7Trying to enable compatibility addon '&3" + name + "&7' for plugin '&3" + pluginPackage.getName() + "&7'...");
                 instance.onEnable(pluginPackage, JavaPlugin.getPlugin(SmoothTimber.class));
                 if (instance.hasConfig()) {
-                    PluginUtils.sendConsoleMessage(true, "&7Trying to load config of compatibility addon '&3" + name + "&7' for plugin '&3" + pluginPackage.getName() + "&7'...");
+                    PluginUtils.sendConsoleMessage(true, "&7Trying to load config of compatibility addon '&3" + name + "&7' for plugin '&3"
+                        + pluginPackage.getName() + "&7'...");
                     instance.getConfig().reload();
                 }
-                PluginUtils.sendConsoleMessage(true, "&7Successfully enabled compatbility addon '&3" + name + "&7' for plugin '&3" + pluginPackage.getName() + "&7'...");
+                PluginUtils.sendConsoleMessage(true,
+                    "&7Successfully enabled compatbility addon '&3" + name + "&7' for plugin '&3" + pluginPackage.getName() + "&7'...");
             } catch (final IncompatiblePluginException pluginException) {
                 instance = null;
                 PluginUtils.sendConsoleMessage(true, Exceptions.stackTraceToString(pluginException));
             } catch (final Exception exception) {
                 instance = null;
-                PluginUtils.sendConsoleMessage(true, "&7Failed to enable compatibility addon '&3" + name
-                    + "&7' for plugin '&3" + pluginPackage.getName() + "&7'!");
+                PluginUtils.sendConsoleMessage(true,
+                    "&7Failed to enable compatibility addon '&3" + name + "&7' for plugin '&3" + pluginPackage.getName() + "&7'!");
             }
         }
 

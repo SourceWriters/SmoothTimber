@@ -96,15 +96,13 @@ public class ToggledUser {
         if (trigger) {
             if (state) {
                 return timed ? Message.TOGGLE_ON_TIMED : Message.TOGGLE_ON_FOREVER;
-            } else {
-                return Message.TOGGLE_OFF_FOREVER;
             }
+            return Message.TOGGLE_OFF_FOREVER;
         }
         if (state) {
             return timed ? Message.TOGGLE_OFF_TIMED : Message.TOGGLE_OFF_FOREVER;
-        } else {
-            return Message.TOGGLE_ON_FOREVER;
         }
+        return Message.TOGGLE_ON_FOREVER;
     }
 
 }
