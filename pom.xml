@@ -45,6 +45,12 @@
                                 <exclude>META-INF/*.RSA</exclude>
                             </excludes>
                         </filter>
+                        <filter>
+                            <artifact>*:*</artifact>
+                            <excludes>
+                                <exclude>com/syntaxphoenix/spigot/smoothtimber/annotation/*.class</exclude>
+                            </excludes>
+                        </filter>
                     </filters>
                     <createDependencyReducedPom>false</createDependencyReducedPom>
                     <relocations>
@@ -79,6 +85,20 @@
                             <includes>
                                 <include>
                                     com/syntaxphoenix/spigot/smoothtimber/annotation/MCVersionEnumGenerator.java</include>
+                            </includes>
+                        </configuration>
+                    </execution>
+                    <execution>
+                        <id>compile-annotationSource</id>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>compile</goal>
+                        </goals>
+                        <configuration>
+                            <proc>none</proc>
+                            <includes>
+                                <include>
+                                    com/syntaxphoenix/spigot/smoothtimber/version/manager/gen/MCversion.java</include>
                             </includes>
                         </configuration>
                     </execution>
