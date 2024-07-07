@@ -60,6 +60,14 @@
               <shadedPattern>net.coreprotect</shadedPattern>
             </relocation>
             <relocation>
+              <pattern>lands.v1</pattern>
+              <shadedPattern>me.angeschossen.lands</shadedPattern>
+            </relocation>
+            <relocation>
+              <pattern>lands.v2</pattern>
+              <shadedPattern>me.angeschossen.lands</shadedPattern>
+            </relocation>
+            <relocation>
               <pattern>mcmmo.v1.com</pattern>
               <shadedPattern>com</shadedPattern>
             </relocation>
@@ -157,12 +165,6 @@
       <scope>provided</scope>
     </dependency>
     <dependency>
-      <groupId>com.github.angeschossen</groupId>
-      <artifactId>LandsAPI</artifactId>
-      <version>4.10.18</version>
-      <scope>provided</scope>
-    </dependency>
-    <dependency>
       <groupId>com.github.TechFortress</groupId>
       <artifactId>GriefPrevention</artifactId>
       <version>16.16.0</version>
@@ -241,6 +243,20 @@
       <artifactId>roaster-jdt</artifactId>
       <version>2.28.0.Final</version>
       <scope>compile</scope>
+    </dependency>
+    <dependency>
+      <groupId>lands</groupId>
+      <artifactId>lands1</artifactId>
+      <version>1</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/libraries/LandsAPI.repackaged.jar</systemPath>
+    </dependency>
+    <dependency>
+      <groupId>lands</groupId>
+      <artifactId>lands2</artifactId>
+      <version>1</version>
+      <scope>system</scope>
+      <systemPath>${project.basedir}/libraries/lands-api-7.0.2.repackaged.jar</systemPath>
     </dependency>
     <dependency>
       <groupId>net.coreprotect</groupId>
