@@ -21,19 +21,10 @@ import com.syntaxphoenix.spigot.smoothtimber.version.manager.VersionExchanger;
 import com.syntaxphoenix.spigot.smoothtimber.version.manager.WoodType;
 
 @SupportedVersions({
-    "1.13",
-    "1.13.1",
-    "1.13.2",
-    "1.14",
-    "1.14.1",
-    "1.14.2",
-    "1.14.3",
-    "1.14.4",
-    "1.15",
-    "1.15.1",
-    "1.15.2",
+    "1.21.3",
+    "1.21.4",
 })
-public final class v1_13xChanger implements VersionChanger {
+public final class v1_21xChanger implements VersionChanger {
 
     @Override
     public boolean hasCuttingItemInHand(final Player player) {
@@ -68,12 +59,12 @@ public final class v1_13xChanger implements VersionChanger {
         }
         if (meta instanceof Damageable) {
             final Damageable dmg = (Damageable) meta;
-            int damage = dmg.getDamage() + 1;
+            final int damage = dmg.getDamage() + 1;
             if (stack.getType().getMaxDurability() - damage < 0) {
                 stack.setAmount(0);
                 return null;
             }
-            dmg.setDamage(damage = dmg.getDamage() + 1);
+            dmg.setDamage(damage);
         }
         stack.setItemMeta(meta);
         return stack;
@@ -107,7 +98,8 @@ public final class v1_13xChanger implements VersionChanger {
 
     @Override
     public void setupConfig() {
-        CutterConfig.CUTTER_MATERIALS.addAll(Lists.asList("WOODEN_AXE", "STONE_AXE", "IRON_AXE", "GOLDEN_AXE", "DIAMOND_AXE"));
+        CutterConfig.CUTTER_MATERIALS
+            .addAll(Lists.asList("WOODEN_AXE", "STONE_AXE", "IRON_AXE", "GOLDEN_AXE", "DIAMOND_AXE", "NETHERITE_AXE"));
     }
 
     @Override
@@ -169,6 +161,11 @@ public final class v1_13xChanger implements VersionChanger {
         case JUNGLE:
         case ACACIA:
         case DARKOAK:
+        case CRIMSON:
+        case WARPED:
+        case MANGROVE:
+        case CHERRY:
+        case PALE:
         case OTHER:
             return true;
         default:
@@ -224,6 +221,38 @@ public final class v1_13xChanger implements VersionChanger {
         case STRIPPED_ACACIA_LOG:
         case STRIPPED_ACACIA_WOOD:
             return WoodType.ACACIA;
+        case MANGROVE_LOG:
+        case MANGROVE_WOOD:
+        case MANGROVE_FENCE:
+        case STRIPPED_MANGROVE_LOG:
+        case STRIPPED_MANGROVE_WOOD:
+        case MANGROVE_ROOTS:
+        case MUDDY_MANGROVE_ROOTS:
+            return WoodType.MANGROVE;
+        case CRIMSON_STEM:
+        case CRIMSON_FENCE:
+        case CRIMSON_HYPHAE:
+        case STRIPPED_CRIMSON_STEM:
+        case STRIPPED_CRIMSON_HYPHAE:
+            return WoodType.CRIMSON;
+        case WARPED_STEM:
+        case WARPED_FENCE:
+        case WARPED_HYPHAE:
+        case STRIPPED_WARPED_STEM:
+        case STRIPPED_WARPED_HYPHAE:
+            return WoodType.WARPED;
+        case CHERRY_LOG:
+        case CHERRY_WOOD:
+        case CHERRY_FENCE:
+        case STRIPPED_CHERRY_LOG:
+        case STRIPPED_CHERRY_WOOD:
+            return WoodType.CHERRY;
+        case PALE_OAK_LOG:
+        case PALE_OAK_WOOD:
+        case PALE_OAK_FENCE:
+        case STRIPPED_PALE_OAK_LOG:
+        case STRIPPED_PALE_OAK_WOOD:
+            return WoodType.PALE;
         default:
             return WoodType.OTHER;
         }

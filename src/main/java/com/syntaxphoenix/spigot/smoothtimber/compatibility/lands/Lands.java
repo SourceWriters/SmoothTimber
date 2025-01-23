@@ -29,9 +29,9 @@ public class Lands extends CompatibilityAddon {
     private Listener createListener(PluginPackage pluginPackage, SmoothTimber smoothTimber) {
         try {
             Class.forName("me.angeschossen.lands.api.LandsIntegration");
-            return new LandsChopListener_v1(smoothTimber);
-        } catch(ClassNotFoundException e) {
             return new LandsChopListener_v2(smoothTimber);
+        } catch(ClassNotFoundException e) {
+            return new LandsChopListener_v1(smoothTimber);
         }
     }
 

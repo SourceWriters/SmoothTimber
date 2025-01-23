@@ -5,7 +5,7 @@
 
     <groupId>com.syntaxphoenix.spigot</groupId>
     <artifactId>smoothtimber-legacy</artifactId>
-    <version>1.27.2</version>
+    <version>1.27.3</version>
     <name>SmoothTimber</name>
     <packaging>jar</packaging>
 
@@ -13,7 +13,7 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <java.package.id>smoothtimber</java.package.id>
         <project.roaster.version>2.28.0.Final</project.roaster.version>
-        <server.version>1.20.1-R0.1-SNAPSHOT</server.version>
+        <server.version>1.21.4-R0.1-SNAPSHOT</server.version>
     </properties>
 
     <build>

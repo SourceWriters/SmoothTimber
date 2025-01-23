@@ -4,7 +4,6 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.BlockState;
 import org.bukkit.block.data.BlockData;
-import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.FallingBlock;
@@ -16,6 +15,7 @@ import org.bukkit.inventory.meta.ItemMeta;
 import com.syntaxphoenix.spigot.smoothtimber.annotation.SupportedVersions;
 import com.syntaxphoenix.spigot.smoothtimber.config.config.CutterConfig;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.Lists;
+import com.syntaxphoenix.spigot.smoothtimber.version.VersionConstant;
 import com.syntaxphoenix.spigot.smoothtimber.version.manager.VersionChanger;
 import com.syntaxphoenix.spigot.smoothtimber.version.manager.VersionExchanger;
 import com.syntaxphoenix.spigot.smoothtimber.version.manager.WoodType;
@@ -31,7 +31,6 @@ import com.syntaxphoenix.spigot.smoothtimber.version.manager.WoodType;
     "1.21.0",
     "1.21.1",
     "1.21.2",
-    "1.21.3",
 })
 public final class v1_20xChanger implements VersionChanger {
 
@@ -56,7 +55,7 @@ public final class v1_20xChanger implements VersionChanger {
     @Override
     public ItemStack removeDurabilityFromItem(final ItemStack stack) {
         if (CutterConfig.ENABLE_UNBREAKING) {
-            final int level = stack.getEnchantmentLevel(Enchantment.DURABILITY);
+            final int level = stack.getEnchantmentLevel(VersionConstant.ENCHANTMENT_UNBREAKING);
             final float chance = 100 / (level <= 0 ? 1 : level + 1);
             if (RANDOM.nextFloat(0, 100) > chance) {
                 return stack;
@@ -81,7 +80,7 @@ public final class v1_20xChanger implements VersionChanger {
 
     @Override
     public int getMaxDropCount(final ItemStack stack) {
-        final int level = stack.getEnchantmentLevel(Enchantment.LOOT_BONUS_BLOCKS);
+        final int level = stack.getEnchantmentLevel(VersionConstant.ENCHANTMENT_LOOTING);
         return level <= 0 ? 1 : level + 1;
     }
 

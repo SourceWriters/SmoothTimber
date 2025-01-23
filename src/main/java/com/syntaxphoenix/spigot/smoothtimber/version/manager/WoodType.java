@@ -12,6 +12,7 @@ public enum WoodType {
     WARPED,
     CRIMSON,
     CHERRY,
+    PALE,
     OTHER;
 
 }
