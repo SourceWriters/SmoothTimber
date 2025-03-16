@@ -39,6 +39,7 @@ public class CoreProtectAddon extends CompatibilityAddon {
         case v1_16x:
         case v1_19x:
         case v1_20x:
+        case v1_21x:
             compat = new CoreCompat_v1_13_x(pluginPackage.getPlugin());
             break;
         default:
