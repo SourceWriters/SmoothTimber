@@ -4,7 +4,7 @@
   <groupId>com.syntaxphoenix.spigot</groupId>
   <artifactId>smoothtimber-legacy</artifactId>
   <name>SmoothTimber</name>
-  <version>1.27.1</version>
+  <version>1.27.4</version>
   <build>
     <resources>
       <resource>
@@ -223,13 +223,13 @@
     <dependency>
       <groupId>org.spigotmc</groupId>
       <artifactId>spigot-api</artifactId>
-      <version>1.20.1-R0.1-SNAPSHOT</version>
+      <version>1.21.4-R0.1-SNAPSHOT</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
       <groupId>dev.folia</groupId>
       <artifactId>folia-api</artifactId>
-      <version>1.20.1-R0.1-SNAPSHOT</version>
+      <version>1.21.4-R0.1-SNAPSHOT</version>
       <scope>provided</scope>
     </dependency>
     <dependency>
@@ -311,7 +311,7 @@
   <properties>
     <java.package.id>smoothtimber</java.package.id>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <server.version>1.20.1-R0.1-SNAPSHOT</server.version>
+    <server.version>1.21.4-R0.1-SNAPSHOT</server.version>
     <project.roaster.version>2.28.0.Final</project.roaster.version>
   </properties>
 </project>

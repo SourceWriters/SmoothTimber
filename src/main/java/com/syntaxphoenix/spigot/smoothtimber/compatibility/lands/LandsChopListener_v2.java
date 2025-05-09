@@ -31,7 +31,7 @@ public final class LandsChopListener_v2 implements Listener {
             if (area == null) {
                 continue;
             }
-            if (area.hasRoleFlag(uuid, Flags.BLOCK_BREAK)) {
+            if (uuid.equals(area.getOwnerUID()) || area.hasRoleFlag(uuid, Flags.BLOCK_BREAK)) {
                 event.setCancelled(true);
                 event.setReason(DefaultReason.LANDS);
                 return;
