@@ -8,3 +8,4 @@
 .vscode/settings.json
 /.apt_generated/
 /.apt_generated_tests/
+dependency-reduced-pom.xml

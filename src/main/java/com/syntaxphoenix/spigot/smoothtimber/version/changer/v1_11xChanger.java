@@ -175,9 +175,9 @@ public final class v1_11xChanger implements VersionChanger {
         case JUNGLE:
             return new MaterialData(type, (byte) 3).toItemStack(amount);
         case ACACIA:
-            return new MaterialData(type, (byte) 1).toItemStack(amount);
-        case DARKOAK:
             return new MaterialData(type, (byte) 0).toItemStack(amount);
+        case DARKOAK:
+            return new MaterialData(type, (byte) 1).toItemStack(amount);
         default:
             return new MaterialData(type, id).toItemStack(amount);
         }
@@ -236,15 +236,15 @@ public final class v1_11xChanger implements VersionChanger {
         } else if (type == LOG_2) {
             switch (id) {
             case 0:
-            case 2:
             case 4:
-            case 6:
-                return WoodType.DARKOAK;
-            case 1:
-            case 3:
-            case 5:
-            case 7:
+            case 8:
+            case 12:
                 return WoodType.ACACIA;
+            case 1:
+            case 5:
+            case 9:
+            case 13:
+                return WoodType.DARKOAK;
             }
         } else if (type == FENCE) {
             return WoodType.OAK;
