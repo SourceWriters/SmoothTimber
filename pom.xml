@@ -169,8 +169,7 @@
         <!-- Placeholder Repo for API-Access -->
         <repository>
             <id>placeholderapi</id>
-            <url>
-                https://repo.extendedclip.com/content/repositories/placeholderapi/</url>
+            <url>https://repo.extendedclip.com/releases</url>
         </repository>
         <!-- LogBlock Repo -->
         <repository>
