@@ -55,7 +55,7 @@ public final class v1_21xChanger implements VersionChanger {
             }
         }
         final ItemMeta meta = stack.getItemMeta();
-        if (meta.isUnbreakable()) {
+        if (meta == null || meta.isUnbreakable()) {
             return stack;
         }
         if (meta instanceof Damageable) {

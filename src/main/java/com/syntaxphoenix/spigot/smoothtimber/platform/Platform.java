@@ -4,7 +4,9 @@ import org.bukkit.Location;
 
 import com.syntaxphoenix.spigot.smoothtimber.SmoothTimber;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.Container;
+import com.syntaxphoenix.spigot.smoothtimber.version.manager.gen.MCVersion;
 import com.syntaxphoenix.syntaxapi.reflection.ClassCache;
+import com.syntaxphoenix.syntaxapi.reflection.Reflect;
 
 public abstract class Platform {
 
@@ -26,13 +28,23 @@ public abstract class Platform {
     private static Platform createPlatform(final SmoothTimber plugin) {
         if (ClassCache.getOptionalClass("io.papermc.paper.threadedregions.RegionizedServer")
             .or(() -> ClassCache.getOptionalClass("io.papermc.paper.threadedregions.RegionizedServerInitEvent")).isPresent()) {
-            return new FoliaPlatform(plugin);
+            switch (MCVersion.getCoreVersion()) {
+            case v1_21x:
+                // On 1.21+ we can't only use the Regionized Server cause Paper for some reason includes that API now.
+                if (ClassCache.getOptionalClass("io.papermc.paper.plugin.configuration.PluginMeta")
+                    .filter(clz -> new Reflect(clz).searchMethod("isFolia", "isFoliaSupported").containsMethod("isFolia")).isPresent()) {
+                    return new FoliaPlatform(plugin);
+                }
+                break;
+            default:
+                return new FoliaPlatform(plugin);
+            }
         }
         return new SpigotPlatform(plugin);
     }
 
     protected abstract void internalShutdown();
-    
+
     public boolean isRegional() {
         return false;
     }

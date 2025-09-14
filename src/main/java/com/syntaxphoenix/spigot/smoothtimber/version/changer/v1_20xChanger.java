@@ -62,7 +62,7 @@ public final class v1_20xChanger implements VersionChanger {
             }
         }
         final ItemMeta meta = stack.getItemMeta();
-        if (meta.isUnbreakable()) {
+        if (meta == null || meta.isUnbreakable()) {
             return stack;
         }
         if (meta instanceof Damageable) {
