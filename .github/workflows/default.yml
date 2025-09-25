@@ -1,6 +1,8 @@
 name: Build SmoothTimber
 
-on: [push]
+on: 
+  push:
+  pull_request:
 
 jobs:
   compile:
