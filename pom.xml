@@ -173,8 +173,8 @@
         </repository>
         <!-- LogBlock Repo -->
         <repository>
-            <id>md_5-repo</id>
-            <url>https://repo.md-5.net/content/repositories/public/</url>
+            <id>iani-snapshots</id>
+            <url>https://www.iani.de/nexus/content/repositories/snapshots/</url>
         </repository>
         <!-- FactionsUUID Repo -->
         <repository>
@@ -185,6 +185,11 @@
         <repository>
             <id>neetgames</id>
             <url>https://nexus.neetgames.com/repository/maven-releases/</url>
+        </repository>
+        <!-- uxmClaims Repo -->
+        <repository>
+            <id>uxplima</id>
+            <url>https://repo.inovixi.com/repository/maven-releases/</url>
         </repository>
     </repositories>
 
@@ -338,6 +343,14 @@
             <groupId>com.massivecraft</groupId>
             <artifactId>Factions</artifactId>
             <version>1.6.9.5-U0.6.28</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <!-- uxmClaims -->
+        <dependency>
+            <groupId>com.uxplima.claim</groupId>
+            <artifactId>bukkit-api</artifactId>
+            <version>3.4.6</version>
             <scope>provided</scope>
         </dependency>
 
