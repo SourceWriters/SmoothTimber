@@ -173,8 +173,8 @@
         </repository>
         <!-- LogBlock Repo -->
         <repository>
-            <id>iani-snapshots</id>
-            <url>https://www.iani.de/nexus/content/repositories/snapshots/</url>
+            <id>md_5-repo</id>
+            <url>https://repo.md-5.net/content/repositories/public/</url>
         </repository>
         <!-- FactionsUUID Repo -->
         <repository>
