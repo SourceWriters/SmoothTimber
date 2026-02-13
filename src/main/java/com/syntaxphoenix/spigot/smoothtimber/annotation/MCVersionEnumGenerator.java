@@ -248,6 +248,9 @@ public final class MCVersionEnumGenerator extends AbstractProcessor {
     }
 
     private String getVersionFromName(final String changerName) {
+        if (!changerName.contains("x")) {
+            return changerName.split("Changer", 2)[0];
+        }
         return changerName.split("x", 2)[0] + 'x';
     }
 

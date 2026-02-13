@@ -29,7 +29,8 @@ public abstract class Platform {
         if (ClassCache.getOptionalClass("io.papermc.paper.threadedregions.RegionizedServer")
             .or(() -> ClassCache.getOptionalClass("io.papermc.paper.threadedregions.RegionizedServerInitEvent")).isPresent()) {
             switch (MCVersion.getCoreVersion()) {
-            case v1_21x:
+            case v1_21_9Below:
+            case v1_21_9AndAbove:
                 // On 1.21+ we can't only use the Regionized Server cause Paper for some reason includes that API now.
                 if (ClassCache.getOptionalClass("io.papermc.paper.plugin.configuration.PluginMeta")
                     .filter(clz -> new Reflect(clz).searchMethod("isFolia", "isFoliaSupported").containsMethod("isFolia")).isPresent()) {

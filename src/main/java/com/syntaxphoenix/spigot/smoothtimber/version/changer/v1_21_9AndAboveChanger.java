@@ -21,14 +21,11 @@ import com.syntaxphoenix.spigot.smoothtimber.version.manager.VersionExchanger;
 import com.syntaxphoenix.spigot.smoothtimber.version.manager.WoodType;
 
 @SupportedVersions({
-    "1.21.3",
-    "1.21.4",
-    "1.21.5",
-    "1.21.6",
-    "1.21.7",
-    "1.21.8"
+    "1.21.9",
+    "1.21.10",
+    "1.21.11"
 })
-public final class v1_21xChanger implements VersionChanger {
+public final class v1_21_9AndAboveChanger implements VersionChanger {
 
     @Override
     public boolean hasCuttingItemInHand(final Player player) {
@@ -103,7 +100,7 @@ public final class v1_21xChanger implements VersionChanger {
     @Override
     public void setupConfig() {
         CutterConfig.CUTTER_MATERIALS
-            .addAll(Lists.asList("WOODEN_AXE", "STONE_AXE", "IRON_AXE", "GOLDEN_AXE", "DIAMOND_AXE", "NETHERITE_AXE"));
+            .addAll(Lists.asList("WOODEN_AXE", "STONE_AXE", "IRON_AXE", "COPPER_AXE", "GOLDEN_AXE", "DIAMOND_AXE", "NETHERITE_AXE"));
     }
 
     @Override

@@ -65,6 +65,7 @@ public enum Message {
     ABORT_MESSAGE("&7You can't cut this tree because &c%reason%&7!"),
     ABORT_REASON_UNKNOWN("another plugin cancelled the process"),
     ABORT_REASON_GRIEFPREVENTION("it is protected by a GriefPrevetion Claim"),
+    ABORT_REASON_UXMCLAIMS("it is protected by a UxmClaims Claim"),
     ABORT_REASON_WORLDGUARD("it is protected by a WorldGuard Region"),
     ABORT_REASON_RESIDENCE("it is protected by a Residence Region"),
     ABORT_REASON_LANDS("it is protected by a Lands Region"),

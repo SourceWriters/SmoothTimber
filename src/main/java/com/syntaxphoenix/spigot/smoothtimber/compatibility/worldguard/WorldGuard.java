@@ -25,7 +25,8 @@ public class WorldGuard extends CompatibilityAddon {
         case v1_16x:
         case v1_19x:
         case v1_20x:
-        case v1_21x:
+        case v1_21_9Below:
+        case v1_21_9AndAbove:
             listener = new WorldGuardChopListener_v7_x();
             break;
         default:
