@@ -19,6 +19,7 @@ import com.syntaxphoenix.spigot.smoothtimber.compatibility.mcmmo.McMmo;
 import com.syntaxphoenix.spigot.smoothtimber.compatibility.placeholderapi.PlaceholderApi;
 import com.syntaxphoenix.spigot.smoothtimber.compatibility.residence.Residence;
 import com.syntaxphoenix.spigot.smoothtimber.compatibility.towny.Towny;
+import com.syntaxphoenix.spigot.smoothtimber.compatibility.uxmclaims.UxmClaims;
 import com.syntaxphoenix.spigot.smoothtimber.compatibility.worldguard.WorldGuard;
 import com.syntaxphoenix.spigot.smoothtimber.config.config.AddonConfig;
 import com.syntaxphoenix.spigot.smoothtimber.utilities.PluginUtils;
@@ -44,6 +45,7 @@ public abstract class CompatibilityHandler {
         register("mcMMO", McMmo.class);
         register("Towny", Towny.class);
         register("Factions", FactionsUUID.class);
+        register("uxmClaims", UxmClaims.class);
     }
 
     public static <E extends CompatibilityAddon> boolean register(final String pluginName, final Class<E> addonClass) {
