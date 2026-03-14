@@ -28,14 +28,12 @@ public final class LandsChopListener_v2 implements Listener {
         UUID uuid = event.getPlayer().getUniqueId();
         for (final Location location : event.getBlockLocations()) {
             final Area area = integration.getArea(location);
-            if (area == null) {
+            if (area == null || uuid.equals(area.getOwnerUID()) || area.hasRoleFlag(uuid, Flags.BLOCK_BREAK)) {
                 continue;
             }
-            if (uuid.equals(area.getOwnerUID()) || area.hasRoleFlag(uuid, Flags.BLOCK_BREAK)) {
-                event.setCancelled(true);
-                event.setReason(DefaultReason.LANDS);
-                return;
-            }
+            event.setCancelled(true);
+            event.setReason(DefaultReason.LANDS);
+            break;
         }
     }
 }
